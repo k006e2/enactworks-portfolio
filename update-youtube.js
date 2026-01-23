@@ -53,18 +53,17 @@ function generateVideoHTML(videos, liveVideos) {
     const publishedAt = formatDate(video.snippet.publishedAt);
     
     html += `
-                <div class="news-card">
-                    <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer">
-                        <div class="news-image">
-                            <img src="${thumbnail}" alt="${title}">
-                            <span class="news-badge">動画</span>
-                        </div>
-                        <div class="news-content">
-                            <p class="news-date">${publishedAt}</p>
-                            <h3>${title}</h3>
-                        </div>
-                    </a>
-                </div>
+                <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
+                    <div class="news-image">
+                        <img src="${thumbnail}" alt="${title}">
+                        <span class="news-badge">動画</span>
+                    </div>
+                    <div class="news-content">
+                        <time class="news-date">${publishedAt}</time>
+                        <h3 class="news-title">${title}</h3>
+                    </div>
+                </a>
+                
 `;
   });
   
@@ -77,18 +76,16 @@ function generateVideoHTML(videos, liveVideos) {
     const publishedAt = formatDate(video.snippet.publishedAt);
     
     html += `
-                <div class="news-card">
-                    <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer">
-                        <div class="news-image">
-                            <img src="${thumbnail}" alt="${title}">
-                            <span class="news-badge live">配信</span>
-                        </div>
-                        <div class="news-content">
-                            <p class="news-date">${publishedAt}</p>
-                            <h3>${title}</h3>
-                        </div>
-                    </a>
-                </div>
+                <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
+                    <div class="news-image">
+                        <img src="${thumbnail}" alt="${title}">
+                        <span class="news-badge live">配信</span>
+                    </div>
+                    <div class="news-content">
+                        <time class="news-date">${publishedAt}</time>
+                        <h3 class="news-title">${title}</h3>
+                    </div>
+                </a>
 `;
   }
   
