@@ -1,0 +1,12 @@
+{
+  "name": "enactworks-portfolio",
+  "version": "1.0.0",
+  "description": "EnactWorks Portfolio Website with automated YouTube updates",
+  "main": "update-youtube.js",
+  "scripts": {
+    "update": "node update-youtube.js"
+  },
+  "keywords": ["portfolio", "youtube", "automation"],
+  "author": "KOOLEs",
+  "license": "MIT"
+}
