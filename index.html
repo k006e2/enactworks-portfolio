@@ -26,7 +26,7 @@
             --color-border: #e5e7eb;
             
             --font-display: 'Outfit', sans-serif;
-            --font-body: 'IBM Plex Sans JP', sans-serif;
+            --font-body: 'IBM Plex Sans+JP', sans-serif;
             
             --spacing-xs: 0.5rem;
             --spacing-sm: 1rem;
@@ -2153,37 +2153,26 @@
     </section>
 
     <!-- News Section -->
-    <section class="section news" id="news">
+       <section class="section news" id="news">
         <div class="container">
             <h2 class="section-title">LATEST VIDEOS</h2>
             <p class="section-subtitle">最新動画</p>
             
+<<<<<<< HEAD
+            <div class="news-grid" id="youtubeVideos">
+                <!-- videos will be injected here by JS. If not showing, set API_KEY and CHANNEL_ID in the script. -->
+                <div class="news-card" style="text-align:center;">
+                    <div class="news-image">読み込み中...</div>
+                    <div class="news-content">
+                        <h3 class="news-title">最新動画を読み込み中</h3>
+                    </div>
+                </div>
+=======
             <div class="news-grid">
                 <!-- YOUTUBE_VIDEOS_START -->
-                <a href="https://x.com/VTKOOLEs" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
-                    <div class="news-image">📰</div>
-                    <div class="news-content">
-                        <time class="news-date">2025.01.10</time>
-                        <h3 class="news-title">新曲リリースのお知らせ</h3>
-                    </div>
-                </a>
-                
-                <a href="https://x.com/VTKOOLEs" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
-                    <div class="news-image">🎤</div>
-                    <div class="news-content">
-                        <time class="news-date">2025.01.05</time>
-                        <h3 class="news-title">イベント出演決定</h3>
-                    </div>
-                </a>
-                
-                <a href="https://x.com/VTKOOLEs" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
-                    <div class="news-image">🎉</div>
-                    <div class="news-content">
-                        <time class="news-date">2024.12.28</time>
-                        <h3 class="news-title">年末のご挨拶</h3>
-                    </div>
-                </a>
+
                 <!-- YOUTUBE_VIDEOS_END -->
+>>>>>>> d4c4726f1299a604ae535dc26b04124cb8984b87
             </div>
             
             <div style="text-align: center;">
@@ -2730,7 +2719,7 @@
                                 progressBar.style.width = progress + '%';
                             }
                         }, 100);
-                        
+
                         audio.addEventListener('ended', function() {
                             playBtn.textContent = '▶ 再生';
                             progressBar.style.width = '0%';
@@ -2741,7 +2730,7 @@
                                 clearInterval(progressInterval);
                             }
                         });
-                        
+
                         audio.addEventListener('error', function(e) {
                             console.error('Audio error:', e);
                             playBtn.textContent = '▶ 再生';
@@ -2757,7 +2746,70 @@
                     });
                 }
             });
-            
+
+            // ========== YouTube Latest Videos (requires API key) ==========
+            (function loadYouTubeLatest(){
+                // TODO: ここにご自身の YouTube Data API v3 の API_KEY と チャンネルID を設定してください。
+                const API_KEY = 'YOUR_API_KEY'; // 例: 'AIza...';
+                const CHANNEL_ID = 'UCxxxxxxxxxxxxxxxx'; // 例: 'UC...' か、channels APIで取得したIDを設定
+                const maxResults = 4;
+                const container = document.getElementById('youtubeVideos');
+                if (!container) return;
+
+                // If API key is not set, leave fallback content (静的な内容) and warn
+                if (!API_KEY || API_KEY === 'YOUR_API_KEY') {
+                    console.warn('YouTube API key not set. 最新動画は読み込まれません。APIキーを設定してください。');
+                    return;
+                }
+
+                const url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' + encodeURIComponent(CHANNEL_ID) + '&order=date&maxResults=' + maxResults + '&key=' + encodeURIComponent(API_KEY);
+
+                fetch(url)
+                    .then(function(res){ return res.json(); })
+                    .then(function(data){
+                        if (!data || !data.items) {
+                            container.innerHTML = '<div class="news-card"><div class="news-content"><h3 class="news-title">動画を取得できませんでした</h3></div></div>';
+                            return;
+                        }
+
+                        container.innerHTML = '';
+
+                        data.items.forEach(function(item){
+                            // skip non-video items
+                            if (!item.id || item.id.kind !== 'youtube#video') return;
+                            const videoId = item.id.videoId;
+                            const title = item.snippet.title || '';
+                            const published = item.snippet.publishedAt ? item.snippet.publishedAt.slice(0,10).replace(/-/g,'.') : '';
+
+                            const a = document.createElement('a');
+                            a.href = 'https://www.youtube.com/watch?v=' + videoId;
+                            a.target = '_blank';
+                            a.rel = 'noopener noreferrer';
+                            a.className = 'news-card';
+                            a.style.textDecoration = 'none';
+                            a.style.color = 'inherit';
+
+                            const imgHtml = '<img src="https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg" alt="' + escapeHtml(title) + '" style="width:100%; height:100%; object-fit:cover;">';
+
+                            a.innerHTML = '\n                                <div class="news-image">' + imgHtml + '</div>\n                                <div class="news-content">\n                                    <time class="news-date">' + published + '</time>\n                                    <h3 class="news-title">' + escapeHtml(title) + '</h3>\n                                </div>\n                            ';
+
+                            container.appendChild(a);
+                        });
+
+                        if (container.children.length === 0) {
+                            container.innerHTML = '<div class="news-card"><div class="news-content"><h3 class="news-title">公開動画はありません</h3></div></div>';
+                        }
+                    })
+                    .catch(function(err){
+                        console.error('YouTube API error', err);
+                    });
+
+                function escapeHtml(str){
+                    if (!str) return '';
+                    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+                }
+            })();
+
             console.log('All event listeners attached');
         });
         
