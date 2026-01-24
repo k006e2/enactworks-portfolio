@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー | EnactWorks</title>
+    <meta name="description" content="EnactWorksのプライバシーポリシー。個人情報の取り扱いについて">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== CSS Variables ==================== */
+        :root {
+            --color-primary: #1a1a1a;
+            --color-secondary: #6b7280;
+            --color-accent: #0891b2;
+            --color-accent-hover: #0780a0;
+            --color-bg: #ffffff;
+            --color-bg-alt: #f9fafb;
+            --color-border: #e5e7eb;
+            
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'IBM Plex Sans JP', sans-serif;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            
+            --transition-smooth: 0.3s ease;
+        }
+        
+        /* ==================== Reset & Base ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--color-primary);
+            background-color: var(--color-bg);
+            line-height: 1.8;
+        }
+        
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        
+        a:hover {
+            color: var(--color-accent-hover);
+            text-decoration: underline;
+        }
+        
+        /* ==================== Header ==================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        
+        .back-link {
+            font-size: 0.875rem;
+            color: var(--color-secondary);
+        }
+        
+        /* ==================== Main Content ==================== */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+        
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .last-updated {
+            color: var(--color-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 3rem;
+        }
+        
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-accent);
+        }
+        
+        .subsection-title {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info {
+            background: var(--color-bg-alt);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+        }
+        
+        /* ==================== Footer ==================== */
+        .footer {
+            background: var(--color-primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer a {
+            color: white;
+        }
+        
+        /* ==================== Responsive ==================== */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 6rem 1.5rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">EnactWorks</a>
+            <a href="index.html" class="back-link">← トップページに戻る</a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">プライバシーポリシー</h1>
+        <p class="last-updated">最終更新日：2025年1月24日</p>
+        
+        <!-- 前文 -->
+        <section class="policy-section">
+            <p>EnactWorks（以下「当事業者」）は、お客様の個人情報の保護を重要な責務と認識し、個人情報保護法および関連法令を遵守し、以下のプライバシーポリシー（以下「本ポリシー」）に基づき、適切な取り扱いと保護に努めます。</p>
+        </section>
+        
+        <!-- 1. 事業者情報 -->
+        <section class="policy-section">
+            <h2 class="section-title">1. 事業者情報</h2>
+            <ul>
+                <li><strong>事業者名：</strong>EnactWorks（エナクトワークス）</li>
+                <li><strong>運営者：</strong>KOOLEs（クールエス）</li>
+                <li><strong>お問い合わせ先：</strong>enactworks.contact@gmail.com</li>
+                <li><strong>ウェブサイト：</strong>https://k006e2.github.io/enactworks-portfolio/</li>
+            </ul>
+        </section>
+        
+        <!-- 2. 個人情報の定義 -->
+        <section class="policy-section">
+            <h2 class="section-title">2. 個人情報の定義</h2>
+            <p>本ポリシーにおける「個人情報」とは、個人情報保護法第2条第1項に定義される、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日その他の記述等により特定の個人を識別できるもの（他の情報と容易に照合することができ、それにより特定の個人を識別することができることとなるものを含む）を指します。</p>
+        </section>
+        
+        <!-- 3. 収集する個人情報 -->
+        <section class="policy-section">
+            <h2 class="section-title">3. 収集する個人情報</h2>
+            <p>当事業者は、お客様から以下の個人情報を収集する場合があります。</p>
+            
+            <h3 class="subsection-title">3.1 お問い合わせフォームにて収集する情報</h3>
+            <ul>
+                <li>お名前（必須）</li>
+                <li>会社名・団体名（任意）</li>
+                <li>メールアドレス（必須）</li>
+                <li>お問い合わせ種別（必須）</li>
+                <li>予算感（任意）</li>
+                <li>お問い合わせ内容・ご要望（必須）</li>
+            </ul>
+            
+            <h3 class="subsection-title">3.2 自動的に収集される情報</h3>
+            <ul>
+                <li>アクセスログ情報（IPアドレス、ブラウザの種類、アクセス日時等）</li>
+                <li>Cookie情報（詳細は「7. Cookieの使用について」をご参照ください）</li>
+            </ul>
+        </section>
+        
+        <!-- 4. 個人情報の利用目的 -->
+        <section class="policy-section">
+            <h2 class="section-title">4. 個人情報の利用目的</h2>
+            <p>当事業者は、収集した個人情報を以下の目的で利用いたします。</p>
+            <ul>
+                <li>お問い合わせへの対応、回答およびアフターフォロー</li>
+                <li>サービスに関する見積もりの作成および提案</li>
+                <li>契約の締結、履行および管理</li>
+                <li>サービスの品質向上および新サービスの開発</li>
+                <li>重要なお知らせや通知の送付</li>
+                <li>マーケティング活動およびアンケート調査（事前に同意を得た場合のみ）</li>
+                <li>利用規約違反や不正行為への対応</li>
+                <li>法令に基づく対応</li>
+            </ul>
+        </section>
+        
+        <!-- 5. 個人情報の第三者提供 -->
+        <section class="policy-section">
+            <h2 class="section-title">5. 個人情報の第三者提供</h2>
+            <p>当事業者は、以下の場合を除き、お客様の個人情報を第三者に提供することはありません。</p>
+            <ul>
+                <li>お客様の事前の同意を得た場合</li>
+                <li>法令に基づく場合</li>
+                <li>人の生命、身体または財産の保護のために必要がある場合であって、お客様の同意を得ることが困難である場合</li>
+                <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって、お客様の同意を得ることが困難である場合</li>
+                <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、お客様の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがある場合</li>
+            </ul>
+        </section>
+        
+        <!-- 6. 個人情報の管理 -->
+        <section class="policy-section">
+            <h2 class="section-title">6. 個人情報の管理</h2>
+            
+            <h3 class="subsection-title">6.1 安全管理措置</h3>
+            <p>当事業者は、個人情報の漏えい、滅失または毀損の防止その他の個人情報の安全管理のため、以下の措置を講じます。</p>
+            <ul>
+                <li>個人情報へのアクセス制限</li>
+                <li>個人情報を取り扱う機器およびシステムのセキュリティ対策</li>
+                <li>外部からの不正アクセスまたは不正ソフトウェアから保護するための措置</li>
+            </ul>
+            
+            <h3 class="subsection-title">6.2 委託先の管理</h3>
+            <p>当事業者は、個人情報の取り扱いの全部または一部を第三者に委託する場合、当該第三者について厳正な調査を行い、適切な監督を実施いたします。</p>
+            
+            <h3 class="subsection-title">6.3 保管期間</h3>
+            <p>当事業者は、個人情報を利用目的の達成に必要な期間のみ保管し、目的達成後は速やかに削除または匿名化いたします。ただし、法令により保管が義務付けられている場合は、当該期間保管いたします。</p>
+        </section>
+        
+        <!-- 7. Cookieの使用 -->
+        <section class="policy-section">
+            <h2 class="section-title">7. Cookieの使用について</h2>
+            <p>当ウェブサイトでは、お客様により良いサービスを提供するため、Cookieを使用する場合があります。Cookieは、ウェブサーバーがお客様のコンピュータを識別する業界標準の技術です。</p>
+            
+            <h3 class="subsection-title">7.1 Cookieの利用目的</h3>
+            <ul>
+                <li>ウェブサイトの利用状況の分析</li>
+                <li>ユーザーエクスペリエンスの向上</li>
+                <li>統計データの収集</li>
+            </ul>
+            
+            <h3 class="subsection-title">7.2 Cookieの無効化</h3>
+            <p>お客様は、ブラウザの設定によりCookieの受け取りを拒否することができます。ただし、Cookieを無効にした場合、当ウェブサイトの一部機能が正常に動作しない可能性があります。</p>
+        </section>
+        
+        <!-- 8. アクセス解析ツール -->
+        <section class="policy-section">
+            <h2 class="section-title">8. アクセス解析ツールについて</h2>
+            <p>当ウェブサイトでは、Google Analyticsなどのアクセス解析ツールを使用する場合があります。これらのツールは、Cookieを使用してウェブサイトの利用状況を分析します。収集される情報には、IPアドレス、閲覧ページ、滞在時間などが含まれますが、これらは匿名で収集され、個人を特定する情報は含まれません。</p>
+        </section>
+        
+        <!-- 9. お客様の権利 -->
+        <section class="policy-section">
+            <h2 class="section-title">9. お客様の権利</h2>
+            <p>お客様は、当事業者が保有するお客様の個人情報について、以下の権利を有します。</p>
+            
+            <h3 class="subsection-title">9.1 開示請求権</h3>
+            <p>お客様は、当事業者が保有するお客様の個人情報の開示を請求することができます。</p>
+            
+            <h3 class="subsection-title">9.2 訂正・追加・削除請求権</h3>
+            <p>お客様の個人情報に誤りがある場合、訂正、追加または削除を請求することができます。</p>
+            
+            <h3 class="subsection-title">9.3 利用停止・消去請求権</h3>
+            <p>お客様の個人情報が、本ポリシーに定める利用目的の範囲を超えて取り扱われている場合、または不正な手段により取得された場合、利用停止または消去を請求することができます。</p>
+            
+            <h3 class="subsection-title">9.4 第三者提供の停止請求権</h3>
+            <p>お客様の個人情報が第三者に提供されている場合（法令に基づく場合を除く）、その停止を請求することができます。</p>
+            
+            <p style="margin-top: 1.5rem;"><strong>権利行使の方法：</strong><br>
+            上記の権利を行使される場合は、以下のお問い合わせ先までご連絡ください。ご本人確認のため、所定の手続きをお願いする場合があります。</p>
+        </section>
+        
+        <!-- 10. 外部サービスの利用 -->
+        <section class="policy-section">
+            <h2 class="section-title">10. 外部サービスの利用</h2>
+            <p>当ウェブサイトでは、以下の外部サービスを利用しています。</p>
+            
+            <h3 class="subsection-title">10.1 Formspree</h3>
+            <p>お問い合わせフォームには、Formspree Inc.が提供するフォーム送信サービスを利用しています。お問い合わせフォームから送信された情報は、Formspreeを経由して当事業者に届けられます。Formspreeのプライバシーポリシーについては、<a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspreeプライバシーポリシー</a>をご参照ください。</p>
+            
+            <h3 class="subsection-title">10.2 GitHub Pages</h3>
+            <p>当ウェブサイトは、GitHub, Inc.が提供するGitHub Pagesを利用してホスティングされています。GitHubのプライバシーポリシーについては、<a href="https://docs.github.com/ja/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">GitHubプライバシーポリシー</a>をご参照ください。</p>
+        </section>
+        
+        <!-- 11. 本ポリシーの変更 -->
+        <section class="policy-section">
+            <h2 class="section-title">11. 本ポリシーの変更</h2>
+            <p>当事業者は、法令の変更や事業内容の変更等に伴い、本ポリシーを変更する場合があります。変更後のプライバシーポリシーは、当ウェブサイトに掲載した時点から効力を生じるものとします。重要な変更がある場合は、ウェブサイト上で分かりやすく告知いたします。</p>
+        </section>
+        
+        <!-- 12. お問い合わせ窓口 -->
+        <section class="policy-section">
+            <h2 class="section-title">12. お問い合わせ窓口</h2>
+            <div class="contact-info">
+                <p>個人情報の取り扱いに関するご質問、ご相談、開示等のご請求につきましては、以下の窓口までお問い合わせください。</p>
+                <p style="margin-top: 1rem;">
+                    <strong>EnactWorks 個人情報お問い合わせ窓口</strong><br>
+                    メールアドレス：<a href="mailto:enactworks.contact@gmail.com">enactworks.contact@gmail.com</a><br>
+                    対応時間：平日 10:00〜18:00（土日祝日および年末年始を除く）
+                </p>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-secondary);">
+                    ※回答までにお時間をいただく場合がございます。予めご了承ください。<br>
+                    ※お電話でのお問い合わせは承っておりません。メールにてお問い合わせください。
+                </p>
+            </div>
+        </section>
+        
+        <!-- 制定日 -->
+        <section class="policy-section">
+            <p style="text-align: right; color: var(--color-secondary); font-size: 0.875rem;">
+                制定日：2025年1月24日<br>
+                最終更新日：2025年1月24日
+            </p>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 EnactWorks. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;"><a href="index.html">トップページに戻る</a></p>
+        </div>
+    </footer>
+</body>
+</html>
