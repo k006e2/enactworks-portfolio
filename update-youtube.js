@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-const CHANNEL_ID = process.env.CHANNEL_ID || 'UCvzQFKQp8F8E9E5TqWvJr1w'; // @VTKOOLEs
+const CHANNEL_ID = process.env.CHANNEL_ID || 'UCSmRCFH6iy1uvoXJbLwxMHg'; // @VTKOOLEs
 
 // YouTube Data APIからデータを取得
 function fetchYouTubeData(url) {
