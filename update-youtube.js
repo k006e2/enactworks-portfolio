@@ -113,8 +113,9 @@ async function updateHTML() {
     const videos = await getLatestVideos();
     console.log(`Found ${videos.length} videos`);
     
-    console.log('Fetching latest live stream...');
-    const liveVideos = await getLatestLive();
+    // ライブ配信は一旦スキップ
+    console.log('Skipping live streams for now...');
+    const liveVideos = [];
     console.log(`Found ${liveVideos.length} live streams`);
     
     console.log('Generating HTML...');
