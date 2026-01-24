@@ -25,6 +25,13 @@ function fetchYouTubeData(url) {
 async function getLatestVideos() {
   const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&type=video&maxResults=3&videoType=upload`;
   const data = await fetchYouTubeData(url);
+  
+  // エラーチェック
+  if (data.error) {
+    console.error('YouTube API Error:', JSON.stringify(data.error, null, 2));
+    return [];
+  }
+  
   return data.items || [];
 }
 
@@ -32,6 +39,13 @@ async function getLatestVideos() {
 async function getLatestLive() {
   const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&eventType=completed&type=video&maxResults=1`;
   const data = await fetchYouTubeData(url);
+  
+  // エラーチェック
+  if (data.error) {
+    console.error('YouTube API Error (Live):', JSON.stringify(data.error, null, 2));
+    return [];
+  }
+  
   return data.items || [];
 }
 
