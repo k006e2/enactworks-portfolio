@@ -97,12 +97,15 @@ async function updateHTML() {
   try {
     console.log('Fetching latest videos...');
     const videos = await getLatestVideos();
+    console.log(`Found ${videos.length} videos`);
     
     console.log('Fetching latest live stream...');
     const liveVideos = await getLatestLive();
+    console.log(`Found ${liveVideos.length} live streams`);
     
     console.log('Generating HTML...');
     const videoHTML = generateVideoHTML(videos, liveVideos);
+    console.log(`Generated HTML length: ${videoHTML.length} characters`);
     
     console.log('Reading index.html...');
     let html = fs.readFileSync('index.html', 'utf8');
