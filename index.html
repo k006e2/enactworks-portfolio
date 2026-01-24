@@ -2160,7 +2160,29 @@
             
             <div class="news-grid">
                 <!-- YOUTUBE_VIDEOS_START -->
-
+                <a href="https://x.com/VTKOOLEs" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
+                    <div class="news-image">📰</div>
+                    <div class="news-content">
+                        <time class="news-date">2025.01.10</time>
+                        <h3 class="news-title">新曲リリースのお知らせ</h3>
+                    </div>
+                </a>
+                
+                <a href="https://x.com/VTKOOLEs" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
+                    <div class="news-image">🎤</div>
+                    <div class="news-content">
+                        <time class="news-date">2025.01.05</time>
+                        <h3 class="news-title">イベント出演決定</h3>
+                    </div>
+                </a>
+                
+                <a href="https://x.com/VTKOOLEs" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
+                    <div class="news-image">🎉</div>
+                    <div class="news-content">
+                        <time class="news-date">2024.12.28</time>
+                        <h3 class="news-title">年末のご挨拶</h3>
+                    </div>
+                </a>
                 <!-- YOUTUBE_VIDEOS_END -->
             </div>
             
@@ -2244,7 +2266,7 @@
             
             <div class="contact-direct">
                 <p>直接のご連絡:</p>
-                <p><a href="/cdn-cgi/l/email-protection#f792999694838098859c84d994989983969483b7909a969e9bd994989a" class="contact-email"><span class="__cf_email__" data-cfemail="4d28232c2e393a223f263e632e2223392c2e390d2a202c2421632e2220">[email&#160;protected]</span></a></p>
+                <p><a href="mailto:enactworks.contact@gmail.com" class="contact-email">enactworks.contact@gmail.com</a></p>
             </div>
         </div>
     </section>
@@ -2286,7 +2308,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         console.log('Script loaded');
         
         // Wait for DOM to be ready
@@ -2732,4 +2754,14 @@
         
         // Service card flip functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const serviceCards = document.querySelectorAll('.service-ca
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(function(card) {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
