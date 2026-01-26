@@ -35,7 +35,7 @@ function fetchYouTubeData(url) {
 
 // 最新動画を取得
 async function getLatestVideos() {
-  const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&type=video&maxResults=3`;
+  const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&type=video&maxResults=10`;
   
   console.log('\nFetching latest videos...');
   const data = await fetchYouTubeData(url);
