@@ -2276,7 +2276,7 @@
             
             <div class="contact-direct">
                 <p>直接のご連絡:</p>
-                <p><a href="mailto:enactworks.contact@gmail.com" class="contact-email">enactworks.contact@gmail.com</a></p>
+                <p><a href="/cdn-cgi/l/email-protection#1673787775626179647d65387579786277756256717b777f7a3875797b" class="contact-email"><span class="__cf_email__" data-cfemail="3d58535c5e494a524f564e135e5253495c5e497d5a505c5451135e5250">[email&#160;protected]</span></a></p>
             </div>
         </div>
     </section>
@@ -2318,7 +2318,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         console.log('Script loaded');
         
         // Wait for DOM to be ready
@@ -2340,17 +2340,15 @@
             // ========== Hamburger Menu ==========
             const hamburger = document.getElementById('hamburger');
             const mobileNav = document.getElementById('mobileNav');
+            const mobileLinks = mobileNav ? mobileNav.querySelectorAll('a') : [];
             
             console.log('Hamburger element:', hamburger);
             console.log('Mobile nav element:', mobileNav);
+            console.log('Mobile links found:', mobileLinks.length);
             
             if (hamburger && mobileNav) {
-                // Click event for hamburger
-                hamburger.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Hamburger clicked!');
-                    
+                // メニュー開閉の共通関数
+                const toggleMenu = function() {
                     hamburger.classList.toggle('active');
                     mobileNav.classList.toggle('active');
                     
@@ -2361,6 +2359,14 @@
                         document.body.style.overflow = '';
                         console.log('Menu closed');
                     }
+                };
+                
+                // Click event for hamburger
+                hamburger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Hamburger clicked!');
+                    toggleMenu();
                 });
                 
                 // Touch event for hamburger (mobile)
@@ -2368,17 +2374,19 @@
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Hamburger touched!');
-                    
-                    hamburger.classList.toggle('active');
-                    mobileNav.classList.toggle('active');
-                    
-                    if (mobileNav.classList.contains('active')) {
-                        document.body.style.overflow = 'hidden';
-                        console.log('Menu opened (touch)');
-                    } else {
-                        document.body.style.overflow = '';
-                        console.log('Menu closed (touch)');
-                    }
+                    toggleMenu();
+                });
+                
+                // メニュー内のリンクをクリックした時にメニューを閉じる
+                mobileLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        if (mobileNav.classList.contains('active')) {
+                            console.log('Menu link clicked, closing menu');
+                            hamburger.classList.remove('active');
+                            mobileNav.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    });
                 });
                 
                 // Close menu when clicking backdrop (::before pseudo-element area)
@@ -2763,13 +2771,4 @@
             const serviceCards = document.querySelectorAll('.service-card');
             
             serviceCards.forEach(function(card) {
-                card.addEventListener('click', function() {
-                    this.classList.toggle('flipped');
-                });
-            });
-            
-            console.log('All event listeners attached');
-        });
-    </script>
-</body>
-</html>
+ 
