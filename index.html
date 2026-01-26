@@ -2318,7 +2318,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         console.log('Script loaded');
         
         // Wait for DOM to be ready
@@ -2765,4 +2765,13 @@
         // Service card flip functionality
         document.addEventListener('DOMContentLoaded', function() {
             const serviceCards = document.querySelectorAll('.service-card');
-  
+            
+            serviceCards.forEach(function(card) {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
