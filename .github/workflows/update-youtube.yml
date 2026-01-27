@@ -32,15 +32,10 @@ jobs:
           git push
       
       - name: Deploy to Xserver via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: sebastianpopp/ftp-action@releases/v2
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /enactworks.com/public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/package.json
+          localDir: "./"
+          remoteDir: "/enactworks.com/public_html/"
