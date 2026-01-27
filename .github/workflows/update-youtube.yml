@@ -1,17 +1,16 @@
-name: Update YouTube Videos
+name: Update YouTube Videos and Deploy
 
 on:
   schedule:
-    # 毎日午前9時（日本時間）に実行 = UTC 0:00
     - cron: '0 0 * * *'
-  workflow_dispatch: # 手動実行も可能
+  workflow_dispatch:
 
 jobs:
-  update-videos:
+  update-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
       
       - name: Setup Node.js
@@ -19,18 +18,29 @@ jobs:
         with:
           node-version: '18'
       
-      - name: Install dependencies
-        run: npm install
-      
-      - name: Update YouTube videos
+      - name: Run YouTube update script
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-          CHANNEL_ID: UCvzQFKQp8F8E9E5TqWvJr1w
         run: node update-youtube.js
       
-      - name: Commit and push if changed
+      - name: Commit changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add index.html
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update YouTube videos [automated]" && git push)
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update YouTube videos [automated]"
+          git push
+      
+      - name: Deploy to Xserver via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /enactworks.com/public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/package.json
