@@ -535,7 +535,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: var(--spacing-lg);
-            max-width: 900px;
+            max-width: 600px;
             margin: 0 auto;
         }
         
@@ -741,7 +741,7 @@
         .detail-item strong {
             display: block;
             font-size: 0.8rem;
-            color: var(--color-text);
+            color: var(--color-primary);
             margin-bottom: 0.25rem;
         }
         
@@ -913,9 +913,9 @@
         
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             grid-template-rows: repeat(2, 1fr);
             grid-auto-flow: column;
+            grid-auto-columns: 220px;
             gap: var(--spacing-md);
             overflow-x: auto;
             scroll-snap-type: x mandatory;
@@ -985,6 +985,27 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        /* テキストのみの実績カード */
+        .gallery-item--text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            padding: 1rem;
+            line-height: 1.5;
+        }
+
+        .gallery-item--orange {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+        }
+
+        .gallery-item--purple {
+            background: linear-gradient(135deg, #4E54C8 0%, #8F94FB 100%);
         }
         
         /* ==================== Shop Section ==================== */
@@ -1332,6 +1353,180 @@
             margin-top: var(--spacing-md);
         }
         
+        /* ==================== Portfolio Modal ==================== */
+        .portfolio-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .portfolio-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .portfolio-modal-content {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-modal.active .portfolio-modal-content {
+            transform: translateY(0);
+        }
+
+        .portfolio-modal-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: var(--transition-smooth);
+        }
+
+        .portfolio-modal-close:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .portfolio-modal-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .portfolio-modal-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .portfolio-modal-type {
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-modal-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-modal-date {
+            font-size: 0.875rem;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-modal-description {
+            font-size: 0.9375rem;
+            color: var(--color-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-modal-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-modal-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.875rem;
+            color: var(--color-secondary);
+            background: var(--color-bg-alt);
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .portfolio-modal-stat strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .portfolio-modal-stat.loading {
+            opacity: 0.5;
+        }
+
+        .portfolio-modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .portfolio-modal-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: white;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #06b6d4 100%);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: var(--transition-smooth);
+        }
+
+        .portfolio-modal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-modal-body {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+        }
+
         /* ==================== Responsive ==================== */
         @media (max-width: 768px) {
             .nav {
@@ -1562,7 +1757,7 @@
             }
             
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                grid-auto-columns: 160px;
             }
             
             .gallery-item {
@@ -1696,7 +1891,7 @@
             }
             
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                grid-auto-columns: 130px;
                 gap: var(--spacing-sm);
             }
             
@@ -2062,27 +2257,35 @@
             <!-- Portfolio Tab -->
             <div class="tab-content" id="portfolio-tab">
                 <div class="gallery-grid">
-                    <a href="https://www.bs-log.com/product/bslog/322502001548.html" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="B's-LOG 2025年7月号掲載" style="text-decoration: none;">
-                        <img src="bslog-thumbnail.jpg" alt="B's-LOG 2025年7月号掲載" class="gallery-thumbnail" loading="lazy">
+
+                    <!-- 実績を追加するには以下のいずれかをコピーして末尾に貼り付けてください -->
+                    <!--
+                    【画像あり（YouTube・外部URL）】
+                    <a href="URL" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="ホバー時に表示するタイトル">
+                        <img src="画像URL" alt="説明テキスト" class="gallery-thumbnail" loading="lazy">
                     </a>
-                    <a href="https://www.youtube.com/watch?v=YHLtXPRwz_w" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="オリジナル曲「モーニングコール」" style="text-decoration: none;">
-                        <img src="https://img.youtube.com/vi/YHLtXPRwz_w/maxresdefault.jpg" alt="オリジナル曲「モーニングコール」" class="gallery-thumbnail" loading="lazy">
+
+                    【テキストのみ（カラー: orange / purple）】
+                    <a href="URL" target="_blank" rel="noopener noreferrer" class="gallery-item gallery-item--text gallery-item--orange" data-title="ホバー時に表示するタイトル">
+                        表示テキスト
                     </a>
-                    <a href="https://www.youtube.com/playlist?list=PLZI6abDvigFvrf2a8jzzzQL2vKQ-cUw6N" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="シチュエーションボイス" style="text-decoration: none;">
+                    -->
+
+                    <a href="https://www.youtube.com/playlist?list=PLZI6abDvigFvrf2a8jzzzQL2vKQ-cUw6N" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="シチュエーションボイス">
                         <img src="https://img.youtube.com/vi/Xt2sOrZxmqE/maxresdefault.jpg" alt="シチュエーションボイス" class="gallery-thumbnail" loading="lazy">
                     </a>
-                    <a href="https://youtube.com/live/p6Uz_WZxsgs" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="プロモーション配信" style="text-decoration: none;">
-                        <img src="https://img.youtube.com/vi/p6Uz_WZxsgs/maxresdefault.jpg" alt="プロモーション配信" class="gallery-thumbnail" loading="lazy">
-                    </a>
-                    <a href="https://www.youtube.com/playlist?list=PLeyWgBu424oLlAHXwyowntFdi-aAW6JvJ" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="ラジオ「Fm8mg」" style="text-decoration: none;">
+                    <a href="https://www.youtube.com/playlist?list=PLeyWgBu424oLlAHXwyowntFdi-aAW6JvJ" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="ラジオ「Fm8mg」">
                         <img src="fm8mg-logo.jpg" alt="ラジオ「Fm8mg」" class="gallery-thumbnail" loading="lazy">
                     </a>
-                    <a href="https://www.muevo.jp/campaigns/3709" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="2023年5月クラウドファンディング達成" style="text-decoration: none;">
-                        <div class="gallery-placeholder" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); color: white; font-weight: 600; padding: 1rem; text-align: center; font-size: 0.9rem;">クラウドファンディング<br>達成</div>
+                    <a href="https://www.muevo.jp/campaigns/3709" target="_blank" rel="noopener noreferrer" class="gallery-item gallery-item--text gallery-item--orange" data-title="2023年5月クラウドファンディング達成">
+                        クラウドファンディング<br>達成
                     </a>
-                    <a href="https://media.muevo.jp/articles/9500" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="インタビュー掲載" style="text-decoration: none;">
-                        <div class="gallery-placeholder" style="background: linear-gradient(135deg, #4E54C8 0%, #8F94FB 100%); color: white; font-weight: 600; padding: 1rem; text-align: center; font-size: 1.2rem;">インタビュー<br>掲載</div>
+                    <a href="https://media.muevo.jp/articles/9500" target="_blank" rel="noopener noreferrer" class="gallery-item gallery-item--text gallery-item--purple" data-title="インタビュー掲載">
+                        インタビュー<br>掲載
                     </a>
+
+                    <!-- ↑ここに新しい実績を追加 -->
+
                 </div>
             </div>
         </div>
@@ -2161,17 +2364,6 @@
             <div class="news-grid">
                 <!-- YOUTUBE_VIDEOS_START -->
 
-                <a href="https://www.youtube.com/watch?v=RhLC2PChX84" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
-                    <div class="news-image">
-                        <img src="https://i.ytimg.com/vi/RhLC2PChX84/mqdefault.jpg" alt="AIチャットアプリzetaで遊んでみた #PR #zeta #AIチャットzeta  #切り抜き">
-                        <span class="news-badge">動画</span>
-                    </div>
-                    <div class="news-content">
-                        <time class="news-date">2026.03.22</time>
-                        <h3 class="news-title">AIチャットアプリzetaで遊んでみた #PR #zeta #AIチャットzeta  #切り抜き</h3>
-                    </div>
-                </a>
-                
                 <a href="https://www.youtube.com/watch?v=d38ggflyzJU" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
                     <div class="news-image">
                         <img src="https://i.ytimg.com/vi/d38ggflyzJU/mqdefault.jpg" alt="【ヤンデレ】元カレが居たことを知った彼氏がヤンデレ化、「俺が初めてじゃない」ことに嫉妬し別れを告げたら拘束監禁されて「新品に戻してあげる」逃げられない【女性向けボイス】">
@@ -2270,6 +2462,17 @@
                         <h3 class="news-title">【ヤンデレ】「やっと堕ちてくれた♥」クズヒモ彼氏がウリやってることを知り別れようと思ったけど別れられなくてどうしても依存しちゃう話【女性向けボイス】</h3>
                     </div>
                 </a>
+                
+                <a href="https://www.youtube.com/watch?v=h9TvhBgodTc" target="_blank" rel="noopener noreferrer" class="news-card" style="text-decoration: none; color: inherit;">
+                    <div class="news-image">
+                        <img src="https://i.ytimg.com/vi/h9TvhBgodTc/mqdefault.jpg" alt="【ヤンデレ/視聴注意】クズの元カレが鍵持って家凸、「ぜってぇ逃がさねえから♥」そのまま脅迫されてぐちゃぐちゃにされる【女性向けボイス】">
+                        <span class="news-badge">動画</span>
+                    </div>
+                    <div class="news-content">
+                        <time class="news-date">2026.03.03</time>
+                        <h3 class="news-title">【ヤンデレ/視聴注意】クズの元カレが鍵持って家凸、「ぜってぇ逃がさねえから♥」そのまま脅迫されてぐちゃぐちゃにされる【女性向けボイス】</h3>
+                    </div>
+                </a>
                                 <!-- YOUTUBE_VIDEOS_END -->
             </div>
             
@@ -2292,29 +2495,29 @@
             
             <form class="contact-form" action="https://formspree.io/f/mdaeppjp" method="POST">
                 <div class="form-group">
-                    <label class="form-label">
+                    <label class="form-label" for="field-name">
                         お名前 <span class="form-required">*</span>
                     </label>
-                    <input type="text" name="お名前" class="form-input" required>
+                    <input type="text" id="field-name" name="お名前" class="form-input" required>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="form-label">会社名・団体名</label>
-                    <input type="text" name="会社名・団体名" class="form-input">
+                    <label class="form-label" for="field-company">会社名・団体名</label>
+                    <input type="text" id="field-company" name="会社名・団体名" class="form-input">
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="form-label">
+                    <label class="form-label" for="field-email">
                         メールアドレス <span class="form-required">*</span>
                     </label>
-                    <input type="email" name="メール" class="form-input" required>
+                    <input type="email" id="field-email" name="メール" class="form-input" required>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="form-label">
+                    <label class="form-label" for="field-type">
                         お問い合わせ種別 <span class="form-required">*</span>
                     </label>
-                    <select class="form-select" name="お問い合わせ種別" required>
+                    <select id="field-type" class="form-select" name="お問い合わせ種別" required>
                         <option value="">選択してください</option>
                         <option value="動画制作について">動画制作について</option>
                         <option value="音楽制作について">音楽制作について</option>
@@ -2325,8 +2528,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">予算感(任意)</label>
-                    <select class="form-select" name="ご予算">
+                    <label class="form-label" for="field-budget">予算感(任意)</label>
+                    <select id="field-budget" class="form-select" name="ご予算">
                         <option value="">選択してください</option>
                         <option value="〜5万円">〜5万円</option>
                         <option value="5万円〜10万円">5万円〜10万円</option>
@@ -2337,10 +2540,10 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">
+                    <label class="form-label" for="field-message">
                         詳細・ご要望 <span class="form-required">*</span>
                     </label>
-                    <textarea class="form-textarea" name="詳細・ご要望" required></textarea>
+                    <textarea id="field-message" class="form-textarea" name="詳細・ご要望" required></textarea>
                 </div>
                 
                 <div class="form-checkbox">
@@ -2393,6 +2596,28 @@
             <p class="copyright">© 2026 EnactWorks / KOOLEs. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- Portfolio Modal -->
+    <div class="portfolio-modal" id="portfolioModal" role="dialog" aria-modal="true">
+        <div class="portfolio-modal-backdrop"></div>
+        <div class="portfolio-modal-content">
+            <button class="portfolio-modal-close" id="portfolioModalClose" aria-label="閉じる">✕</button>
+            <div class="portfolio-modal-body">
+                <img class="portfolio-modal-thumbnail" id="portfolioModalThumbnail" src="" alt="">
+                <div class="portfolio-modal-info">
+                    <span class="portfolio-modal-type" id="portfolioModalType"></span>
+                    <h3 class="portfolio-modal-title" id="portfolioModalTitle"></h3>
+                    <p class="portfolio-modal-date" id="portfolioModalDate"></p>
+                    <div class="portfolio-modal-stats" id="portfolioModalStats"></div>
+                    <p class="portfolio-modal-description" id="portfolioModalDescription"></p>
+                    <div class="portfolio-modal-links" id="portfolioModalLinks"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Data -->
+    <script src="portfolio-data.js"></script>
 
     <!-- JavaScript -->
     <script>
@@ -2569,57 +2794,6 @@
             let currentAudio = null;
             let currentPlayBtn = null;
             
-            // Function to draw waveform
-            function drawWaveform(canvas, audioBuffer) {
-                const ctx = canvas.getContext('2d');
-                const width = canvas.width;
-                const height = canvas.height;
-                
-                // Clear canvas
-                ctx.clearRect(0, 0, width, height);
-                
-                // Get audio data
-                const data = audioBuffer.getChannelData(0);
-                const step = Math.ceil(data.length / width);
-                const amp = height / 2;
-                
-                // Draw waveform
-                ctx.strokeStyle = 'rgba(8, 145, 178, 0.6)';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                
-                for (let i = 0; i < width; i++) {
-                    let min = 1.0;
-                    let max = -1.0;
-                    
-                    for (let j = 0; j < step; j++) {
-                        const datum = data[(i * step) + j];
-                        if (datum < min) min = datum;
-                        if (datum > max) max = datum;
-                    }
-                    
-                    const yMin = (1 + min) * amp;
-                    const yMax = (1 + max) * amp;
-                    
-                    if (i === 0) {
-                        ctx.moveTo(i, yMax);
-                    }
-                    ctx.lineTo(i, yMax);
-                    ctx.lineTo(i, yMin);
-                }
-                
-                ctx.stroke();
-                
-                // Add gradient overlay
-                const gradient = ctx.createLinearGradient(0, 0, 0, height);
-                gradient.addColorStop(0, 'rgba(8, 145, 178, 0.3)');
-                gradient.addColorStop(0.5, 'rgba(8, 145, 178, 0.1)');
-                gradient.addColorStop(1, 'rgba(8, 145, 178, 0.3)');
-                
-                ctx.fillStyle = gradient;
-                ctx.fill();
-            }
-            
             // Load and draw waveforms
             const voiceSampleCards = document.querySelectorAll('.voice-sample-card');
             
@@ -2776,9 +2950,10 @@
                             }
                             if (progressInterval) {
                                 clearInterval(progressInterval);
+                                progressInterval = null;
                             }
                         }
-                        
+
                         // If clicking the same button, just stop
                         if (currentPlayBtn === playBtn && currentAudio && currentAudio.paused) {
                             currentAudio = null;
@@ -2817,6 +2992,7 @@
                             currentProgressBar = null;
                             if (progressInterval) {
                                 clearInterval(progressInterval);
+                                progressInterval = null;
                             }
                         });
                         
@@ -2830,12 +3006,142 @@
                             currentProgressBar = null;
                             if (progressInterval) {
                                 clearInterval(progressInterval);
+                                progressInterval = null;
                             }
                         });
                     });
                 }
             });
             
+            // ========== Portfolio Modal ==========
+            if (typeof portfolioData !== 'undefined' && portfolioData.length > 0) {
+                const galleryGrid = document.querySelector('.gallery-grid');
+                const modal = document.getElementById('portfolioModal');
+                const modalClose = document.getElementById('portfolioModalClose');
+                const modalBackdrop = modal.querySelector('.portfolio-modal-backdrop');
+
+                // portfolio-data.js のアイテムをギャラリーに追加
+                portfolioData.forEach(function(item) {
+                    const a = document.createElement('a');
+                    a.className = 'gallery-item';
+                    a.setAttribute('data-title', item.title);
+                    a.href = '#';
+
+                    const img = document.createElement('img');
+                    img.src = item.thumbnail;
+                    img.alt = item.title;
+                    img.className = 'gallery-thumbnail';
+                    img.loading = 'lazy';
+
+                    a.appendChild(img);
+                    galleryGrid.appendChild(a);
+
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        openPortfolioModal(item);
+                    });
+                });
+
+                function openPortfolioModal(item) {
+                    document.getElementById('portfolioModalThumbnail').src = item.thumbnail;
+                    document.getElementById('portfolioModalThumbnail').alt = item.title;
+                    document.getElementById('portfolioModalType').textContent = item.type || '';
+                    document.getElementById('portfolioModalTitle').textContent = item.title;
+
+                    const descEl = document.getElementById('portfolioModalDescription');
+                    if (item.description) {
+                        descEl.textContent = item.description;
+                        descEl.style.display = '';
+                    } else {
+                        descEl.style.display = 'none';
+                    }
+
+                    // 日付・再生回数の取得
+                    const dateEl = document.getElementById('portfolioModalDate');
+                    const statsEl = document.getElementById('portfolioModalStats');
+                    statsEl.innerHTML = '';
+
+                    if (item.youtubeId && typeof YOUTUBE_API_KEY !== 'undefined' && YOUTUBE_API_KEY) {
+                        dateEl.textContent = '取得中…';
+                        statsEl.innerHTML = '<span class="portfolio-modal-stat loading">再生回数 取得中…</span>';
+                        fetch(
+                            'https://www.googleapis.com/youtube/v3/videos'
+                            + '?part=statistics,snippet'
+                            + '&id=' + item.youtubeId
+                            + '&key=' + YOUTUBE_API_KEY
+                        )
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            statsEl.innerHTML = '';
+                            if (data.items && data.items.length > 0) {
+                                const snippet = data.items[0].snippet;
+                                const stats = data.items[0].statistics;
+
+                                // 公開日を日本語形式に変換
+                                if (snippet && snippet.publishedAt) {
+                                    const d = new Date(snippet.publishedAt);
+                                    dateEl.textContent =
+                                        d.getFullYear() + '年'
+                                        + (d.getMonth() + 1) + '月'
+                                        + d.getDate() + '日';
+                                } else {
+                                    dateEl.textContent = item.date || '';
+                                }
+
+                                // 再生回数・いいね数
+                                if (stats.viewCount) {
+                                    const views = Number(stats.viewCount).toLocaleString('ja-JP');
+                                    statsEl.innerHTML +=
+                                        '<span class="portfolio-modal-stat">▶ 再生回数 <strong>' + views + '回</strong></span>';
+                                }
+                                if (stats.likeCount) {
+                                    const likes = Number(stats.likeCount).toLocaleString('ja-JP');
+                                    statsEl.innerHTML +=
+                                        '<span class="portfolio-modal-stat">👍 <strong>' + likes + '</strong></span>';
+                                }
+                            } else {
+                                dateEl.textContent = item.date || '';
+                            }
+                        })
+                        .catch(function() {
+                            statsEl.innerHTML = '';
+                            dateEl.textContent = item.date || '';
+                        });
+                    } else {
+                        dateEl.textContent = item.date || '';
+                    }
+
+                    const linksContainer = document.getElementById('portfolioModalLinks');
+                    linksContainer.innerHTML = '';
+                    (item.links || []).forEach(function(link) {
+                        const a = document.createElement('a');
+                        a.href = link.url;
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                        a.className = 'portfolio-modal-link';
+                        a.textContent = link.label + ' →';
+                        linksContainer.appendChild(a);
+                    });
+
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closePortfolioModal() {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+
+                modalClose.addEventListener('click', closePortfolioModal);
+                modalBackdrop.addEventListener('click', closePortfolioModal);
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        closePortfolioModal();
+                    }
+                });
+            }
+
             // Service card flip functionality
             const serviceCards = document.querySelectorAll('.service-card');
             
