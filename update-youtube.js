@@ -105,31 +105,37 @@ function generateVideoHTML(videos) {
   return html;
 }
 
-// チャンネル登録者数を取得
-async function getSubscriberCount() {
+// チャンネル統計（登録者数・総再生回数）を取得
+async function getChannelStats() {
   const url = `https://www.googleapis.com/youtube/v3/channels?key=${YOUTUBE_API_KEY}&id=${CHANNEL_ID}&part=statistics`;
 
-  console.log('\nFetching subscriber count...');
+  console.log('\nFetching channel stats...');
   const data = await fetchYouTubeData(url);
 
   if (data.error || !data.items || data.items.length === 0) {
-    console.error('Failed to fetch subscriber count');
+    console.error('Failed to fetch channel stats');
     return null;
   }
 
-  const count = parseInt(data.items[0].statistics.subscriberCount, 10);
-  console.log(`✅ Subscriber count: ${count}`);
-  return count;
+  const stats = data.items[0].statistics;
+  const subscribers = parseInt(stats.subscriberCount, 10);
+  const views = parseInt(stats.viewCount, 10);
+  console.log(`✅ Subscribers: ${subscribers}, Views: ${views}`);
+  return { subscribers, views };
 }
 
-// 登録者数を日本語表記にフォーマット（例: 42000 → "4万+"）
-function formatSubscriberCount(count) {
-  if (count >= 10000) {
-    return Math.floor(count / 10000) + '万+';
+// 数値を X.X万+ 形式にフォーマット（1000単位で四捨五入）
+function formatCount(count) {
+  if (count >= 100000000) {
+    return (Math.round(count / 10000000) / 10) + '億+';
+  } else if (count >= 10000000) {
+    return Math.round(count / 10000) + '万+';
+  } else if (count >= 10000) {
+    return (Math.round(count / 1000) / 10) + '万+';
   } else if (count >= 1000) {
-    return Math.floor(count / 1000) + '千+';
+    return (Math.round(count / 100) / 10) + '千+';
   }
-  return count + '+';
+  return count + '';
 }
 
 // マーカー間のテキストを置換するヘルパー
@@ -156,8 +162,8 @@ async function updateHTML() {
       process.exit(0);
     }
 
-    // 登録者数を取得
-    const subscriberCount = await getSubscriberCount();
+    // チャンネル統計を取得
+    const channelStats = await getChannelStats();
 
     // index.htmlを読み込み
     console.log('\nReading index.html...');
@@ -171,15 +177,24 @@ async function updateHTML() {
     }
     html = updated;
 
-    // 登録者数を置換
-    if (subscriberCount !== null) {
-      const formatted = formatSubscriberCount(subscriberCount);
-      const updated2 = replaceMarker(html, '<!-- YOUTUBE_SUBSCRIBERS_START -->', '<!-- YOUTUBE_SUBSCRIBERS_END -->', formatted);
+    // 登録者数・総再生回数を置換
+    if (channelStats !== null) {
+      const formattedSubs = formatCount(channelStats.subscribers);
+      const updated2 = replaceMarker(html, '<!-- YOUTUBE_SUBSCRIBERS_START -->', '<!-- YOUTUBE_SUBSCRIBERS_END -->', formattedSubs);
       if (updated2 === null) {
-        console.warn('⚠️  Subscriber markers not found, skipping subscriber update');
+        console.warn('⚠️  Subscriber markers not found, skipping');
       } else {
         html = updated2;
-        console.log(`✅ Subscriber count updated: ${formatted}`);
+        console.log(`✅ Subscribers updated: ${formattedSubs}`);
+      }
+
+      const formattedViews = formatCount(channelStats.views);
+      const updated3 = replaceMarker(html, '<!-- YOUTUBE_VIEWS_START -->', '<!-- YOUTUBE_VIEWS_END -->', formattedViews);
+      if (updated3 === null) {
+        console.warn('⚠️  Views markers not found, skipping');
+      } else {
+        html = updated3;
+        console.log(`✅ Views updated: ${formattedViews}`);
       }
     }
 
