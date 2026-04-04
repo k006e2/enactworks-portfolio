@@ -105,55 +105,90 @@ function generateVideoHTML(videos) {
   return html;
 }
 
+// チャンネル登録者数を取得
+async function getSubscriberCount() {
+  const url = `https://www.googleapis.com/youtube/v3/channels?key=${YOUTUBE_API_KEY}&id=${CHANNEL_ID}&part=statistics`;
+
+  console.log('\nFetching subscriber count...');
+  const data = await fetchYouTubeData(url);
+
+  if (data.error || !data.items || data.items.length === 0) {
+    console.error('Failed to fetch subscriber count');
+    return null;
+  }
+
+  const count = parseInt(data.items[0].statistics.subscriberCount, 10);
+  console.log(`✅ Subscriber count: ${count}`);
+  return count;
+}
+
+// 登録者数を日本語表記にフォーマット（例: 42000 → "4万+"）
+function formatSubscriberCount(count) {
+  if (count >= 10000) {
+    return Math.floor(count / 10000) + '万+';
+  } else if (count >= 1000) {
+    return Math.floor(count / 1000) + '千+';
+  }
+  return count + '+';
+}
+
+// マーカー間のテキストを置換するヘルパー
+function replaceMarker(html, startMarker, endMarker, newContent) {
+  const startIndex = html.indexOf(startMarker);
+  const endIndex = html.indexOf(endMarker);
+  if (startIndex === -1 || endIndex === -1) return null;
+  return html.substring(0, startIndex + startMarker.length) + newContent + html.substring(endIndex);
+}
+
 // index.htmlを更新
 async function updateHTML() {
   try {
     // 動画を取得
     const videos = await getLatestVideos();
-    
+
     // HTMLを生成
     console.log('\nGenerating HTML...');
     const videoHTML = generateVideoHTML(videos);
     console.log(`Generated HTML length: ${videoHTML.length} characters`);
-    
+
     if (videoHTML.length === 0) {
       console.log('⚠️  No HTML generated, skipping file update');
       process.exit(0);
     }
-    
+
+    // 登録者数を取得
+    const subscriberCount = await getSubscriberCount();
+
     // index.htmlを読み込み
     console.log('\nReading index.html...');
     let html = fs.readFileSync('index.html', 'utf8');
-    
-    // マーカーを検索
-    const startMarker = '<!-- YOUTUBE_VIDEOS_START -->';
-    const endMarker = '<!-- YOUTUBE_VIDEOS_END -->';
-    
-    const startIndex = html.indexOf(startMarker);
-    const endIndex = html.indexOf(endMarker);
-    
-    if (startIndex === -1 || endIndex === -1) {
-      console.error('❌ Markers not found in index.html');
-      console.error(`Start marker found: ${startIndex !== -1}`);
-      console.error(`End marker found: ${endIndex !== -1}`);
+
+    // 動画セクションを置換
+    const updated = replaceMarker(html, '<!-- YOUTUBE_VIDEOS_START -->', '<!-- YOUTUBE_VIDEOS_END -->', '\n' + videoHTML + '                ');
+    if (updated === null) {
+      console.error('❌ Video markers not found in index.html');
       process.exit(1);
     }
-    
-    console.log('✅ Markers found');
-    console.log(`  Start: ${startIndex}`);
-    console.log(`  End: ${endIndex}`);
-    
-    // HTMLを置換
-    const before = html.substring(0, startIndex + startMarker.length);
-    const after = html.substring(endIndex);
-    const newHTML = before + '\n' + videoHTML + '                ' + after;
-    
+    html = updated;
+
+    // 登録者数を置換
+    if (subscriberCount !== null) {
+      const formatted = formatSubscriberCount(subscriberCount);
+      const updated2 = replaceMarker(html, '<!-- YOUTUBE_SUBSCRIBERS_START -->', '<!-- YOUTUBE_SUBSCRIBERS_END -->', formatted);
+      if (updated2 === null) {
+        console.warn('⚠️  Subscriber markers not found, skipping subscriber update');
+      } else {
+        html = updated2;
+        console.log(`✅ Subscriber count updated: ${formatted}`);
+      }
+    }
+
     // ファイルに書き込み
     console.log('\nWriting updated index.html...');
-    fs.writeFileSync('index.html', newHTML, 'utf8');
-    
-    console.log('✅ Successfully updated YouTube videos!');
-    
+    fs.writeFileSync('index.html', html, 'utf8');
+
+    console.log('✅ Successfully updated index.html!');
+
   } catch (error) {
     console.error('\n❌ Error:', error.message);
     console.error(error.stack);
