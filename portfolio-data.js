@@ -4,44 +4,66 @@
  * 新しい実績を追加するには、portfolioData 配列に
  * 以下の形式でオブジェクトを追加してください。
  *
+ * 【YouTube動画あり】
  * {
  *   id:          "一意のID（英数字・ハイフン）",
  *   title:       "実績タイトル",
  *   thumbnail:   "サムネイル画像のURL",
- *   youtubeId:   "YouTubeの動画ID（設定すると日付・再生回数を自動取得。不要なら省略可）",
- *   date:        "実施日（youtubeId がある場合は自動取得。YouTube以外の実績のみ手動で入力）",
+ *   youtubeId:   "YouTubeの動画ID（設定すると日付・再生回数を自動取得）",
+ *   date:        "YYYY-MM-DD 形式（新着順ソートに使用。空の場合は末尾に表示）",
  *   type:        "カテゴリ（例: プロモーション / オリジナル曲 / ラジオ など）",
  *   description: "概要テキスト（不要な場合は空文字 ''）",
  *   links: [
  *     { label: "ボタンの文言", url: "リンク先URL" },
- *     // 複数設定可能
  *   ]
+ * }
+ *
+ * 【テキストのみ（画像なし）】
+ * {
+ *   id:          "一意のID",
+ *   title:       "実績タイトル（モーダル表示用）",
+ *   displayText: "ギャラリー表示テキスト（改行は <br> を使用可）",
+ *   textOnly:    true,
+ *   textStyle:   "orange" または "purple",
+ *   date:        "YYYY-MM-DD",
+ *   type:        "カテゴリ",
+ *   description: "",
+ *   links: [{ label: "ボタン文言", url: "URL" }]
  * }
  *
  * YouTube のサムネイルは以下の形式で取得できます:
  *   https://img.youtube.com/vi/【動画ID】/maxresdefault.jpg
  *
- * YouTube動画IDの確認方法:
- *   通常動画  → https://www.youtube.com/watch?v=【ここ】
- *   ライブ配信 → https://youtube.com/live/【ここ】
- *   ショート  → https://youtube.com/shorts/【ここ】
+ * ※ date は新着順ソートに使われます。新しい日付ほど上に表示されます。
+ *   YouTubeアイテムで date を空にした場合、末尾に表示されます。
  */
 
 // =============================================
 // YouTube Data API キー
-// Google Cloud Console で取得後、下の '' の中に貼り付けてください
-// 取得方法は README または担当者に確認してください
 // =============================================
 const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 
 const portfolioData = [
 
     {
+        id: "zeta-collab-yandere",
+        title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
+        thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
+        youtubeId: "36DYWeo-jBA",
+        date: "2026-03-25",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "動画を見る", url: "https://www.youtube.com/watch?v=36DYWeo-jBA" }
+        ]
+    },
+
+    {
         id: "zeta-promo-2026",
         title: "zetaアプリプロモーション配信",
         thumbnail: "https://img.youtube.com/vi/WA3bZPZkZz4/maxresdefault.jpg",
         youtubeId: "WA3bZPZkZz4",
-        date: "",
+        date: "2026-03-18",
         type: "プロモーション",
         description: "",
         links: [
@@ -51,29 +73,56 @@ const portfolioData = [
     },
 
     {
-        id: "zeta-collab-yandere",
-        title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
-        thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
-        youtubeId: "36DYWeo-jBA",
-        date: "",
-        type: "プロモーション",
-        description: "",
-        links: [
-            { label: "動画を見る", url: "https://www.youtube.com/watch?v=36DYWeo-jBA" }
-        ]
-    },
-
-    {
         id: "bslog-2025",
         title: "B's-LOG 2025年7月号掲載",
         thumbnail: "bslog-thumbnail.jpg",
         youtubeId: "q90MpCK7g_U",
-        date: "",
+        date: "2025-05-20",
         type: "雑誌掲載",
         description: "",
         links: [
             { label: "掲載された号を見る", url: "https://www.bs-log.com/product/bslog/322502001548.html" },
             { label: "配信を見る", url: "https://youtube.com/live/q90MpCK7g_U" }
+        ]
+    },
+
+    {
+        id: "fm8mg-radio",
+        title: "ラジオ「Fm8mg」",
+        thumbnail: "fm8mg-logo.jpg",
+        date: "2024-07-27",
+        type: "ラジオ",
+        description: "",
+        links: [
+            { label: "再生リストを見る", url: "https://www.youtube.com/playlist?list=PLeyWgBu424oLlAHXwyowntFdi-aAW6JvJ" }
+        ]
+    },
+
+    {
+        id: "crowdfunding-2023",
+        title: "クラウドファンディング達成",
+        displayText: "クラウドファンディング<br>達成",
+        textOnly: true,
+        textStyle: "orange",
+        date: "2023-05-31",
+        type: "クラウドファンディング",
+        description: "",
+        links: [
+            { label: "プロジェクトを見る", url: "https://www.muevo.jp/campaigns/3709" }
+        ]
+    },
+
+    {
+        id: "interview-2023",
+        title: "インタビュー掲載",
+        displayText: "インタビュー<br>掲載",
+        textOnly: true,
+        textStyle: "purple",
+        date: "2023-05-02",
+        type: "メディア掲載",
+        description: "",
+        links: [
+            { label: "記事を見る", url: "https://media.muevo.jp/articles/9500" }
         ]
     },
 
@@ -100,6 +149,18 @@ const portfolioData = [
         description: "",
         links: [
             { label: "動画を見る", url: "https://www.youtube.com/watch?v=YHLtXPRwz_w" }
+        ]
+    },
+
+    {
+        id: "situation-voice",
+        title: "シチュエーションボイス",
+        thumbnail: "https://img.youtube.com/vi/Xt2sOrZxmqE/maxresdefault.jpg",
+        date: "",
+        type: "ボイス作品",
+        description: "",
+        links: [
+            { label: "再生リストを見る", url: "https://www.youtube.com/playlist?list=PLZI6abDvigFvrf2a8jzzzQL2vKQ-cUw6N" }
         ]
     },
 

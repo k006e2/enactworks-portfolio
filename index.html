@@ -2170,20 +2170,7 @@
                     </a>
                     -->
 
-                    <a href="https://www.youtube.com/playlist?list=PLZI6abDvigFvrf2a8jzzzQL2vKQ-cUw6N" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="シチュエーションボイス">
-                        <img src="https://img.youtube.com/vi/Xt2sOrZxmqE/maxresdefault.jpg" alt="シチュエーションボイス" class="gallery-thumbnail" loading="lazy">
-                    </a>
-                    <a href="https://www.youtube.com/playlist?list=PLeyWgBu424oLlAHXwyowntFdi-aAW6JvJ" target="_blank" rel="noopener noreferrer" class="gallery-item" data-title="ラジオ「Fm8mg」">
-                        <img src="fm8mg-logo.jpg" alt="ラジオ「Fm8mg」" class="gallery-thumbnail" loading="lazy">
-                    </a>
-                    <a href="https://www.muevo.jp/campaigns/3709" target="_blank" rel="noopener noreferrer" class="gallery-item gallery-item--text gallery-item--orange" data-title="2023年5月クラウドファンディング達成">
-                        クラウドファンディング<br>達成
-                    </a>
-                    <a href="https://media.muevo.jp/articles/9500" target="_blank" rel="noopener noreferrer" class="gallery-item gallery-item--text gallery-item--purple" data-title="インタビュー掲載">
-                        インタビュー<br>掲載
-                    </a>
-
-                    <!-- ↑ここに新しい実績を追加 -->
+                    <!-- アイテムは portfolio-data.js から自動生成されます -->
 
                 </div>
             </div>
@@ -2861,26 +2848,48 @@
                 const modalClose = document.getElementById('portfolioModalClose');
                 const modalBackdrop = modal.querySelector('.portfolio-modal-backdrop');
 
+                // 日付で新着順ソート（date 空は末尾）
+                portfolioData.sort(function(a, b) {
+                    if (!a.date && !b.date) return 0;
+                    if (!a.date) return 1;
+                    if (!b.date) return -1;
+                    return new Date(b.date) - new Date(a.date);
+                });
+
                 // portfolio-data.js のアイテムをギャラリーに追加
                 portfolioData.forEach(function(item) {
                     const a = document.createElement('a');
-                    a.className = 'gallery-item';
                     a.setAttribute('data-title', item.title);
-                    a.href = '#';
 
-                    const img = document.createElement('img');
-                    img.src = item.thumbnail;
-                    img.alt = item.title;
-                    img.className = 'gallery-thumbnail';
-                    img.loading = 'lazy';
+                    if (item.textOnly) {
+                        // テキストのみアイテム（直リンク）
+                        a.className = 'gallery-item gallery-item--text'
+                            + (item.textStyle ? ' gallery-item--' + item.textStyle : '');
+                        a.innerHTML = item.displayText || item.title;
+                        if (item.links && item.links.length > 0) {
+                            a.href = item.links[0].url;
+                            a.target = '_blank';
+                            a.rel = 'noopener noreferrer';
+                        } else {
+                            a.href = '#';
+                        }
+                    } else {
+                        // 画像アイテム（モーダル）
+                        a.className = 'gallery-item';
+                        a.href = '#';
+                        const img = document.createElement('img');
+                        img.src = item.thumbnail;
+                        img.alt = item.title;
+                        img.className = 'gallery-thumbnail';
+                        img.loading = 'lazy';
+                        a.appendChild(img);
+                        a.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            openPortfolioModal(item);
+                        });
+                    }
 
-                    a.appendChild(img);
                     galleryGrid.appendChild(a);
-
-                    a.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openPortfolioModal(item);
-                    });
                 });
 
                 function openPortfolioModal(item) {
