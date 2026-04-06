@@ -51,6 +51,19 @@ const portfolioData = [
     },
 
     {
+        id: "zeta-collab-yandere",
+        title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
+        thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
+        youtubeId: "36DYWeo-jBA",
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "動画を見る", url: "https://www.youtube.com/watch?v=36DYWeo-jBA" }
+        ]
+    },
+
+    {
         id: "bslog-2025",
         title: "B's-LOG 2025年7月号掲載",
         thumbnail: "bslog-thumbnail.jpg",
@@ -87,19 +100,6 @@ const portfolioData = [
         description: "",
         links: [
             { label: "動画を見る", url: "https://www.youtube.com/watch?v=YHLtXPRwz_w" }
-        ]
-    },
-
-    {
-        id: "zeta-collab-yandere",
-        title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
-        thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
-        youtubeId: "36DYWeo-jBA",
-        date: "",
-        type: "プロモーション",
-        description: "",
-        links: [
-            { label: "動画を見る", url: "https://www.youtube.com/watch?v=36DYWeo-jBA" }
         ]
     },
 
