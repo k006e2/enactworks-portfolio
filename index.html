@@ -2848,49 +2848,75 @@
                 const modalClose = document.getElementById('portfolioModalClose');
                 const modalBackdrop = modal.querySelector('.portfolio-modal-backdrop');
 
-                // 日付で新着順ソート（date 空は末尾）
-                portfolioData.sort(function(a, b) {
-                    if (!a.date && !b.date) return 0;
-                    if (!a.date) return 1;
-                    if (!b.date) return -1;
-                    return new Date(b.date) - new Date(a.date);
-                });
+                // ギャラリー描画（ソート後に呼ぶ）
+                function renderGallery() {
+                    portfolioData.sort(function(a, b) {
+                        if (!a.date && !b.date) return 0;
+                        if (!a.date) return 1;
+                        if (!b.date) return -1;
+                        return new Date(b.date) - new Date(a.date);
+                    });
 
-                // portfolio-data.js のアイテムをギャラリーに追加
-                portfolioData.forEach(function(item) {
-                    const a = document.createElement('a');
-                    a.setAttribute('data-title', item.title);
+                    galleryGrid.innerHTML = '';
 
-                    if (item.textOnly) {
-                        // テキストのみアイテム（直リンク）
-                        a.className = 'gallery-item gallery-item--text'
-                            + (item.textStyle ? ' gallery-item--' + item.textStyle : '');
-                        a.innerHTML = item.displayText || item.title;
-                        if (item.links && item.links.length > 0) {
-                            a.href = item.links[0].url;
-                            a.target = '_blank';
-                            a.rel = 'noopener noreferrer';
+                    portfolioData.forEach(function(item) {
+                        const a = document.createElement('a');
+                        a.setAttribute('data-title', item.title);
+
+                        if (item.textOnly) {
+                            a.className = 'gallery-item gallery-item--text'
+                                + (item.textStyle ? ' gallery-item--' + item.textStyle : '');
+                            a.innerHTML = item.displayText || item.title;
+                            if (item.links && item.links.length > 0) {
+                                a.href = item.links[0].url;
+                                a.target = '_blank';
+                                a.rel = 'noopener noreferrer';
+                            } else {
+                                a.href = '#';
+                            }
                         } else {
+                            a.className = 'gallery-item';
                             a.href = '#';
+                            const img = document.createElement('img');
+                            img.src = item.thumbnail;
+                            img.alt = item.title;
+                            img.className = 'gallery-thumbnail';
+                            img.loading = 'lazy';
+                            a.appendChild(img);
+                            a.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                openPortfolioModal(item);
+                            });
                         }
-                    } else {
-                        // 画像アイテム（モーダル）
-                        a.className = 'gallery-item';
-                        a.href = '#';
-                        const img = document.createElement('img');
-                        img.src = item.thumbnail;
-                        img.alt = item.title;
-                        img.className = 'gallery-thumbnail';
-                        img.loading = 'lazy';
-                        a.appendChild(img);
-                        a.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            openPortfolioModal(item);
-                        });
-                    }
 
-                    galleryGrid.appendChild(a);
+                        galleryGrid.appendChild(a);
+                    });
+                }
+
+                // date が空で youtubeId があるアイテムの日付を一括取得してから描画
+                const needsDates = portfolioData.filter(function(item) {
+                    return item.youtubeId && !item.date;
                 });
+
+                if (needsDates.length > 0 && typeof YOUTUBE_API_KEY !== 'undefined' && YOUTUBE_API_KEY) {
+                    const ids = needsDates.map(function(i) { return i.youtubeId; }).join(',');
+                    fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + ids + '&key=' + YOUTUBE_API_KEY)
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) {
+                        if (data.items) {
+                            data.items.forEach(function(video) {
+                                const item = portfolioData.find(function(p) { return p.youtubeId === video.id; });
+                                if (item && video.snippet && video.snippet.publishedAt) {
+                                    item.date = video.snippet.publishedAt.substring(0, 10);
+                                }
+                            });
+                        }
+                        renderGallery();
+                    })
+                    .catch(function() { renderGallery(); });
+                } else {
+                    renderGallery();
+                }
 
                 function openPortfolioModal(item) {
                     document.getElementById('portfolioModalThumbnail').src = item.thumbnail;
