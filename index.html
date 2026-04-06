@@ -765,62 +765,6 @@
             background-color: var(--color-bg-alt);
         }
         
-        .works-tabs {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-        }
-        
-        .tab-btn {
-            background: none;
-            border: none;
-            font-size: 1.125rem;
-            font-weight: 500;
-            padding: var(--spacing-sm) var(--spacing-md);
-            color: var(--color-secondary);
-            position: relative;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        
-        .tab-btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--color-accent);
-            transform: scaleX(0);
-            transition: var(--transition-smooth);
-        }
-        
-        .tab-btn.active {
-            color: var(--color-primary);
-        }
-        
-        .tab-btn.active::after {
-            transform: scaleX(1);
-        }
-        
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         
         .voice-samples-grid {
             display: grid;
@@ -1769,17 +1713,6 @@
                 flex: 0 0 85%;
             }
             
-            /* Works tabs */
-            .works-tabs {
-                flex-direction: row;
-                justify-content: center;
-                gap: var(--spacing-sm);
-            }
-            
-            .tab-btn {
-                padding: var(--spacing-sm) var(--spacing-md);
-                font-size: 0.9rem;
-            }
             
             /* Contact Form */
             .contact-form {
@@ -1911,7 +1844,8 @@
             <nav class="nav">
                 <a href="#about">ABOUT</a>
                 <a href="#service">SERVICE</a>
-                <a href="#works">WORKS</a>
+                <a href="#voice">VOICE</a>
+                <a href="#portfolio">WORKS</a>
                 <a href="#shop">SHOP</a>
                 <a href="#news">VIDEOS</a>
                 <a href="#contact">CONTACT</a>
@@ -2150,19 +2084,13 @@
         </div>
     </section>
 
-    <!-- Works Section -->
-    <section class="section works" id="works">
+    <!-- Voice Samples Section -->
+    <section class="section works" id="voice">
         <div class="container">
-            <h2 class="section-title">WORKS</h2>
-            <p class="section-subtitle">実績・作品</p>
-            
-            <div class="works-tabs">
-                <button type="button" class="tab-btn active" data-tab="voice">ボイスサンプル</button>
-                <button type="button" class="tab-btn" data-tab="portfolio">活動実績</button>
-            </div>
-            
-            <!-- Voice Samples Tab -->
-            <div class="tab-content active" id="voice-tab">
+            <h2 class="section-title">VOICE SAMPLES</h2>
+            <p class="section-subtitle">ボイスサンプル</p>
+
+            <div id="voice-tab">
                 <div class="voice-samples-grid">
                     <div class="voice-sample-card" data-audio="audio/ナレーション1.wav">
                         <div class="waveform">
@@ -2253,9 +2181,16 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Portfolio Tab -->
-            <div class="tab-content" id="portfolio-tab">
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">WORKS</h2>
+            <p class="section-subtitle">活動実績</p>
+
+            <div id="portfolio-tab">
                 <div class="gallery-grid">
 
                     <!-- 実績を追加するには以下のいずれかをコピーして末尾に貼り付けてください -->
@@ -2569,7 +2504,8 @@
             <nav class="footer-nav">
                 <a href="#about">ABOUT</a>
                 <a href="#service">SERVICE</a>
-                <a href="#works">WORKS</a>
+                <a href="#voice">VOICE</a>
+                <a href="#portfolio">WORKS</a>
                 <a href="#shop">SHOP</a>
                 <a href="#news">VIDEOS</a>
                 <a href="#contact">CONTACT</a>
@@ -2706,65 +2642,6 @@
             } else {
                 console.error('Hamburger or mobileNav not found!');
             }
-            
-            // ========== Tab Switching ==========
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            console.log('Tab buttons found:', tabBtns.length);
-            console.log('Tab contents found:', tabContents.length);
-            
-            tabBtns.forEach(function(btn) {
-                // Click event for tabs
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabName = this.getAttribute('data-tab');
-                    console.log('Tab clicked:', tabName);
-                    
-                    // Remove active from all
-                    tabBtns.forEach(function(b) {
-                        b.classList.remove('active');
-                    });
-                    tabContents.forEach(function(c) {
-                        c.classList.remove('active');
-                    });
-                    
-                    // Add active to selected
-                    this.classList.add('active');
-                    const targetContent = document.getElementById(tabName + '-tab');
-                    if (targetContent) {
-                        targetContent.classList.add('active');
-                        console.log('Tab switched to:', tabName);
-                    } else {
-                        console.error('Tab content not found:', tabName + '-tab');
-                    }
-                });
-                
-                // Touch event for tabs (mobile)
-                btn.addEventListener('touchend', function(e) {
-                    e.preventDefault();
-                    const tabName = this.getAttribute('data-tab');
-                    console.log('Tab touched:', tabName);
-                    
-                    // Remove active from all
-                    tabBtns.forEach(function(b) {
-                        b.classList.remove('active');
-                    });
-                    tabContents.forEach(function(c) {
-                        c.classList.remove('active');
-                    });
-                    
-                    // Add active to selected
-                    this.classList.add('active');
-                    const targetContent = document.getElementById(tabName + '-tab');
-                    if (targetContent) {
-                        targetContent.classList.add('active');
-                        console.log('Tab switched to (touch):', tabName);
-                    } else {
-                        console.error('Tab content not found:', tabName + '-tab');
-                    }
-                });
-            });
             
             // ========== Smooth Scroll ==========
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
