@@ -90,6 +90,19 @@ const portfolioData = [
         ]
     },
 
+    {
+        id: "zeta-collab-yandere",
+        title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
+        thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
+        youtubeId: "36DYWeo-jBA",
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "動画を見る", url: "https://www.youtube.com/watch?v=36DYWeo-jBA" }
+        ]
+    },
+
     // ↑ ここに新しい実績を追加（末尾のカンマに注意）
 
 ];
