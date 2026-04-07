@@ -168,6 +168,7 @@ async function updateHTML() {
     // index.htmlを読み込み
     console.log('\nReading index.html...');
     let html = fs.readFileSync('index.html', 'utf8');
+    let workshopHtml = fs.existsSync('workshop/index.html') ? fs.readFileSync('workshop/index.html', 'utf8') : null;
 
     // 動画セクションを置換
     const updated = replaceMarker(html, '<!-- YOUTUBE_VIDEOS_START -->', '<!-- YOUTUBE_VIDEOS_END -->', '\n' + videoHTML + '                ');
@@ -205,6 +206,30 @@ async function updateHTML() {
         else { html = result; }
       });
       console.log(`✅ Views updated: ${formattedViews}`);
+
+      // workshop/index.html のマーカーも更新
+      if (workshopHtml !== null) {
+        const workshopSubsMarkers = [
+          ['<!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_HERO_START -->', '<!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_HERO_END -->'],
+          ['<!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_STATS_START -->', '<!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_STATS_END -->'],
+        ];
+        const workshopViewsMarkers = [
+          ['<!-- YOUTUBE_VIEWS_WORKSHOP_HERO_START -->', '<!-- YOUTUBE_VIEWS_WORKSHOP_HERO_END -->'],
+          ['<!-- YOUTUBE_VIEWS_WORKSHOP_STATS_START -->', '<!-- YOUTUBE_VIEWS_WORKSHOP_STATS_END -->'],
+        ];
+        workshopSubsMarkers.forEach(function([start, end]) {
+          const result = replaceMarker(workshopHtml, start, end, formattedSubs);
+          if (result === null) { console.warn(`⚠️  Workshop marker not found: ${start}`); }
+          else { workshopHtml = result; }
+        });
+        workshopViewsMarkers.forEach(function([start, end]) {
+          const result = replaceMarker(workshopHtml, start, end, formattedViews);
+          if (result === null) { console.warn(`⚠️  Workshop marker not found: ${start}`); }
+          else { workshopHtml = result; }
+        });
+        fs.writeFileSync('workshop/index.html', workshopHtml, 'utf8');
+        console.log(`✅ workshop/index.html updated: subs=${formattedSubs}, views=${formattedViews}`);
+      }
     }
 
     // portfolio-data.js キャッシュバスター更新

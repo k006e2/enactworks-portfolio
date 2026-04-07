@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ボイスワークショップ | KOOLEs - EnactWorks</title>
+    <meta name="description" content="KOOLEsによるオンライン声の演技指導コミュニティ。VTuber・配信者・声優志望のためのボイスワークショップ。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --color-accent: #0891b2;
+            --color-accent-hover: #0780a0;
+            --color-cta: #e8590c;
+            --color-cta-hover: #d04a08;
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'IBM Plex Sans JP', sans-serif;
+            --spacing-xl: 6rem;
+            --transition-smooth: 0.3s ease;
+            --radius: 16px;
+            /* Dark glassmorphism palette */
+            --glass: rgba(255,255,255,0.08);
+            --glass-hover: rgba(255,255,255,0.14);
+            --glass-border: rgba(255,255,255,0.12);
+            --glass-border-hover: rgba(255,255,255,0.25);
+            --text-primary: rgba(255,255,255,0.92);
+            --text-secondary: rgba(255,255,255,0.6);
+            --text-muted: rgba(255,255,255,0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: var(--font-body); color: var(--text-primary); background: #0a1418; line-height: 1.7; overflow-x: hidden; }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: inherit; text-decoration: none; transition: var(--transition-smooth); }
+
+        /* ══ Fixed Background Layers ══ */
+        .bg-fixed {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: url('hero-bg.png') center center / cover no-repeat;
+        }
+        .bg-blur {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(24px) brightness(0.45);
+            -webkit-backdrop-filter: blur(24px) brightness(0.45);
+        }
+
+        /* ══ Header ══ */
+        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(0,0,0,0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: var(--transition-smooth); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .header.scrolled { background: rgba(10,20,24,0.8); border-bottom-color: rgba(255,255,255,0.08); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; color: #fff; }
+        .logo span { color: rgba(255,255,255,0.5); font-weight: 300; }
+        .nav { display: flex; gap: 2rem; align-items: center; }
+        .nav a { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; position: relative; padding: 0.5rem 0; color: rgba(255,255,255,0.75); }
+        .nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--color-accent); transition: var(--transition-smooth); }
+        .nav a:hover { color: #fff; }
+        .nav a:hover::after { width: 100%; }
+        .nav-cta { background: var(--color-cta) !important; color: #fff !important; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { background: var(--color-cta-hover) !important; }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; z-index: 1002; -webkit-tap-highlight-color: transparent; user-select: none; }
+        .hamburger span { width: 25px; height: 2px; background: #fff; transition: var(--transition-smooth); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: min(40vw, 200px); height: 100vh; background: rgba(8,145,178,0.15); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1001; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow: -4px 0 20px rgba(0,0,0,0.2); border-left: 1px solid rgba(255,255,255,0.1); }
+        .mobile-nav.active { right: 0; }
+        .mobile-nav::before { content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0); z-index: -1; transition: background-color 0.4s ease; pointer-events: none; }
+        .mobile-nav.active::before { background-color: rgba(0,0,0,0.5); pointer-events: auto; }
+        .mobile-nav a { font-size: 0.875rem; font-weight: 600; color: #fff; letter-spacing: 0.05em; padding: 0.5rem 1rem; opacity: 0; transform: translateX(30px); transition: all 0.3s ease; position: relative; }
+        .mobile-nav.active a { opacity: 1; transform: translateX(0); }
+        .mobile-nav.active a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav.active a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav.active a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav.active a:nth-child(4) { transition-delay: 0.25s; }
+
+        /* ══ Container / Section ══ */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: var(--spacing-xl) 0; }
+        .section-label { font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); font-weight: 600; margin-bottom: 0.75rem; text-align: center; }
+        .section-title { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 1rem; text-align: center; }
+        .section-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.9; max-width: 600px; text-align: center; margin-left: auto; margin-right: auto; }
+        .marker { background: linear-gradient(transparent 60%, rgba(8,145,178,0.25) 60%); padding: 0 2px; }
+
+        /* ══ CTA Button ══ */
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 1rem 2.25rem; background: var(--color-cta); color: #fff; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.02em; }
+        .btn-primary:hover { background: var(--color-cta-hover); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(232,89,12,0.3); }
+        .btn-primary .arrow { transition: transform 0.3s; }
+        .btn-primary:hover .arrow { transform: translateX(4px); }
+        .btn-outline { background: var(--glass); border: 1.5px solid var(--glass-border); color: var(--text-primary); }
+        .btn-outline:hover { border-color: var(--color-accent); color: #fff; background: rgba(8,145,178,0.15); box-shadow: none; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(232,89,12,0.3); } 50% { box-shadow: 0 0 0 10px rgba(232,89,12,0); } }
+        .btn-pulse { animation: pulse 2.5s ease infinite; }
+
+        /* ══ Section Divider ══ */
+        .section-divider { text-align: center; padding: 1rem 0; color: var(--color-accent); font-size: 1.5rem; line-height: 1; opacity: 0.3; }
+        .section-divider i { animation: chevronBounce 2s ease infinite; display: inline-block; }
+        @keyframes chevronBounce { 0%,100% { transform: translateY(0); opacity: 0.3; } 50% { transform: translateY(6px); opacity: 0.7; } }
+
+        /* ══ Hero (clear image, not blurred) ══ */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: url('hero-bg.png') center center / cover no-repeat fixed; position: relative; overflow: hidden; z-index: 1; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.45); z-index: 1; }
+        .hero::after { display: none; }
+        .hero-content { position: relative; z-index: 10; padding: 120px 2rem 80px; animation: fadeInUp 0.8s ease-out; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-badge { display: inline-block; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; font-size: 0.8rem; color: rgba(255,255,255,0.9); font-weight: 500; margin-bottom: 2rem; }
+        .hero-title { font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 1.5rem; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+        .hero-title .accent { color: #67e8f9; }
+        .hero-subtitle { font-size: clamp(0.95rem, 2vw, 1.1rem); color: rgba(255,255,255,0.85); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.9; font-weight: 300; }
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .hero-numbers { display: flex; gap: 2.5rem; justify-content: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.15); }
+        .hero-num { text-align: center; }
+        .hero-num strong { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: #67e8f9; display: block; }
+        .hero-num span { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+        .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0.5; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: var(--font-display); color: rgba(255,255,255,0.7); z-index: 10; }
+        .scroll-indicator .dot { width: 6px; height: 6px; border-radius: 50%; background: #67e8f9; animation: bounce 2s ease infinite; }
+        @keyframes bounce { 0%,100% { transform: translateY(0); opacity: 0.3; } 50% { transform: translateY(8px); opacity: 1; } }
+
+        /* ══ Glass Card (dark) ══ */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            transition: var(--transition-smooth);
+        }
+        .glass-card:hover {
+            background: var(--glass-hover);
+            border-color: var(--glass-border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+        }
+
+        /* ══ Pain ══ */
+        .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+        .pain-card { padding: 2rem; }
+        .pain-icon { width: 48px; height: 48px; background: rgba(8,145,178,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 1rem; color: #67e8f9; }
+        .pain-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+        .pain-text strong { color: var(--text-primary); font-weight: 600; }
+
+        /* ══ Service ══ */
+        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .service-card { padding: 2.5rem 2rem; text-align: center; }
+        .service-icon-wrap { width: 64px; height: 64px; background: linear-gradient(135deg, var(--color-accent), #06b6d4); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: #fff; font-size: 1.5rem; }
+        .service-card h3 { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 0.75rem; color: var(--text-primary); }
+        .service-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+        .service-tag { display: inline-block; margin-top: 1rem; padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; font-weight: 600; }
+        .tag-all { background: rgba(8,145,178,0.15); color: #67e8f9; }
+        .tag-premium { background: rgba(234,179,8,0.15); color: #fbbf24; }
+        .tag-event { background: rgba(16,185,129,0.15); color: #34d399; }
+        .philosophy { margin-top: 2.5rem; padding: 2rem 2.5rem; border-left: 3px solid var(--color-accent); background: rgba(8,145,178,0.08); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 0 var(--radius) var(--radius) 0; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .philosophy p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.9; }
+        .philosophy strong { color: #67e8f9; }
+
+        /* ══ Steps ══ */
+        .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2.5rem; max-width: 900px; margin-left: auto; margin-right: auto; position: relative; }
+        .steps-grid::before { content: ''; position: absolute; top: 24px; left: 10%; right: 10%; height: 2px; background: var(--glass-border); z-index: 0; }
+        .step-card { text-align: center; position: relative; z-index: 1; }
+        .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--color-accent); color: #fff; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 4px 16px rgba(8,145,178,0.3); }
+        .step-card h4 { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-primary); }
+        .step-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ══ Compare ══ */
+        .compare-table { width: 100%; max-width: 700px; margin: 2.5rem auto 0; border-collapse: collapse; font-size: 0.88rem; }
+        .compare-table th, .compare-table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
+        .compare-table thead th { font-family: var(--font-display); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; color: var(--text-secondary); background: rgba(255,255,255,0.04); }
+        .compare-table thead th:last-child { color: #67e8f9; }
+        .compare-table tbody td { color: var(--text-secondary); background: rgba(255,255,255,0.02); }
+        .compare-table tbody td:first-child { font-weight: 500; color: var(--text-primary); }
+        .compare-table tbody td:last-child { color: #67e8f9; font-weight: 600; }
+        .compare-table tbody tr:last-child td { border-bottom: none; }
+
+        /* ══ Pricing ══ */
+        .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .price-card { padding: 2.5rem; position: relative; }
+        .price-card.featured { border-color: rgba(8,145,178,0.4); box-shadow: 0 12px 32px rgba(8,145,178,0.1); }
+        .price-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--color-accent), #06b6d4); border-radius: var(--radius) var(--radius) 0 0; }
+        .price-badge { position: absolute; top: 16px; right: 16px; padding: 4px 12px; background: rgba(8,145,178,0.15); color: #67e8f9; font-size: 0.7rem; font-weight: 600; border-radius: 100px; }
+        .price-name { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); font-weight: 600; margin-bottom: 0.5rem; }
+        .price-amount { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .price-amount .yen { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+        .price-amount .period { font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; }
+        .price-sub { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .price-features { list-style: none; margin-bottom: 2rem; }
+        .price-features li { padding: 0.6rem 0; font-size: 0.85rem; color: var(--text-secondary); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 8px; }
+        .price-features li:last-child { border-bottom: none; }
+        .check { color: #67e8f9; font-size: 0.85rem; }
+        .dash { color: var(--text-muted); font-size: 0.85rem; }
+        .dash-text { color: var(--text-muted); }
+
+        /* ══ Stats ══ */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .stat-card { text-align: center; padding: 2rem 1rem; }
+        .stat-num { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; color: #67e8f9; line-height: 1; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* ══ FAQ ══ */
+        .faq-list { margin-top: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .faq-item { border-bottom: 1px solid var(--glass-border); }
+        .faq-q { width: 100%; background: none; border: none; padding: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; color: var(--text-primary); font-size: 0.95rem; font-family: var(--font-body); font-weight: 600; transition: color var(--transition-smooth); }
+        .faq-q:hover { color: #67e8f9; }
+        .faq-q .icon { font-size: 1.1rem; color: var(--color-accent); transition: transform var(--transition-smooth); flex-shrink: 0; margin-left: 1rem; }
+        .faq-item.open .faq-q .icon { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.25rem; }
+        .faq-a p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.9; }
+
+        /* ══ Final CTA ══ */
+        .final-cta { text-align: center; padding: var(--spacing-xl) 2rem; position: relative; }
+        .final-cta .section-desc { margin: 0 auto 2.5rem; }
+        .final-note { margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* ══ Footer ══ */
+        .footer-trust { text-align: center; padding: 2rem 2rem 0; max-width: 600px; margin: 0 auto; }
+        .footer-trust-items { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .footer-trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-secondary); }
+        .footer-trust-item i { color: var(--color-accent); font-size: 0.9rem; }
+        .footer { padding: 2rem 2rem 2.5rem; border-top: 1px solid var(--glass-border); max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-brand { font-size: 0.8rem; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+        .footer-links a { color: var(--text-muted); font-size: 0.8rem; }
+        .footer-links a:hover { color: var(--color-accent); }
+
+        /* ══ Sticky CTA ══ */
+        .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; padding: 0.75rem 1.25rem; background: rgba(10,20,24,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--glass-border); z-index: 99; transition: opacity 0.4s, transform 0.4s; opacity: 0; transform: translateY(100%); }
+        .sticky-cta.visible { opacity: 1; transform: translateY(0); }
+        .sticky-cta .btn-primary { width: 100%; justify-content: center; padding: 0.85rem 1.5rem; font-size: 0.9rem; }
+
+        /* ══ Reveal ══ */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ══ Service image ══ */
+        .service-img-wrap { margin-top: 2.5rem; max-width: 1000px; margin-left: auto; margin-right: auto; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--glass-border); }
+
+        /* ══ Responsive ══ */
+        @media (max-width: 768px) {
+            :root { --spacing-xl: 4rem; }
+            .nav { display: none; }
+            .hamburger { display: flex; gap: 4px; padding: 0.25rem; }
+            .hamburger span { width: 22px; height: 2px; }
+            .header-content { padding: 0.5rem 1rem; }
+            .hero { background-attachment: scroll; }
+            .hero-content { padding: 100px 1.5rem 60px; }
+            .hero-numbers { gap: 1.5rem; }
+            .container { padding: 0 1.5rem; }
+            .service-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+            .steps-grid::before { display: none; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+            .compare-table { font-size: 0.8rem; }
+            .compare-table th, .compare-table td { padding: 0.75rem; }
+            .philosophy { padding: 1.5rem 2rem; }
+            .price-card { padding: 2rem 1.5rem; }
+            .sticky-cta { display: block; }
+            .footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+            .section-divider { display: none; }
+        }
+        @media (max-width: 480px) {
+            .pain-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .hero-cta .btn-primary { width: 100%; justify-content: center; }
+            .steps-grid { grid-template-columns: 1fr; max-width: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-fixed"></div>
+<div class="bg-blur"></div>
+
+<header class="header" id="header">
+    <div class="header-content">
+        <a href="https://enactworks.com" class="logo">EnactWorks <span>/ KOOLEs</span></a>
+        <nav class="nav">
+            <a href="https://enactworks.com">Home</a>
+            <a href="#service">Service</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#apply" class="nav-cta">申し込む</a>
+        </nav>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+</header>
+<div class="mobile-nav" id="mobileNav">
+    <a href="#service">Service</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#apply">申し込む</a>
+</div>
+
+<!-- Hero: clear image -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-microphone-lines" style="margin-right:6px;"></i> Online Voice Workshop by KOOLEs</div>
+        <h1 class="hero-title">声の演技、<br><span class="accent">本気で学ぶ場所がある</span></h1>
+        <p class="hero-subtitle">VTuber・配信者・声優志望のための<br>オンラインボイスワークショップ。<br>Discord拠点のコミュニティで、声の表現を磨く。</p>
+        <div class="hero-cta">
+            <a href="#apply" class="btn-primary btn-pulse">今すぐ申し込む <span class="arrow">→</span></a>
+            <a href="#service" class="btn-primary btn-outline">詳しく見る</a>
+        </div>
+        <div class="hero-numbers">
+            <div class="hero-num"><strong><!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_HERO_START -->4万+<!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_HERO_END --></strong><span>YouTube登録者</span></div>
+            <div class="hero-num"><strong><!-- YOUTUBE_VIEWS_WORKSHOP_HERO_START -->2000万+<!-- YOUTUBE_VIEWS_WORKSHOP_HERO_END --></strong><span>総再生回数</span></div>
+            <div class="hero-num"><strong>6年+</strong><span>活動実績</span></div>
+        </div>
+    </div>
+    <div class="scroll-indicator">scroll<div class="dot"></div></div>
+</section>
+
+<div class="section-divider"><i class="fas fa-chevron-down"></i></div>
+
+<!-- Pain -->
+<section class="section">
+    <div class="container reveal">
+        <div class="section-label">Issues</div>
+        <h2 class="section-title">こんな<span class="marker">悩み</span>、ありませんか？</h2>
+        <div class="pain-grid">
+            <div class="pain-card glass-card reveal"><div class="pain-icon"><i class="fas fa-microphone-slash"></i></div><p class="pain-text"><strong>配信で声の演技に自信がない。</strong><br>キャラクターボイスをやりたいけど、どう練習すればいいかわからない。</p></div>
+            <div class="pain-card glass-card reveal"><div class="pain-icon"><i class="fas fa-wallet"></i></div><p class="pain-text"><strong>声優スクールは高すぎる。</strong><br>月数万円のスクールは手が出ない。でも独学では限界を感じる。</p></div>
+            <div class="pain-card glass-card reveal"><div class="pain-icon"><i class="fas fa-chart-line"></i></div><p class="pain-text"><strong>一人で練習しても上達が見えない。</strong><br>フィードバックをくれる人がいない。自分の演技が良くなっているのかわからない。</p></div>
+            <div class="pain-card glass-card reveal"><div class="pain-icon"><i class="fas fa-masks-theater"></i></div><p class="pain-text"><strong>ボイスドラマに挑戦したい。</strong><br>出演したいけど演技を学ぶ場所がない。声劇の経験を積みたい。</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><i class="fas fa-chevron-down"></i></div>
+
+<!-- Service -->
+<section class="section" id="service">
+    <div class="container reveal">
+        <div class="section-label">What We Offer</div>
+        <h2 class="section-title"><span class="marker">ボイスワークショップ</span>とは</h2>
+        <p class="section-desc">KOOLEsが主宰するDiscord拠点のオンライン声の演技指導コミュニティ。<br>講義・個別指導・声劇の3本柱で、声の表現力を総合的に鍛えます。</p>
+        <div class="service-img-wrap"><img src="service-img.png" alt="ボイスワークショップの環境イメージ"></div>
+        <div class="service-grid">
+            <div class="service-card glass-card"><div class="service-icon-wrap"><i class="fas fa-chalkboard-teacher"></i></div><h3>トップダウン講義</h3><p>月2回のライブ講義。質問フォームで募ったテーマを元に、実践的な演技指導を行います。アーカイブでいつでも復習可能。</p><span class="service-tag tag-all">全メンバー参加</span></div>
+            <div class="service-card glass-card"><div class="service-icon-wrap"><i class="fas fa-user-graduate"></i></div><h3>マンツーマン指導</h3><p>月2回・60分の個別レッスン。あなたの課題に合わせた台本・課題を出題。レッスンは録音データとしてお渡しします。</p><span class="service-tag tag-premium">プレミアム限定</span></div>
+            <div class="service-card glass-card"><div class="service-icon-wrap"><i class="fas fa-theater-masks"></i></div><h3>声劇セッション</h3><p>月1回、KOOLEsと共演する声劇セッション。抽選で参加者を決定。演じる楽しさを体験しながらスキルを磨きます。</p><span class="service-tag tag-event">月1回・抽選</span></div>
+        </div>
+        <div class="philosophy"><p><strong>「演技は、人前で披露するもの。」</strong><br>このワークショップでは、クローズドなコミュニティ内であっても「オーディエンスの前で演じる」環境を重視しています。個別指導はコミュニティ内で公開され、他のメンバーも聴講可能。人前で演技する緊張感と慣れを日常的に積み重ねることで、本番に強い表現者を育てます。</p></div>
+    </div>
+</section>
+
+<!-- Steps -->
+<section class="section reveal">
+    <div class="container">
+        <div class="section-label">How to Join</div>
+        <h2 class="section-title">参加の流れ</h2>
+        <div class="steps-grid">
+            <div class="step-card"><div class="step-num">1</div><h4>フォーム送信</h4><p>申し込みフォームに必要事項を入力</p></div>
+            <div class="step-card"><div class="step-num">2</div><h4>決済</h4><p>24時間以内に届くSquareリンクでお支払い</p></div>
+            <div class="step-card"><div class="step-num">3</div><h4>Discord参加</h4><p>招待リンクからサーバーに参加</p></div>
+            <div class="step-card"><div class="step-num">4</div><h4>レッスン開始</h4><p>次回の配信から即参加OK</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><i class="fas fa-chevron-down"></i></div>
+
+<!-- Compare -->
+<section class="section">
+    <div class="container reveal">
+        <div class="section-label">Compare</div>
+        <h2 class="section-title">他のスクールとの<span class="marker">比較</span></h2>
+        <table class="compare-table">
+            <thead><tr><th></th><th>声優養成所（通学）</th><th>オンラインボイトレ</th><th>ボイスWS</th></tr></thead>
+            <tbody>
+                <tr><td>月額目安</td><td>¥15,000〜25,000</td><td>¥11,000〜22,000</td><td>¥5,000〜</td></tr>
+                <tr><td>入会金</td><td>¥50,000〜100,000</td><td>¥0〜11,000</td><td>¥0</td></tr>
+                <tr><td>形式</td><td>通学・グループ</td><td>オンライン・マンツーマン</td><td>オンライン・コミュニティ</td></tr>
+                <tr><td>個別指導</td><td>△ グループ中心</td><td>○ マンツーマン</td><td>○ 月2回60分（録音付）</td></tr>
+                <tr><td>コミュニティ</td><td>△ 同期のみ</td><td>✕</td><td>○ Discord常設</td></tr>
+                <tr><td>アーカイブ</td><td>✕</td><td>✕</td><td>○ YouTube限定公開</td></tr>
+                <tr><td>声劇体験</td><td>△ カリキュラム次第</td><td>✕</td><td>○ 月1回KOOLEsと共演</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+    <div class="container reveal">
+        <div class="section-label">Plans</div>
+        <h2 class="section-title">料金プラン</h2>
+        <p class="section-desc">2つのプランからお選びください。<br>ベーシックだけでも十分な学びがあります。</p>
+        <div class="pricing-grid">
+            <div class="price-card glass-card">
+                <div class="price-name">Basic</div>
+                <div class="price-amount"><span class="yen">¥</span>5,000<span class="period"> /月</span></div>
+                <p class="price-sub">声の演技を学ぶ第一歩</p>
+                <ul class="price-features">
+                    <li><span class="check">✓</span> トップダウン講義（月2回）</li>
+                    <li><span class="check">✓</span> 講義アーカイブ視聴</li>
+                    <li><span class="check">✓</span> Discordコミュニティ</li>
+                    <li><span class="check">✓</span> 質問フォーム提出</li>
+                    <li><span class="check">✓</span> 他のレッスンを聴講</li>
+                    <li><span class="check">✓</span> 声劇セッション抽選</li>
+                    <li><span class="dash">—</span> <span class="dash-text">マンツーマン指導</span></li>
+                    <li><span class="dash">—</span> <span class="dash-text">レッスン録音データ</span></li>
+                </ul>
+                <a href="#apply" class="btn-primary btn-outline" style="width:100%;justify-content:center;">ベーシックで始める</a>
+            </div>
+            <div class="price-card glass-card featured">
+                <div class="price-badge">月5枠限定</div>
+                <div class="price-name">Premium</div>
+                <div class="price-amount"><span class="yen">¥</span>10,000<span class="period"> /月</span></div>
+                <p class="price-sub">KOOLEsから直接指導を受ける</p>
+                <ul class="price-features">
+                    <li><span class="check">✓</span> ベーシックの全機能</li>
+                    <li><span class="check">✓</span> マンツーマン指導（月2回×60分）</li>
+                    <li><span class="check">✓</span> 個別課題・台本の出題</li>
+                    <li><span class="check">✓</span> レッスン録音データ配布</li>
+                    <li><span class="check">✓</span> 声劇セッション当選率2倍</li>
+                </ul>
+                <a href="#apply" class="btn-primary" style="width:100%;justify-content:center;">プレミアムに申し込む <span class="arrow">→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="section reveal">
+    <div class="container">
+        <div class="section-label">Instructor</div>
+        <h2 class="section-title">KOOLEsの実績</h2>
+        <p class="section-desc">演技を通じた表現を追求するクリエイター。<br>声と音楽で人の心を動かす活動を6年以上続けています。</p>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-num"><!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_STATS_START -->4万+<!-- YOUTUBE_SUBSCRIBERS_WORKSHOP_STATS_END --></div><div class="stat-label">YouTube登録者</div></div>
+            <div class="stat-card"><div class="stat-num"><!-- YOUTUBE_VIEWS_WORKSHOP_STATS_START -->2000万+<!-- YOUTUBE_VIEWS_WORKSHOP_STATS_END --></div><div class="stat-label">総再生回数</div></div>
+            <div class="stat-card"><div class="stat-num">6年+</div><div class="stat-label">活動実績</div></div>
+            <div class="stat-card"><div class="stat-num">B's-LOG</div><div class="stat-label">雑誌掲載</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+    <div class="container reveal">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">よくある質問</h2>
+        <div class="faq-list">
+            <div class="faq-item"><button class="faq-q">初心者でも大丈夫ですか？ <span class="icon">+</span></button><div class="faq-a"><p>はい、趣味レベルから大歓迎です。ベーシックプランでは講義を聴くだけの参加も可能なので、まずは雰囲気を感じてみてください。</p></div></div>
+            <div class="faq-item"><button class="faq-q">顔出しは必要ですか？ <span class="icon">+</span></button><div class="faq-a"><p>不要です。Discordのボイスチャットで声のみの参加となります。カメラをオンにする必要は一切ありません。</p></div></div>
+            <div class="faq-item"><button class="faq-q">途中退会はできますか？ <span class="icon">+</span></button><div class="faq-a"><p>いつでも退会可能です。退会後も月末までサービスをご利用いただけます。日割り返金はありませんのでご了承ください。</p></div></div>
+            <div class="faq-item"><button class="faq-q">マンツーマンレッスンは他の人に聴かれますか？ <span class="icon">+</span></button><div class="faq-a"><p>はい。「演技はオーディエンスの前で披露するもの」という教育思想のもと、レッスンはコミュニティ内で公開しています。聴講者にコメント・発言権はなく、レッスンの集中は保たれます。録音データは受講者ご本人にのみ配布します。</p></div></div>
+            <div class="faq-item"><button class="faq-q">支払い方法は何がありますか？ <span class="icon">+</span></button><div class="faq-a"><p>Squareによる月額クレジットカード決済です。お申し込み後に決済リンクをお送りします。</p></div></div>
+            <div class="faq-item"><button class="faq-q">プレミアムの空き枠はありますか？ <span class="icon">+</span></button><div class="faq-a"><p>プレミアムは月5枠限定です。空き状況はお問い合わせください。満枠の場合はキャンセル待ちをご案内します。</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta reveal" id="apply">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">まずはベーシックから<br>始めてみませんか？</h2>
+    <p class="section-desc">月¥5,000で、KOOLEsの講義を毎月受講。<br>あなたの声の可能性を、一緒に広げましょう。</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuVApOWWcHyMy3figT3oIPiifm4X7LAdjR-KNi0_2xdgxDvQ/viewform" class="btn-primary btn-pulse" target="_blank" rel="noopener">今すぐ申し込む <span class="arrow">→</span></a>
+    <p class="final-note">※フォーム送信後、24時間以内に決済リンクをお送りします</p>
+</section>
+
+<div class="footer-trust">
+    <div class="footer-trust-items">
+        <div class="footer-trust-item"><i class="fas fa-shield-alt"></i> いつでも退会可能</div>
+        <div class="footer-trust-item"><i class="fas fa-lock"></i> 安全なカード決済</div>
+        <div class="footer-trust-item"><i class="fas fa-headset"></i> 24h以内に返信</div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="footer-brand">© 2026 EnactWorks / KOOLEs. All Rights Reserved.</div>
+    <ul class="footer-links">
+        <li><a href="https://enactworks.com">Home</a></li>
+        <li><a href="https://enactworks.com/privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="mailto:enactworks.contact@gmail.com">Contact</a></li>
+    </ul>
+</footer>
+
+<div class="sticky-cta" id="stickyCta">
+    <a href="#apply" class="btn-primary">今すぐ申し込む <span class="arrow">→</span></a>
+</div>
+
+<script>
+var header = document.getElementById('header');
+window.addEventListener('scroll', function() { header.classList.toggle('scrolled', window.scrollY > 50); });
+
+var hamburger = document.getElementById('hamburger');
+var mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav) {
+    function toggleMenu(e) { e.preventDefault(); e.stopPropagation(); hamburger.classList.toggle('active'); mobileNav.classList.toggle('active'); document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : ''; }
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('touchend', toggleMenu);
+    mobileNav.addEventListener('click', function(e) { if (e.target === mobileNav) { hamburger.classList.remove('active'); mobileNav.classList.remove('active'); document.body.style.overflow = ''; } });
+    document.addEventListener('click', function(e) { if (mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !hamburger.contains(e.target)) { hamburger.classList.remove('active'); mobileNav.classList.remove('active'); document.body.style.overflow = ''; } });
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) { e.preventDefault(); var href = this.getAttribute('href'); if (href !== '#') { var target = document.querySelector(href); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (hamburger && mobileNav && mobileNav.classList.contains('active')) { hamburger.classList.remove('active'); mobileNav.classList.remove('active'); document.body.style.overflow = ''; } } } });
+});
+
+document.querySelectorAll('.faq-q').forEach(function(btn) { btn.addEventListener('click', function() { var item = btn.parentElement; var wasOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); }); if (!wasOpen) item.classList.add('open'); }); });
+
+var observer = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+var sticky = document.getElementById('stickyCta');
+var heroEl = document.querySelector('.hero');
+if (sticky && heroEl) {
+    window.addEventListener('scroll', function() {
+        var pastHero = window.scrollY > heroEl.offsetHeight - 100;
+        var nearBottom = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 300;
+        if (pastHero && !nearBottom) {
+            sticky.classList.add('visible');
+        } else {
+            sticky.classList.remove('visible');
+        }
+    });
+}
+</script>
+</body>
+</html>
