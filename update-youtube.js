@@ -177,26 +177,43 @@ async function updateHTML() {
     }
     html = updated;
 
-    // 登録者数・総再生回数を置換
+    // 登録者数・総再生回数を置換（numbers / ABOUT / SHOP の各セクション）
     if (channelStats !== null) {
       const formattedSubs = formatCount(channelStats.subscribers);
-      const updated2 = replaceMarker(html, '<!-- YOUTUBE_SUBSCRIBERS_START -->', '<!-- YOUTUBE_SUBSCRIBERS_END -->', formattedSubs);
-      if (updated2 === null) {
-        console.warn('⚠️  Subscriber markers not found, skipping');
-      } else {
-        html = updated2;
-        console.log(`✅ Subscribers updated: ${formattedSubs}`);
-      }
-
       const formattedViews = formatCount(channelStats.views);
-      const updated3 = replaceMarker(html, '<!-- YOUTUBE_VIEWS_START -->', '<!-- YOUTUBE_VIEWS_END -->', formattedViews);
-      if (updated3 === null) {
-        console.warn('⚠️  Views markers not found, skipping');
-      } else {
-        html = updated3;
-        console.log(`✅ Views updated: ${formattedViews}`);
-      }
+
+      const subsMarkers = [
+        ['<!-- YOUTUBE_SUBSCRIBERS_START -->', '<!-- YOUTUBE_SUBSCRIBERS_END -->'],
+        ['<!-- YOUTUBE_SUBSCRIBERS_ABOUT_START -->', '<!-- YOUTUBE_SUBSCRIBERS_ABOUT_END -->'],
+        ['<!-- YOUTUBE_SUBSCRIBERS_SHOP_START -->', '<!-- YOUTUBE_SUBSCRIBERS_SHOP_END -->'],
+      ];
+      const viewsMarkers = [
+        ['<!-- YOUTUBE_VIEWS_START -->', '<!-- YOUTUBE_VIEWS_END -->'],
+        ['<!-- YOUTUBE_VIEWS_ABOUT_START -->', '<!-- YOUTUBE_VIEWS_ABOUT_END -->'],
+      ];
+
+      subsMarkers.forEach(function([start, end]) {
+        const result = replaceMarker(html, start, end, formattedSubs);
+        if (result === null) { console.warn(`⚠️  Marker not found: ${start}`); }
+        else { html = result; }
+      });
+      console.log(`✅ Subscribers updated: ${formattedSubs}`);
+
+      viewsMarkers.forEach(function([start, end]) {
+        const result = replaceMarker(html, start, end, formattedViews);
+        if (result === null) { console.warn(`⚠️  Marker not found: ${start}`); }
+        else { html = result; }
+      });
+      console.log(`✅ Views updated: ${formattedViews}`);
     }
+
+    // portfolio-data.js キャッシュバスター更新
+    const today = new Date();
+    const version = today.getFullYear().toString()
+      + String(today.getMonth() + 1).padStart(2, '0')
+      + String(today.getDate()).padStart(2, '0');
+    html = html.replace(/portfolio-data\.js\?v=\d{8}/, 'portfolio-data.js?v=' + version);
+    console.log(`✅ Cache buster updated: v=${version}`);
 
     // ファイルに書き込み
     console.log('\nWriting updated index.html...');
