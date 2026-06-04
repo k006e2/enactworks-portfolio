@@ -146,6 +146,40 @@ function replaceMarker(html, startMarker, endMarker, newContent) {
   return html.substring(0, startIndex + startMarker.length) + newContent + html.substring(endIndex);
 }
 
+// プレイリストの動画本数と合算再生回数を取得
+async function getPlaylistStats(playlistId) {
+  console.log(`\nFetching playlist stats for ${playlistId}...`);
+  let videoIds = [];
+  let nextPageToken = '';
+
+  // 全動画IDを取得（50件ずつページング）
+  do {
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${YOUTUBE_API_KEY}&playlistId=${playlistId}&part=contentDetails&maxResults=50${nextPageToken ? '&pageToken=' + nextPageToken : ''}`;
+    const data = await fetchYouTubeData(url);
+    if (data.error || !data.items) { console.warn('Failed to fetch playlistItems'); return null; }
+    data.items.forEach(function(item) { videoIds.push(item.contentDetails.videoId); });
+    nextPageToken = data.nextPageToken || '';
+  } while (nextPageToken);
+
+  if (videoIds.length === 0) return null;
+  console.log(`  Found ${videoIds.length} videos in playlist`);
+
+  // 動画の再生回数を取得（50件ずつ）
+  let totalViews = 0;
+  for (let i = 0; i < videoIds.length; i += 50) {
+    const ids = videoIds.slice(i, i + 50).join(',');
+    const url = `https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${ids}&part=statistics`;
+    const data = await fetchYouTubeData(url);
+    if (data.error || !data.items) { console.warn('Failed to fetch video stats'); continue; }
+    data.items.forEach(function(item) {
+      totalViews += parseInt(item.statistics.viewCount || '0', 10);
+    });
+  }
+
+  console.log(`✅ Playlist: ${videoIds.length} videos, ${totalViews} total views`);
+  return { count: videoIds.length, views: totalViews };
+}
+
 // index.htmlを更新
 async function updateHTML() {
   try {
@@ -165,10 +199,16 @@ async function updateHTML() {
     // チャンネル統計を取得
     const channelStats = await getChannelStats();
 
+    // プレイリスト統計を取得
+    const lordsStats = await getPlaylistStats('PLZI6abDvigFt_P7mvKZrhAjFMOYROXziR');
+
     // index.htmlを読み込み
     console.log('\nReading index.html...');
     let html = fs.readFileSync('index.html', 'utf8');
     let workshopHtml = fs.existsSync('workshop/index.html') ? fs.readFileSync('workshop/index.html', 'utf8') : null;
+
+    // portfolio-data.js を読み込み
+    let portfolioJs = fs.readFileSync('portfolio-data.js', 'utf8');
 
     // 動画セクションを置換
     const updated = replaceMarker(html, '<!-- YOUTUBE_VIDEOS_START -->', '<!-- YOUTUBE_VIDEOS_END -->', '\n' + videoHTML + '                ');
@@ -230,6 +270,16 @@ async function updateHTML() {
         fs.writeFileSync('workshop/index.html', workshopHtml, 'utf8');
         console.log(`✅ workshop/index.html updated: subs=${formattedSubs}, views=${formattedViews}`);
       }
+    }
+
+    // portfolio-data.js のプレイリスト統計を更新
+    if (lordsStats !== null) {
+      const countResult = replaceMarker(portfolioJs, '<!-- LORDS_COUNT_START -->', '<!-- LORDS_COUNT_END -->', String(lordsStats.count));
+      if (countResult !== null) portfolioJs = countResult;
+      const viewsResult = replaceMarker(portfolioJs, '<!-- LORDS_VIEWS_START -->', '<!-- LORDS_VIEWS_END -->', formatCount(lordsStats.views));
+      if (viewsResult !== null) portfolioJs = viewsResult;
+      fs.writeFileSync('portfolio-data.js', portfolioJs, 'utf8');
+      console.log(`✅ portfolio-data.js updated: ${lordsStats.count}本, ${formatCount(lordsStats.views)}`);
     }
 
     // portfolio-data.js キャッシュバスター更新
