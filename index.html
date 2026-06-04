@@ -3002,7 +3002,7 @@
 
                     const descEl = document.getElementById('portfolioModalDescription');
                     if (item.description) {
-                        descEl.textContent = item.description;
+                        descEl.innerHTML = item.description;
                         descEl.style.display = '';
                     } else {
                         descEl.style.display = 'none';
