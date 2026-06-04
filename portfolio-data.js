@@ -46,6 +46,19 @@ const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 const portfolioData = [
 
     {
+        id: "crushie-ai-promo",
+        title: "【Crushie AI】あなただけの恋人に逢えるAIチャットアプリを俺が持てる力全て使って全力紹介する動画【#PR】",
+        thumbnail: "https://img.youtube.com/vi/NpazhF4aiVM/maxresdefault.jpg",
+        youtubeId: "NpazhF4aiVM",
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "動画を見る", url: "https://www.youtube.com/watch?v=NpazhF4aiVM" }
+        ]
+    },
+
+    {
         id: "zeta-collab-yandere",
         title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
         thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
