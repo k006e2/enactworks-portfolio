@@ -46,6 +46,18 @@ const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 const portfolioData = [
 
     {
+        id: "lords-mobile-promo",
+        title: "ロードモバイル 春の覇王祭",
+        thumbnail: "ローモバ.jpg",
+        date: "2025-04-24",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "再生リストを見る", url: "https://www.youtube.com/playlist?list=PLZI6abDvigFt_P7mvKZrhAjFMOYROXziR" }
+        ]
+    },
+
+    {
         id: "crushie-ai-promo",
         title: "【Crushie AI】あなただけの恋人に逢えるAIチャットアプリを俺が持てる力全て使って全力紹介する動画【#PR】",
         thumbnail: "https://img.youtube.com/vi/NpazhF4aiVM/maxresdefault.jpg",
