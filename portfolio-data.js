@@ -49,7 +49,7 @@ const portfolioData = [
         id: "lords-mobile-promo",
         title: "ロードモバイル 春の覇王祭",
         thumbnail: "ローモバ.jpg",
-        date: "2025-04-24",
+        date: "2026-04-24",
         type: "プロモーション",
         description: "",
         links: [
