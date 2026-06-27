@@ -46,7 +46,7 @@ const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 const portfolioData = [
 
     {
-        id: "foxyu-live",
+        id: "foxyu-promo",
         title: "【FoxyU】漫画生成できるAIチャットアプリでヤンデレキャラ作りたい【#PR】",
         thumbnail: "https://img.youtube.com/vi/ghEvo50CDc8/maxresdefault.jpg",
         youtubeId: "ghEvo50CDc8",
@@ -54,20 +54,8 @@ const portfolioData = [
         type: "プロモーション",
         description: "",
         links: [
-            { label: "配信アーカイブを見る", url: "https://youtube.com/live/ghEvo50CDc8" }
-        ]
-    },
-
-    {
-        id: "foxyu-shorts",
-        title: "漫画生成機能付きAIチャットアプリFoxyUでAIキャラの尊厳破壊してみた【#PR】",
-        thumbnail: "https://img.youtube.com/vi/WGLYyN_eE6Y/maxresdefault.jpg",
-        youtubeId: "WGLYyN_eE6Y",
-        date: "",
-        type: "プロモーション",
-        description: "",
-        links: [
-            { label: "動画を見る", url: "https://youtube.com/shorts/WGLYyN_eE6Y" }
+            { label: "配信アーカイブを見る", url: "https://youtube.com/live/ghEvo50CDc8" },
+            { label: "切り抜きを見る", url: "https://youtube.com/shorts/WGLYyN_eE6Y" }
         ]
     },
 
