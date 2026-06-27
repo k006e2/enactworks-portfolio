@@ -3016,22 +3016,23 @@
                     if (item.youtubeId && typeof YOUTUBE_API_KEY !== 'undefined' && YOUTUBE_API_KEY) {
                         dateEl.textContent = '取得中…';
                         statsEl.innerHTML = '<span class="portfolio-modal-stat loading">再生回数 取得中…</span>';
+                        const fetchIds = item.youtubeId + (item.shortsId ? ',' + item.shortsId : '');
                         fetch(
                             'https://www.googleapis.com/youtube/v3/videos'
                             + '?part=statistics,snippet'
-                            + '&id=' + item.youtubeId
+                            + '&id=' + fetchIds
                             + '&key=' + YOUTUBE_API_KEY
                         )
                         .then(function(res) { return res.json(); })
                         .then(function(data) {
                             statsEl.innerHTML = '';
                             if (data.items && data.items.length > 0) {
-                                const snippet = data.items[0].snippet;
-                                const stats = data.items[0].statistics;
+                                const mainVideo = data.items.find(function(v) { return v.id === item.youtubeId; });
+                                const shortsVideo = item.shortsId ? data.items.find(function(v) { return v.id === item.shortsId; }) : null;
 
-                                // 公開日を日本語形式に変換
-                                if (snippet && snippet.publishedAt) {
-                                    const d = new Date(snippet.publishedAt);
+                                // 公開日を日本語形式に変換（メイン動画基準）
+                                if (mainVideo && mainVideo.snippet && mainVideo.snippet.publishedAt) {
+                                    const d = new Date(mainVideo.snippet.publishedAt);
                                     dateEl.textContent =
                                         d.getFullYear() + '年'
                                         + (d.getMonth() + 1) + '月'
@@ -3040,16 +3041,35 @@
                                     dateEl.textContent = item.date || '';
                                 }
 
-                                // 再生回数・いいね数
-                                if (stats.viewCount) {
-                                    const views = Number(stats.viewCount).toLocaleString('ja-JP');
-                                    statsEl.innerHTML +=
-                                        '<span class="portfolio-modal-stat">▶ 再生回数 <strong>' + views + '回</strong></span>';
+                                // メイン動画の再生回数・いいね数
+                                if (mainVideo) {
+                                    const stats = mainVideo.statistics;
+                                    const label = shortsVideo ? '配信：' : '';
+                                    if (stats.viewCount) {
+                                        const views = Number(stats.viewCount).toLocaleString('ja-JP');
+                                        statsEl.innerHTML +=
+                                            '<span class="portfolio-modal-stat">' + label + '▶ <strong>' + views + '回</strong></span>';
+                                    }
+                                    if (stats.likeCount) {
+                                        const likes = Number(stats.likeCount).toLocaleString('ja-JP');
+                                        statsEl.innerHTML +=
+                                            '<span class="portfolio-modal-stat">👍 <strong>' + likes + '</strong></span>';
+                                    }
                                 }
-                                if (stats.likeCount) {
-                                    const likes = Number(stats.likeCount).toLocaleString('ja-JP');
-                                    statsEl.innerHTML +=
-                                        '<span class="portfolio-modal-stat">👍 <strong>' + likes + '</strong></span>';
+
+                                // 切り抜きの再生回数・いいね数
+                                if (shortsVideo) {
+                                    const stats = shortsVideo.statistics;
+                                    if (stats.viewCount) {
+                                        const views = Number(stats.viewCount).toLocaleString('ja-JP');
+                                        statsEl.innerHTML +=
+                                            '<span class="portfolio-modal-stat">切り抜き：▶ <strong>' + views + '回</strong></span>';
+                                    }
+                                    if (stats.likeCount) {
+                                        const likes = Number(stats.likeCount).toLocaleString('ja-JP');
+                                        statsEl.innerHTML +=
+                                            '<span class="portfolio-modal-stat">👍 <strong>' + likes + '</strong></span>';
+                                    }
                                 }
                             } else {
                                 dateEl.textContent = item.date || '';
