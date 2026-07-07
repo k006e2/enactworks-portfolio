@@ -46,6 +46,19 @@ const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 const portfolioData = [
 
     {
+        id: "foxyu-collab-yandere",
+        title: "【ヤンデレ×FoxyU】バーで出会ったかわいいもの大好きのマフィアに気に入られて執着される話【#PR】",
+        thumbnail: "https://img.youtube.com/vi/GD4XS4M7qFY/maxresdefault.jpg",
+        youtubeId: "GD4XS4M7qFY",
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "動画を見る", url: "https://www.youtube.com/watch?v=GD4XS4M7qFY" }
+        ]
+    },
+
+    {
         id: "foxyu-promo",
         title: "【FoxyU】漫画生成できるAIチャットアプリでヤンデレキャラ作りたい【#PR】",
         thumbnail: "https://img.youtube.com/vi/ghEvo50CDc8/maxresdefault.jpg",
