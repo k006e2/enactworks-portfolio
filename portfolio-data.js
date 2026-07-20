@@ -79,7 +79,7 @@ const portfolioData = [
         thumbnail: "ローモバ.jpg",
         date: "2026-04-24",
         type: "プロモーション",
-        description: "動画本数：<!-- LORDS_COUNT_START -->18<!-- LORDS_COUNT_END -->本（4/24〜5/25） / 総再生回数：<!-- LORDS_VIEWS_START -->1.3万+<!-- LORDS_VIEWS_END -->",
+        description: "動画本数：<!-- LORDS_COUNT_START -->18<!-- LORDS_COUNT_END -->本（4/24〜5/25） / 総再生回数：<!-- LORDS_VIEWS_START -->1.4万+<!-- LORDS_VIEWS_END -->",
         links: [
             { label: "再生リストを見る", url: "https://www.youtube.com/playlist?list=PLZI6abDvigFt_P7mvKZrhAjFMOYROXziR" }
         ]
