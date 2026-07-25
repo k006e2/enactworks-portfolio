@@ -74,6 +74,19 @@ const portfolioData = [
     },
 
     {
+        id: "crushie-ai-shorts",
+        title: "【Crushie AI】真面目プレイとふざけプレイでときめきメモの内容は変わるのか？【#PR】",
+        thumbnail: "https://img.youtube.com/vi/5UcXUx3qzA4/maxresdefault.jpg",
+        youtubeId: "5UcXUx3qzA4",
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "動画を見る", url: "https://youtube.com/shorts/5UcXUx3qzA4" }
+        ]
+    },
+
+    {
         id: "lords-mobile-promo",
         title: "ロードモバイル 春の覇王祭",
         thumbnail: "ローモバ.jpg",
