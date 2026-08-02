@@ -6,18 +6,21 @@
 <meta name="robots" content="noindex, nofollow">
 <title>夏休みぬりえ祭2026 ｜ 線画ダウンロード - EnactWorks / KOOLEs</title>
 <meta name="description" content="KOOLEs 夏休みぬりえ祭2026 の塗り絵用線画ダウンロードページ。イラスト利用規約をご確認のうえご利用ください。">
+<meta name="theme-color" content="#0a0610">
 
 <!-- OGP / SNSシェア -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://enactworks.com/nurie2026/">
 <meta property="og:title" content="夏休みぬりえ祭2026 ｜ 線画ダウンロード - EnactWorks / KOOLEs">
 <meta property="og:description" content="#KOOLEsぬりえ祭 参加用の線画配布ページ。利用規約をご確認のうえダウンロードしてください。">
-<meta property="og:image" content="https://enactworks.com/nurie2026/preview.jpg">
+<meta property="og:image" content="https://enactworks.com/nurie2026/ogp.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="EnactWorks">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@VTKOOLEs">
-<meta name="twitter:image" content="https://enactworks.com/nurie2026/preview.jpg">
+<meta name="twitter:image" content="https://enactworks.com/nurie2026/ogp.jpg">
 
 <!-- Google Fonts（本体サイトと同じ書体） -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,134 +33,179 @@
      サイト本体からはリンクせず、URLを知っている人のみアクセスする想定。
 
      ■ 画像（すべて同フォルダ内）
+        bg.jpg                   … 背景（文字なしの祭り写真）
+        ogp.jpg                  … SNSカード用の告知画像（1920x1080）
         preview.jpg              … 見本（透かし入り・低解像度）
         lineart-transparent.png  … 線画 原寸・背景透過
         lineart-white.png        … 線画 原寸・背景白
+
+     ※ bg.jpg が無い場合は body::before の暖色グラデーションが背景になります。
      ============================================================ -->
 
 <style>
 :root{
-  --ew-accent:      #0891b2;   /* ティール（本体サイトと同じアクセント） */
-  --ew-accent-dark: #0780a0;   /* ホバー用の濃いティール */
-  --ew-heading:     #111827;   /* 見出しの黒 */
-  --ew-text:        #4a5568;   /* 本文グレー */
-  --ew-muted:       #8b95a5;   /* 補足テキスト */
-  --ew-bg:          #ffffff;   /* ページ背景 */
-  --ew-section:     #f7f9fb;   /* セクション背景 */
-  --ew-border:      #e5e9f0;   /* カードの境界線 */
-  --ew-danger:      #d64545;   /* 禁止事項 */
-  --ew-danger-pale: #fdf2f2;
+  --ink:        #ffffff;              /* 見出し */
+  --text:       #ced2da;              /* 本文 */
+  --muted:      #8b91a0;              /* 補足 */
+  --gold:       #f0c357;              /* 提灯の金（アクセント） */
+  --gold-lit:   #f7d883;              /* ホバー時の明るい金 */
+  --gold-deep:  #dc9a2e;              /* ボタングラデの濃い側 */
+  --on-gold:    #2b1a04;              /* 金の上に置く文字 */
+  --danger:     #ff8080;
+  --card:       rgba(18,13,22,.74);   /* カード地 */
+  --card-line:  rgba(255,255,255,.11);
+
+  /* 背景写真にかける暗幕の濃さ。祭りの色を残しつつ文字を読ませる調整用。
+     濃くする＝読みやすい／薄くする＝祭りの雰囲気が出る */
+  --veil-top:    .60;
+  --veil-bottom: .78;
 }
 
 *{box-sizing:border-box}
-body{margin:0;background:var(--ew-bg)}
+html{background:#0a0610}
+body{margin:0;min-height:100vh}
+
+/* ---------- 背景（祭り写真＋暗幕） ---------- */
+/* bg.jpg が読めない場合はこの暖色グラデーションがそのまま背景になる */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(ellipse at 24% 14%, rgba(205,72,26,.42), transparent 56%),
+    radial-gradient(ellipse at 79% 74%, rgba(232,152,42,.32), transparent 52%),
+    #0a0610;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    linear-gradient(180deg,
+      rgba(8,5,12,var(--veil-top)) 0%,
+      rgba(8,5,12,var(--veil-bottom)) 100%),
+    url('bg.jpg') center/cover no-repeat;
+}
 
 .nurie-page{
   max-width:860px;margin:0 auto;padding:56px 24px 80px;
   font-family:"IBM Plex Sans JP","Hiragino Kaku Gothic ProN","Noto Sans JP",
               "Yu Gothic","Meiryo",system-ui,sans-serif;
-  font-size:15px;line-height:1.95;color:var(--ew-text);background:var(--ew-bg);
+  font-size:15px;line-height:1.95;color:var(--text);
   -webkit-font-smoothing:antialiased;
 }
 
 /* ---------- 見出し ---------- */
 .nurie-page .ew-hero{text-align:center;margin-bottom:44px}
 .nurie-page h1{
-  font-size:2rem;line-height:1.45;font-weight:700;
-  color:var(--ew-heading);margin:0 0 10px;letter-spacing:.01em}
+  font-size:2.05rem;line-height:1.45;font-weight:700;
+  color:var(--ink);margin:0 0 12px;letter-spacing:.02em;
+  text-shadow:0 2px 20px rgba(0,0,0,.65)}
 .nurie-page .ew-lead{
-  font-family:"Outfit",sans-serif;letter-spacing:.12em;
-  color:var(--ew-accent);font-size:.9rem;font-weight:600;margin:0}
+  font-family:"Outfit",sans-serif;letter-spacing:.14em;
+  color:var(--gold);font-size:.88rem;font-weight:600;margin:0}
 
 .nurie-page h2{
-  font-size:1.35rem;font-weight:700;color:var(--ew-heading);
-  margin:0 0 26px;text-align:center;letter-spacing:.02em}
+  font-size:1.35rem;font-weight:700;color:var(--ink);
+  margin:0 0 26px;text-align:center;letter-spacing:.02em;
+  text-shadow:0 2px 14px rgba(0,0,0,.7)}
 .nurie-page h2 .en{
   display:block;font-family:"Outfit",sans-serif;
-  font-size:.72rem;font-weight:600;letter-spacing:.18em;
-  color:var(--ew-accent);margin-bottom:6px}
+  font-size:.72rem;font-weight:600;letter-spacing:.2em;
+  color:var(--gold);margin-bottom:7px}
 
 .nurie-page h3{
-  font-size:1.02rem;font-weight:700;color:var(--ew-heading);
-  margin:26px 0 8px;padding-left:12px;border-left:3px solid var(--ew-accent)}
+  font-size:1.02rem;font-weight:700;color:var(--ink);
+  margin:26px 0 8px;padding-left:12px;border-left:3px solid var(--gold)}
 
 /* ---------- セクション ---------- */
 .nurie-page .ew-section{margin:56px 0}
 .nurie-page .ew-card{
-  background:#fff;border:1px solid var(--ew-border);border-radius:14px;
-  padding:28px 30px;box-shadow:0 1px 3px rgba(17,24,39,.04)}
-.nurie-page .ew-card.tinted{background:var(--ew-section);border-color:transparent}
+  background:var(--card);border:1px solid var(--card-line);border-radius:16px;
+  padding:28px 30px;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 8px 32px rgba(0,0,0,.38)}
 
 /* ---------- リスト ---------- */
 .nurie-page ul{list-style:none;padding:0;margin:8px 0}
 .nurie-page li{position:relative;padding-left:22px;margin:9px 0}
 .nurie-page li::before{
   content:"→";position:absolute;left:0;top:0;
-  color:var(--ew-accent);font-weight:700}
-.nurie-page li strong{color:var(--ew-heading)}
+  color:var(--gold);font-weight:700}
+.nurie-page li strong{color:var(--ink)}
 
 /* ---------- 禁止事項 ---------- */
 .nurie-page .ew-ng{
-  background:var(--ew-danger-pale);border:1px solid #f3c9c9;
-  border-radius:14px;padding:24px 28px;margin:24px 0}
+  background:rgba(90,20,24,.42);border:1px solid rgba(255,120,120,.34);
+  border-radius:16px;padding:24px 28px;margin:24px 0;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .nurie-page .ew-ng-title{
-  display:block;color:var(--ew-danger);font-weight:700;
-  font-size:1.08rem;margin-bottom:8px}
+  display:block;color:var(--danger);font-weight:700;
+  font-size:1.1rem;margin-bottom:8px;letter-spacing:.02em}
 .nurie-page .ew-ng p{margin:0;font-size:.94rem}
-.nurie-page .ew-ng-item{color:var(--ew-danger);font-weight:700}
-.nurie-page .ew-ng-item::before{color:var(--ew-danger)}
+.nurie-page .ew-ng-item{color:var(--danger);font-weight:700}
+.nurie-page .ew-ng-item::before{color:var(--danger)}
 
 /* ---------- 概要テーブル ---------- */
-.nurie-page .ew-meta{display:grid;gap:1px;background:var(--ew-border);
-  border:1px solid var(--ew-border);border-radius:12px;overflow:hidden}
-.nurie-page .ew-meta div{display:flex;background:#fff;flex-wrap:wrap}
+.nurie-page .ew-meta{
+  display:grid;gap:1px;background:var(--card-line);
+  border:1px solid var(--card-line);border-radius:14px;overflow:hidden;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.nurie-page .ew-meta div{display:flex;background:rgba(18,13,22,.78);flex-wrap:wrap}
 .nurie-page .ew-meta dt{
-  flex:0 0 190px;background:var(--ew-section);color:var(--ew-heading);
+  flex:0 0 190px;background:rgba(255,255,255,.05);color:var(--ink);
   font-weight:700;font-size:.9rem;padding:14px 20px;margin:0}
-.nurie-page .ew-meta dd{flex:1;padding:14px 20px;margin:0;min-width:200px}
-.nurie-page .ew-meta .tag{color:var(--ew-accent);font-weight:700}
+.nurie-page .ew-meta dd{flex:1;padding:14px 20px;margin:0;min-width:200px;color:var(--text)}
+.nurie-page .ew-meta .tag{color:var(--gold);font-weight:700}
 
 /* ---------- プレビュー（保存不可） ---------- */
 .nurie-page .ew-preview{
   position:relative;width:340px;height:480px;margin:0 auto 12px;  /* 900:1272 */
-  border:1px solid var(--ew-border);border-radius:14px;
-  box-shadow:0 4px 16px rgba(17,24,39,.08);overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);border-radius:14px;
+  box-shadow:0 10px 40px rgba(0,0,0,.55);overflow:hidden;
   background-image:url('preview.jpg');
   background-size:cover;background-position:center;
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
   pointer-events:none}
 .nurie-page .ew-preview-cap{
-  text-align:center;font-size:.83rem;color:var(--ew-muted);margin:0}
+  text-align:center;font-size:.83rem;color:var(--muted);margin:0;
+  text-shadow:0 1px 8px rgba(0,0,0,.8)}
+
+/* カードに載らず背景の上に直接置く文章。写真の上でも読めるよう影を敷く */
+.nurie-page .ew-onbg{
+  text-align:center;margin:28px 0 0;
+  text-shadow:0 1px 10px rgba(0,0,0,.85)}
 
 /* ---------- DLボタン ---------- */
 .nurie-page .ew-dl-grid{
   display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin:6px 0 20px}
 .nurie-page .ew-dl-item{flex:1 1 260px;max-width:320px}
 .nurie-page .ew-dl-item a{
-  display:block;background:var(--ew-accent);color:#fff;
+  display:block;color:var(--on-gold);
+  background:linear-gradient(160deg, var(--gold-lit) 0%, var(--gold-deep) 100%);
   text-decoration:none;font-weight:700;font-size:1rem;text-align:center;
   padding:17px 24px;border-radius:999px;
-  box-shadow:0 4px 14px rgba(8,145,178,.28);transition:.2s}
-.nurie-page .ew-dl-item a:hover{background:var(--ew-accent-dark);
-  box-shadow:0 6px 18px rgba(8,145,178,.36);transform:translateY(-2px)}
+  box-shadow:0 6px 22px rgba(0,0,0,.45), 0 0 0 1px rgba(255,232,180,.35) inset;
+  transition:.2s}
+.nurie-page .ew-dl-item a:hover{
+  background:linear-gradient(160deg, #ffe6a8 0%, #eaad42 100%);
+  box-shadow:0 10px 30px rgba(0,0,0,.5), 0 0 26px rgba(240,195,87,.35);
+  transform:translateY(-2px)}
 .nurie-page .ew-dl-item a .sub{
-  display:block;font-size:.78rem;font-weight:500;opacity:.9;margin-top:3px}
+  display:block;font-size:.78rem;font-weight:600;opacity:.78;margin-top:3px}
 .nurie-page .ew-dl-desc{
-  text-align:center;font-size:.83rem;color:var(--ew-muted);
+  text-align:center;font-size:.83rem;color:var(--muted);
   line-height:1.75;margin:10px 4px 0}
 
 /* ---------- 補足 ---------- */
-.nurie-page .ew-note{font-size:.84rem;color:var(--ew-muted);line-height:1.85}
+.nurie-page .ew-note{font-size:.84rem;color:var(--muted);line-height:1.85}
 .nurie-page .ew-foot{
-  margin-top:64px;padding-top:24px;border-top:1px solid var(--ew-border);
-  font-size:.84rem;color:var(--ew-muted);text-align:center}
-.nurie-page .ew-foot a{color:var(--ew-accent);text-decoration:none}
+  margin-top:64px;padding-top:24px;border-top:1px solid var(--card-line);
+  font-size:.84rem;color:var(--muted);text-align:center}
+.nurie-page .ew-foot a{color:var(--gold);text-decoration:none}
 .nurie-page .ew-foot a:hover{text-decoration:underline}
 
 @media(max-width:600px){
   .nurie-page{padding:36px 18px 60px}
   .nurie-page h1{font-size:1.5rem}
   .nurie-page .ew-card{padding:22px 20px}
+  .nurie-page .ew-ng{padding:20px 20px}
   .nurie-page .ew-meta dt{flex:0 0 100%;padding:12px 16px 4px}
   .nurie-page .ew-meta dd{padding:0 16px 12px}
   .nurie-page .ew-preview{width:250px;height:353px}
@@ -181,10 +229,10 @@ body{margin:0;background:var(--ew-bg)}
        aria-label="夏休みぬりえ祭2026 の塗り絵用線画（見本）"></div>
   <p class="ew-preview-cap">見 本（低解像度）</p>
 
-  <p style="text-align:center;margin:28px 0 0">
+  <p class="ew-onbg">
     この線画は「夏休みぬりえ祭2026」への参加用に配布しています。<br>
     ダウンロードの前に、下記のイラスト利用規約を必ずお読みください。<br>
-    <strong style="color:var(--ew-heading)">ダウンロードした時点で、本規約に同意したものとみなします。</strong>
+    <strong style="color:var(--ink)">ダウンロードした時点で、本規約に同意したものとみなします。</strong>
   </p>
 
   <!-- ========== 開催概要 ========== -->
@@ -197,12 +245,14 @@ body{margin:0;background:var(--ew-bg)}
       <div><dt>公式ハッシュタグ</dt><dd class="tag">#KOOLEsぬりえ祭</dd></div>
     </dl>
 
-    <h3>参加方法</h3>
-    <ul>
-      <li>KOOLEs が描いた線画を自由に塗る</li>
-      <li><strong>#KOOLEsぬりえ祭</strong> をつけて X に投稿する</li>
-      <li>8月29日の配信でみんなの作品を観る</li>
-    </ul>
+    <div class="ew-card" style="margin-top:22px">
+      <h3 style="margin-top:0">参加方法</h3>
+      <ul>
+        <li>KOOLEs が描いた線画を自由に塗る</li>
+        <li><strong>#KOOLEsぬりえ祭</strong> をつけて X に投稿する</li>
+        <li>8月29日の配信でみんなの作品を観る</li>
+      </ul>
+    </div>
   </div>
 
   <!-- ========== 利用規約 ========== -->
@@ -269,7 +319,7 @@ body{margin:0;background:var(--ew-bg)}
   <div class="ew-section">
     <h2><span class="en">DOWNLOAD</span>線画のダウンロード</h2>
 
-    <div class="ew-card tinted">
+    <div class="ew-card">
       <p style="margin:0 0 22px;text-align:center">
         上記の規約に同意のうえ、お好みの形式をダウンロードしてください。<br>
         <span class="ew-note">どちらも同じ線画です（PNG / 2894 × 4093px）</span>
