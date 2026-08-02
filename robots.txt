@@ -1,0 +1,98 @@
+# ============================================================
+# robots.txt - enactworks.com
+#
+# 通常の検索エンジンは許可し、生成AIの学習クローラーのみ拒否する設定。
+# サイト全体（画像ファイルを含む）が対象。
+# ============================================================
+
+# ------------------------------------------------------------
+# AI学習用クローラーの拒否
+# ------------------------------------------------------------
+
+# OpenAI（学習用）
+User-agent: GPTBot
+Disallow: /
+
+# OpenAI（ChatGPTのユーザー操作起点アクセス）
+User-agent: ChatGPT-User
+Disallow: /
+
+# Anthropic（学習用）
+User-agent: ClaudeBot
+Disallow: /
+
+# Anthropic（ユーザー操作起点アクセス）
+User-agent: Claude-User
+Disallow: /
+
+# Anthropic（旧称・念のため）
+User-agent: anthropic-ai
+Disallow: /
+
+# Google（Gemini等の生成AI学習。通常のGooglebotとは別枠）
+User-agent: Google-Extended
+Disallow: /
+
+# Apple（Apple Intelligence の学習）
+User-agent: Applebot-Extended
+Disallow: /
+
+# Common Crawl（各社の学習データ収集元になっている）
+User-agent: CCBot
+Disallow: /
+
+# Meta
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+# ByteDance（TikTok系）
+User-agent: Bytespider
+Disallow: /
+
+# Amazon
+User-agent: Amazonbot
+Disallow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Disallow: /
+
+# Cohere
+User-agent: cohere-ai
+Disallow: /
+
+# Diffbot
+User-agent: Diffbot
+Disallow: /
+
+# Omgili / Webz.io
+User-agent: omgili
+Disallow: /
+
+User-agent: omgilibot
+Disallow: /
+
+# Timpi
+User-agent: Timpibot
+Disallow: /
+
+# ------------------------------------------------------------
+# 通常の検索エンジンは許可（サイトが検索されなくなるのを防ぐ）
+# ------------------------------------------------------------
+
+User-agent: *
+Allow: /
+
+# ------------------------------------------------------------
+# 注意
+#   robots.txt は紳士協定であり、無視するクローラーには効きません。
+#   確実に遮断したい場合は、サーバー側でのUAブロックを併用してください。
+#   ・エックスサーバー … 2026年1月より管理画面に遮断機能あり
+#   ・さくらインターネット … 2026年2月より同機能あり
+#
+#   ぬりえ配布ページ（/nurie2026/）は HTML 側の noindex で検索除外しています。
+#   ここに Disallow を書くと noindex が読まれなくなるため、あえて記載していません。
+# ------------------------------------------------------------
