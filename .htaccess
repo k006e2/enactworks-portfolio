@@ -1,0 +1,14 @@
+# ============================================================
+# enactworks.com
+# ソースファイル・設定ファイルへの直接アクセスを禁止する設定
+#
+# ※ サイト表示に必要な portfolio-data.js はブロック対象外
+# ============================================================
+
+# ビルド用スクリプト・パッケージ設定
+<FilesMatch "^(update-youtube\.js|package\.json|package-lock\.json|README\.md)$">
+    Require all denied
+</FilesMatch>
+
+# .git / .github / .gitignore / FTPデプロイの状態ファイル を 404 にする
+RedirectMatch 404 ^/\.(git|ftp-deploy)

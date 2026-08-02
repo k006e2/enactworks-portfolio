@@ -11,7 +11,8 @@ on:
 jobs:
   update-and-deploy:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 15
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,11 +35,23 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Update YouTube videos [automated]"
           git push
       
+      # 差分デプロイ。サーバー上の .ftp-deploy-sync-state.json と比較し、
+      # 変更のあったファイルだけを転送する（初回のみ全ファイル転送）。
       - name: Deploy to Xserver via FTP
-        uses: sebastianpopp/ftp-action@releases/v2
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "./"
-          remoteDir: "/enactworks.com/public_html/"
+          server-dir: /enactworks.com/public_html/
+          local-dir: ./
+          # 公開不要なソース・設定ファイルは転送しない
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.claude/**
+            update-youtube.js
+            package.json
+            package-lock.json
+            README.md
