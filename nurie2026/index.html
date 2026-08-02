@@ -171,7 +171,8 @@ body::after{
   position:relative;width:340px;height:480px;margin:0 auto 12px;  /* 900:1272 */
   border:1px solid rgba(255,255,255,.18);border-radius:14px;
   box-shadow:0 10px 40px rgba(0,0,0,.55);overflow:hidden;
-  background-image:url('preview.jpg');
+  /* ?v= はキャッシュ対策。画像を差し替えたら番号を上げること */
+  background-image:url('preview.jpg?v=2');
   background-size:cover;background-position:center;
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
   pointer-events:none}
@@ -378,7 +379,7 @@ body::after{
 
       <div class="ew-dl-grid">
         <div class="ew-dl-item">
-          <a href="lineart-transparent.png" download="KOOLEsぬりえ祭2026_線画_背景透過.png">
+          <a href="lineart-transparent.png?v=2" download="KOOLEsぬりえ祭2026_線画_背景透過.png">
             背景透過 PNG
             <span class="sub">デジタルで塗る方はこちら</span>
           </a>
@@ -389,7 +390,7 @@ body::after{
         </div>
 
         <div class="ew-dl-item">
-          <a href="lineart-white.png" download="KOOLEsぬりえ祭2026_線画_背景白.png">
+          <a href="lineart-white.png?v=2" download="KOOLEsぬりえ祭2026_線画_背景白.png">
             背景白 PNG
             <span class="sub">印刷して塗る方はこちら</span>
           </a>
