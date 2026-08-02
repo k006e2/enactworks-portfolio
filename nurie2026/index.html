@@ -142,6 +142,18 @@ body::after{
 .nurie-page .ew-ng-item{color:var(--danger);font-weight:700}
 .nurie-page .ew-ng-item::before{color:var(--danger)}
 
+/* ---------- 必ず守ってほしいお願い（署名） ---------- */
+.nurie-page .ew-must{
+  background:rgba(72,50,10,.58);border:1px solid rgba(240,195,87,.55);
+  border-radius:16px;padding:26px 30px;margin:28px 0;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 8px 32px rgba(0,0,0,.4), 0 0 34px rgba(240,195,87,.12)}
+.nurie-page .ew-must-title{
+  display:block;color:var(--gold);font-weight:700;
+  font-size:1.14rem;line-height:1.5;margin-bottom:10px;letter-spacing:.02em}
+.nurie-page .ew-must p{margin:0;font-size:.94rem}
+.nurie-page .ew-must strong{color:#ffe9b0}
+
 /* ---------- 概要テーブル ---------- */
 .nurie-page .ew-meta{
   display:grid;gap:1px;background:var(--card-line);
@@ -235,6 +247,15 @@ body::after{
     <strong style="color:var(--ink)">ダウンロードした時点で、本規約に同意したものとみなします。</strong>
   </p>
 
+  <!-- 見落とされやすいため、規約とは別枠でページ上部にも掲示する -->
+  <div class="ew-must">
+    <span class="ew-must-title">作品の中に、お名前か X の ID を入れてください</span>
+    <p>塗り終えた作品のどこかに、ご自身の<strong>お名前</strong>、または
+       <strong>X の ID（@から始まるもの）</strong>を記載してください。<br>
+       画像だけが切り取られて広まったときに、<strong>誰が塗った作品なのか分からなくなってしまう</strong>のを防ぐためです。
+       あなたの作品を守るためのお願いです。</p>
+  </div>
+
   <!-- ========== 開催概要 ========== -->
   <div class="ew-section">
     <h2><span class="en">OVERVIEW</span>開催概要</h2>
@@ -249,6 +270,7 @@ body::after{
       <h3 style="margin-top:0">参加方法</h3>
       <ul>
         <li>KOOLEs が描いた線画を自由に塗る</li>
+        <li><strong>作品の中に、お名前か X の ID を入れる</strong></li>
         <li><strong>#KOOLEsぬりえ祭</strong> をつけて X に投稿する</li>
         <li>8月29日の配信でみんなの作品を観る</li>
       </ul>
@@ -288,12 +310,36 @@ body::after{
             <span class="ew-note">私的利用の範囲であってもグッズ化は不可です。
             アクリルグッズ、ポストカード等が該当しますが、これらに限りません。</span></li>
         <li class="ew-ng-item">本線画の再配布、および配布元を偽った公開</li>
+        <li class="ew-ng-item">本線画および着色作品を、SNSのアイコン・ヘッダー画像等に使用すること</li>
       </ul>
 
-      <h3>4. 投稿作品の取り扱い</h3>
+      <h3>4. 作品への署名のお願い</h3>
+      <ul>
+        <li><strong>着色作品のどこかに、ご自身のお名前または X の ID を記載してください。</strong>
+            画像だけが切り取られて拡散した際に、作者が分からなくなることを防ぐためです。</li>
+        <li>位置・大きさ・書体は問いません。作品の邪魔にならない範囲で構いません。</li>
+      </ul>
+
+      <h3>5. 着色作品の権利</h3>
+      <ul>
+        <li>本線画を塗って制作された作品（以下「着色作品」）の著作権は、
+            <strong>制作されたご本人に帰属します。</strong>
+            KOOLEs が着色作品の著作権を主張することはありません。</li>
+        <li>着色作品をご自身の SNS・ポートフォリオに<strong>作品として掲載する</strong>ことは、
+            私的利用の範囲で自由に行っていただけます。
+            ただしアイコン・ヘッダー画像等への使用はできません（3.禁止事項）。</li>
+        <li>ただし着色作品は本線画をもとにした二次的著作物にあたり、
+            もとになった線画の著作権は KOOLEs にあります。そのため着色作品の利用にも
+            <strong>本規約（特に3.禁止事項）が同様に適用されます。</strong></li>
+        <li>着色作品を第三者に譲渡・販売すること、第三者へ利用を許諾することはできません。</li>
+      </ul>
+
+      <h3>6. 投稿作品の取り扱い</h3>
       <ul>
         <li>ハッシュタグをつけて投稿された作品は、
-            <strong>YouTube配信内での紹介</strong>に限り使用させていただきます。</li>
+            <strong>YouTube配信内での紹介</strong>に限り使用させていただきます。
+            これは紹介のための使用許諾であり、
+            <strong>著作権が KOOLEs に移転するものではありません。</strong></li>
         <li>紹介する内容は、<strong>イラスト・作者名・X ID</strong> の3点です。
             これ以外の情報を紹介することはありません。</li>
         <li>配信以外の媒体（グッズ、印刷物、広告等）で使用することはありません。</li>
@@ -301,13 +347,13 @@ body::after{
             紹介の対象から除外します。</li>
       </ul>
 
-      <h3>5. 規約違反への対応</h3>
+      <h3>7. 規約違反への対応</h3>
       <ul>
         <li>AI生成の利用が疑われる投稿は、配信での紹介対象から除外します。</li>
         <li>その他、本規約に反する利用が確認された場合も、同様に紹介対象から除外します。</li>
       </ul>
 
-      <h3>6. その他</h3>
+      <h3>8. その他</h3>
       <ul>
         <li>本線画の著作権は KOOLEs に帰属します。</li>
         <li>本規約は予告なく変更される場合があります。変更時は本ページにて告知します。</li>
@@ -320,9 +366,14 @@ body::after{
     <h2><span class="en">DOWNLOAD</span>線画のダウンロード</h2>
 
     <div class="ew-card">
-      <p style="margin:0 0 22px;text-align:center">
+      <p style="margin:0 0 18px;text-align:center">
         上記の規約に同意のうえ、お好みの形式をダウンロードしてください。<br>
         <span class="ew-note">どちらも同じ線画です（PNG / 2894 × 4093px）</span>
+      </p>
+
+      <!-- DL直前にもう一度、署名のお願いを想起させる -->
+      <p style="text-align:center;margin:0 0 22px;color:var(--gold);font-weight:700">
+        塗り終えたら、作品の中にお名前か X の ID を入れるのを忘れずに。
       </p>
 
       <div class="ew-dl-grid">
