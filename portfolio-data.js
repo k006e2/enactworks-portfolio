@@ -9,6 +9,7 @@
  *   id:          "一意のID（英数字・ハイフン）",
  *   title:       "実績タイトル",
  *   thumbnail:   "サムネイル画像のURL",
+ *   thumbnailRatio: "1 / 1"（任意。モーダルのサムネイル比率。既定は 16/9）,
  *   youtubeId:   "YouTubeの動画ID（設定すると日付・再生回数を自動取得）",
  *   date:        "YYYY-MM-DD 形式（新着順ソートに使用。空の場合は末尾に表示）",
  *   type:        "カテゴリ（例: プロモーション / オリジナル曲 / ラジオ など）",
@@ -49,9 +50,10 @@ const portfolioData = [
         id: "streamart-real-gacha-2026",
         title: "特別な夏をお届け！KOOLEsの限定リアルグッズ＆甘々夏デートシチュボ",
         thumbnail: "streamart-gacha.jpg",
+        thumbnailRatio: "1 / 1",
         date: "2026-08-14",
         type: "グッズ展開",
-        description: "販売期間：2026年8月14日〜10月1日 / 渋谷109フォーラムビジョンにて放映（8月13日〜9月12日頃）",
+        description: "販売期間：2026年8月14日〜9月30日 / 渋谷109フォーラムビジョンにて放映（8月13日〜9月12日頃）",
         links: [
             { label: "ガチャページを見る", url: "https://www.streamart.tokyo/real_gacha/430/" },
             { label: "渋谷109ビジョン放映のお知らせ", url: "https://x.com/eternalmedal/status/2087735895331922117" }

@@ -2995,8 +2995,12 @@
                 }
 
                 function openPortfolioModal(item) {
-                    document.getElementById('portfolioModalThumbnail').src = item.thumbnail;
-                    document.getElementById('portfolioModalThumbnail').alt = item.title;
+                    const thumbEl = document.getElementById('portfolioModalThumbnail');
+                    thumbEl.src = item.thumbnail;
+                    thumbEl.alt = item.title;
+                    // 既定は 16/9。正方形など比率の違う画像は
+                    // portfolio-data.js の thumbnailRatio で個別に指定する
+                    thumbEl.style.aspectRatio = item.thumbnailRatio || '';
                     document.getElementById('portfolioModalType').textContent = item.type || '';
                     document.getElementById('portfolioModalTitle').textContent = item.title;
 
