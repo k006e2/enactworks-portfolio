@@ -46,6 +46,32 @@ const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 const portfolioData = [
 
     {
+        id: "streamart-real-gacha-2026",
+        title: "特別な夏をお届け！KOOLEsの限定リアルグッズ＆甘々夏デートシチュボ",
+        thumbnail: "streamart-gacha.jpg",
+        date: "2026-08-14",
+        type: "グッズ展開",
+        description: "販売期間：2026年8月14日〜10月1日 / 渋谷109フォーラムビジョンにて放映（8月13日〜9月12日頃）",
+        links: [
+            { label: "ガチャページを見る", url: "https://www.streamart.tokyo/real_gacha/430/" },
+            { label: "渋谷109ビジョン放映のお知らせ", url: "https://x.com/eternalmedal/status/2087735895331922117" }
+        ]
+    },
+
+    {
+        id: "streamart-goods-event",
+        title: "【Streamart】KOOLEsオリジナルリアルグッズ発売イベント【#PR】",
+        thumbnail: "https://img.youtube.com/vi/mfoZCz7QKhY/maxresdefault.jpg",
+        youtubeId: "mfoZCz7QKhY",
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "配信アーカイブを見る", url: "https://youtube.com/live/mfoZCz7QKhY" }
+        ]
+    },
+
+    {
         id: "foxyu-collab-yandere",
         title: "【ヤンデレ×FoxyU】バーで出会ったかわいいもの大好きのマフィアに気に入られて執着される話【#PR】",
         thumbnail: "https://img.youtube.com/vi/GD4XS4M7qFY/maxresdefault.jpg",
