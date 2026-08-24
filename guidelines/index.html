@@ -19,16 +19,19 @@
 <meta name="twitter:site" content="@VTKOOLEs">
 <meta name="twitter:image" content="https://enactworks.com/hero-background.png">
 <style>
+  /* 配色は本体サイト（enactworks.com）の CSS 変数に合わせている */
   :root{
-    --ink:#1b2430;
-    --ink-soft:#4a5666;
-    --ink-faint:#7d8896;
-    --paper:#fbfaf7;
-    --panel:#ffffff;
-    --rule:#e2e0d9;
-    --mark:#9a6b1f;
-    --mark-bg:#fdf4e2;
-    --mark-rule:#e6d3ab;
+    --ink:#1a1a1a;          /* --color-primary  */
+    --ink-soft:#4b5563;
+    --ink-faint:#9ca3af;    /* --color-secondary 系 */
+    --paper:#f9fafb;        /* --color-bg-alt   */
+    --panel:#ffffff;        /* --color-bg       */
+    --rule:#e5e7eb;         /* --color-border   */
+    --mark:#0891b2;         /* --color-accent   */
+    --mark-hover:#0780a0;   /* --color-accent-hover */
+    --mark-strong:#0e7490;  /* 淡色地の上に置く文字用。accent のままだとコントラスト不足 */
+    --mark-bg:#ecfeff;
+    --mark-rule:#a5f3fc;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
@@ -57,7 +60,7 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.85rem;color:var(--ink-soft);margin:0}
   .authoritative{
     margin:24px 0 0;padding:16px 18px;background:var(--panel);
-    border:1px solid var(--rule);border-left:3px solid var(--ink);
+    border:1px solid var(--rule);border-left:3px solid var(--mark);
     font-size:.9rem;line-height:1.75;
   }
   .authoritative p{margin:0 0 8px}
@@ -70,7 +73,7 @@
     background:transparent;border:1px solid var(--rule);color:var(--ink-soft);
     border-radius:2px;transition:.15s;
   }
-  .lang button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .lang button[aria-pressed="true"]{background:var(--mark);border-color:var(--mark);color:#fff}
   .lang button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 
   /* ---- history ---- */
@@ -126,23 +129,23 @@
   .amend{
     margin:0 0 16px;padding:12px 16px;
     background:var(--mark-bg);border:1px solid var(--mark-rule);
-    font-size:.86rem;line-height:1.7;color:var(--mark);
+    font-size:.86rem;line-height:1.7;color:var(--mark-strong);
   }
-  .amend a{color:var(--mark);font-weight:600}
+  .amend a{color:var(--mark-strong);font-weight:600}
   .amend strong{font-weight:600}
   .tag{
     display:inline-block;font-size:.68rem;letter-spacing:.08em;
     padding:2px 8px;border:1px solid var(--mark-rule);
-    background:var(--mark-bg);color:var(--mark);border-radius:2px;
+    background:var(--mark-bg);color:var(--mark-strong);border-radius:2px;
     vertical-align:middle;font-weight:600;
   }
 
   /* 本文中の相互参照リンク。既定の青だと紙面から浮くため配色を合わせる */
   section a{
-    color:var(--mark);text-decoration:none;
+    color:var(--mark-strong);text-decoration:none;
     border-bottom:1px solid var(--mark-rule);
   }
-  section a:hover{border-bottom-color:var(--mark)}
+  section a:hover{color:var(--mark);border-bottom-color:var(--mark)}
   section a:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
   section a.anchor{border-bottom:none}
 
