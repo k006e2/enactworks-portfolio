@@ -588,92 +588,58 @@
         }
         
         .service-card-container {
-            perspective: 1000px;
-            height: 420px;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+            display: flex;
+            -webkit-tap-highlight-color: transparent;
         }
-        
-        .service-card * {
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
-            outline: none !important;
-        }
-        
+
         .service-card {
-            position: relative;
             width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
-            outline: none !important;
-        }
-        
-        .service-card.flipped {
-            transform: rotateY(180deg);
-        }
-        
-        .service-card-front,
-        .service-card-back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
             background-color: white;
             border: 1px solid var(--color-border);
             border-radius: 16px;
             padding: var(--spacing-lg);
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             text-align: center;
-            box-sizing: border-box;
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
-            outline: none !important;
-            -webkit-user-select: none;
-            user-select: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            -webkit-tap-highlight-color: transparent;
         }
-        
-        .service-card-front {
-            z-index: 2;
-            transform: rotateY(0deg);
-        }
-        
-        .service-card-back {
-            transform: rotateY(180deg);
-            padding: var(--spacing-md);
-            overflow: hidden !important;
-        }
-        
-        /* スクロールバーを完全に非表示 */
-        .service-card-back::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-        }
-        
-        .service-card-back {
-            -ms-overflow-style: none !important;
-            scrollbar-width: none !important;
-        }
-        
-        .service-card-container:hover .service-card-front {
+
+        .service-card:hover {
             border-color: var(--color-accent);
             box-shadow: 0 12px 32px rgba(8, 145, 178, 0.12);
+            transform: translateY(-4px);
         }
-        
+
+        .service-card:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 3px;
+        }
+
+        /* 表面に出す代表価格。裏返さずに予算感が分かるようにする */
+        .service-price-from {
+            margin-top: auto;
+            padding-top: var(--spacing-sm);
+            width: 100%;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .service-price-from .label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            color: var(--color-secondary);
+            margin-bottom: 0.15rem;
+        }
+
+        .service-price-from .value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
         .service-icon {
             width: 72px;
             height: 72px;
@@ -719,20 +685,13 @@
             color: var(--color-accent);
         }
         
-        .flip-hint {
-            margin-top: auto;
+        .service-more {
+            margin-top: var(--spacing-sm);
             font-size: 0.75rem;
+            font-weight: 500;
             color: var(--color-accent);
-            opacity: 0.7;
         }
         
-        /* カード裏面のスタイル */
-        .service-card-back h3 {
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-accent);
-            flex-shrink: 0;
-            font-size: 1.1rem;
-        }
         
         .service-details {
             width: 100%;
@@ -1311,6 +1270,166 @@
             margin-top: var(--spacing-sm);
         }
         
+        /* ==================== Service Modal ==================== */
+        .service-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .service-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .service-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .service-modal-content {
+            position: relative;
+            background-color: white;
+            border-radius: 16px;
+            width: calc(100% - 2rem);
+            max-width: 560px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+        }
+
+        .service-modal-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--color-bg-alt);
+            color: var(--color-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 2;
+            transition: var(--transition-smooth);
+        }
+
+        .service-modal-close:hover {
+            background-color: var(--color-border);
+        }
+
+        .service-modal-body {
+            padding: var(--spacing-lg);
+        }
+
+        .service-modal-head {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service-modal-head h3 {
+            font-size: 1.35rem;
+            margin-top: var(--spacing-sm);
+        }
+
+        .service-modal-section {
+            margin-top: var(--spacing-md);
+        }
+
+        .service-modal-section h4 {
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-works {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .service-work {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            background-color: var(--color-bg-alt);
+            transition: var(--transition-smooth);
+        }
+
+        .service-work:hover {
+            transform: scale(1.04);
+        }
+
+        .service-work img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .service-work-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0.35rem 0.4rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            color: white;
+            font-size: 0.6rem;
+            line-height: 1.35;
+            text-align: left;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .service-works-more {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--color-accent);
+        }
+
+        /* 料金と実績を見た直後に問い合わせへ進めるようにする */
+        .service-modal-cta {
+            display: block;
+            margin-top: var(--spacing-lg);
+            padding: 0.9rem;
+            border-radius: 999px;
+            background-color: var(--color-accent);
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .service-modal-cta:hover {
+            background-color: var(--color-accent-hover);
+        }
+
+        @media (max-width: 600px) {
+            .service-modal-body { padding: var(--spacing-md); }
+            .service-modal-content { max-height: 88vh; }
+        }
+
         /* ==================== Portfolio Modal ==================== */
         .portfolio-modal {
             position: fixed;
@@ -1585,16 +1704,11 @@
                 max-width: 85%;
                 min-width: 280px;
                 scroll-snap-align: start;
-                height: 450px;
             }
             
-            .service-card-front,
-            .service-card-back {
+            .service-card {
                 padding: var(--spacing-md);
-                overflow: hidden !important;
-                -webkit-tap-highlight-color: transparent !important;
-                tap-highlight-color: transparent !important;
-                outline: none !important;
+                -webkit-tap-highlight-color: transparent;
             }
             
             .service-icon {
@@ -1621,14 +1735,9 @@
                 line-height: 1.6;
             }
             
-            .flip-hint {
+            .service-more {
                 font-size: 0.65rem;
                 margin-top: var(--spacing-xs);
-            }
-            
-            .service-card-back h3 {
-                font-size: 1.05rem;
-                margin-bottom: var(--spacing-sm);
             }
             
             .service-details {
@@ -1815,7 +1924,6 @@
                 flex: 0 0 90%;
                 max-width: 90%;
                 min-width: 90%;
-                height: 450px;
             }
             
             .platform-icon {
@@ -2043,108 +2151,8 @@
             <h2 class="section-title">SERVICE</h2>
             <p class="section-subtitle">提供サービス</p>
             
-            <div class="service-grid">
-                <!-- ボイスワーク -->
-                <div class="service-card-container">
-                    <div class="service-card">
-                        <div class="service-card-front">
-                            <div class="service-icon"><i class="fas fa-microphone-alt"></i></div>
-                            <h3>ボイスワーク</h3>
-                            <ul class="service-list">
-                                <li>ナレーション収録</li>
-                                <li>キャラクターボイス</li>
-                                <li>実況・解説音声</li>
-                                <li>音声編集・加工</li>
-                            </ul>
-                            <p class="flip-hint">タップで詳細を表示</p>
-                        </div>
-                        <div class="service-card-back">
-                            <h3>ボイスワーク</h3>
-                            <div class="service-details">
-                                <div class="detail-item">
-                                    <strong>ナレーション収録（宅録）</strong>
-                                    <p class="price">5,000円〜</p>
-                                </div>
-                                <div class="detail-item">
-                                    <strong>キャラクターボイス</strong>
-                                    <p class="price">要相談</p>
-                                </div>
-                                <div class="detail-item">
-                                    <strong>音声編集・加工</strong>
-                                    <p class="price">3,000円〜</p>
-                                </div>
-                            </div>
-                            <p class="service-note">※内容により変動します<br>お気軽にご相談ください</p>
-                            <p class="flip-hint">タップで戻る</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 動画制作 -->
-                <div class="service-card-container">
-                    <div class="service-card">
-                        <div class="service-card-front">
-                            <div class="service-icon"><i class="fas fa-video"></i></div>
-                            <h3>動画制作</h3>
-                            <ul class="service-list">
-                                <li>動画編集、収録</li>
-                                <li>サムネイル制作</li>
-                            </ul>
-                            <p class="flip-hint">タップで詳細を表示</p>
-                        </div>
-                        <div class="service-card-back">
-                            <h3>動画制作</h3>
-                            <div class="service-details">
-                                <div class="detail-item">
-                                    <strong>動画編集、収録</strong>
-                                    <p class="price">30,000円〜（内容により変動）</p>
-                                </div>
-                                <div class="detail-item">
-                                    <strong>サムネイル制作</strong>
-                                    <p class="price">1,000円〜</p>
-                                </div>
-                            </div>
-                            <p class="service-note">※内容により変動します<br>お気軽にご相談ください</p>
-                            <p class="flip-hint">タップで戻る</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- プロモーション -->
-                <div class="service-card-container">
-                    <div class="service-card">
-                        <div class="service-card-front">
-                            <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
-                            <h3>プロモーション</h3>
-                            <ul class="service-list">
-                                <li>案件配信</li>
-                                <li>商品・サービスPR</li>
-                                <li>タイアップ企画</li>
-                            </ul>
-                            <p class="flip-hint">タップで詳細を表示</p>
-                        </div>
-                        <div class="service-card-back">
-                            <h3>プロモーション</h3>
-                            <div class="service-details">
-                                <div class="detail-item">
-                                    <strong>案件配信</strong>
-                                    <p class="price">要相談</p>
-                                </div>
-                                <div class="detail-item">
-                                    <strong>商品・サービスPR</strong>
-                                    <p class="price">50,000円〜</p>
-                                </div>
-                                <div class="detail-item">
-                                    <strong>タイアップ企画</strong>
-                                    <p class="price">100,000円〜</p>
-                                </div>
-                            </div>
-                            <p class="service-note">※内容により変動します<br>お気軽にご相談ください</p>
-                            <p class="flip-hint">タップで戻る</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- カードは portfolio-data.js の serviceData から生成されます -->
+            <div class="service-grid" id="serviceGrid"></div>
         </div>
     </section>
 
@@ -2588,6 +2596,34 @@
             <p class="copyright">© 2026 EnactWorks / KOOLEs. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- Service Modal -->
+    <div class="service-modal" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+        <div class="service-modal-backdrop"></div>
+        <div class="service-modal-content">
+            <button class="service-modal-close" id="serviceModalClose" aria-label="閉じる">✕</button>
+            <div class="service-modal-body">
+                <div class="service-modal-head">
+                    <div class="service-icon" id="serviceModalIcon"></div>
+                    <h3 id="serviceModalTitle"></h3>
+                </div>
+
+                <div class="service-modal-section">
+                    <h4>料金</h4>
+                    <div class="service-details" id="serviceModalPrices"></div>
+                    <p class="service-note" id="serviceModalNote"></p>
+                </div>
+
+                <div class="service-modal-section" id="serviceModalWorksWrap">
+                    <h4>実績事例</h4>
+                    <div class="service-works" id="serviceModalWorks"></div>
+                    <a href="#portfolio" class="service-works-more" id="serviceModalWorksMore">すべての実績を見る →</a>
+                </div>
+
+                <a href="#contact" class="service-modal-cta" id="serviceModalCta">この内容で相談する →</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Portfolio Modal -->
     <div class="portfolio-modal" id="portfolioModal" role="dialog" aria-modal="true">
@@ -3137,6 +3173,9 @@
                     document.body.style.overflow = '';
                 }
 
+                // SERVICE モーダルの実績サムネイルから呼び出せるようにする
+                window.openPortfolioModal = openPortfolioModal;
+
                 modalClose.addEventListener('click', closePortfolioModal);
                 modalBackdrop.addEventListener('click', closePortfolioModal);
 
@@ -3147,14 +3186,167 @@
                 });
             }
 
-            // Service card flip functionality
-            const serviceCards = document.querySelectorAll('.service-card');
-            
-            serviceCards.forEach(function(card) {
-                card.addEventListener('click', function() {
-                    this.classList.toggle('flipped');
+            // ========== Service Cards & Modal ==========
+            if (typeof serviceData !== 'undefined' && serviceData.length > 0) {
+                const serviceGrid = document.getElementById('serviceGrid');
+                const svcModal = document.getElementById('serviceModal');
+                const svcWorksWrap = document.getElementById('serviceModalWorksWrap');
+
+                // services タグで紐付いた実績を新しい順に取り出す
+                function worksForService(id, limit) {
+                    const list = portfolioData.filter(function(item) {
+                        return item.services && item.services.indexOf(id) !== -1;
+                    }).slice().sort(function(a, b) {
+                        if (!a.date && !b.date) return 0;
+                        if (!a.date) return 1;
+                        if (!b.date) return -1;
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    return limit ? list.slice(0, limit) : list;
+                }
+
+                function closeServiceModal() {
+                    svcModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+
+                function openServiceModal(svc) {
+                    document.getElementById('serviceModalIcon').innerHTML =
+                        '<i class="fas ' + svc.icon + '"></i>';
+                    document.getElementById('serviceModalTitle').textContent = svc.title;
+
+                    const priceEl = document.getElementById('serviceModalPrices');
+                    priceEl.innerHTML = '';
+                    svc.items.forEach(function(it) {
+                        const row = document.createElement('div');
+                        row.className = 'detail-item';
+                        const name = document.createElement('strong');
+                        name.textContent = it.name;
+                        const price = document.createElement('p');
+                        price.className = 'price';
+                        price.textContent = it.price;
+                        row.appendChild(name);
+                        row.appendChild(price);
+                        priceEl.appendChild(row);
+                    });
+                    document.getElementById('serviceModalNote').textContent = svc.note || '';
+
+                    // 実績が無いサービスは、欄ごと出さない
+                    const works = svc.worksLimit ? worksForService(svc.id, svc.worksLimit) : [];
+                    const worksEl = document.getElementById('serviceModalWorks');
+                    worksEl.innerHTML = '';
+                    if (works.length === 0) {
+                        svcWorksWrap.style.display = 'none';
+                    } else {
+                        svcWorksWrap.style.display = '';
+                        works.forEach(function(item) {
+                            const tile = document.createElement('div');
+                            tile.className = 'service-work';
+
+                            if (item.thumbnail) {
+                                const img = document.createElement('img');
+                                img.src = item.thumbnail;
+                                img.alt = item.title;
+                                img.loading = 'lazy';
+                                tile.appendChild(img);
+                            }
+
+                            const cap = document.createElement('span');
+                            cap.className = 'service-work-title';
+                            cap.textContent = item.title;
+                            tile.appendChild(cap);
+
+                            tile.addEventListener('click', function() {
+                                closeServiceModal();
+                                if (typeof window.openPortfolioModal === 'function') {
+                                    window.openPortfolioModal(item);
+                                }
+                            });
+                            worksEl.appendChild(tile);
+                        });
+                    }
+
+                    svcModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function renderServiceCards() {
+                    serviceGrid.innerHTML = '';
+                    serviceData.forEach(function(svc) {
+                        const wrap = document.createElement('div');
+                        wrap.className = 'service-card-container';
+
+                        const card = document.createElement('div');
+                        card.className = 'service-card';
+                        card.tabIndex = 0;
+                        card.setAttribute('role', 'button');
+                        card.setAttribute('aria-label', svc.title + ' の料金と実績を見る');
+
+                        const icon = document.createElement('div');
+                        icon.className = 'service-icon';
+                        icon.innerHTML = '<i class="fas ' + svc.icon + '"></i>';
+                        card.appendChild(icon);
+
+                        const h3 = document.createElement('h3');
+                        h3.textContent = svc.title;
+                        card.appendChild(h3);
+
+                        const ul = document.createElement('ul');
+                        ul.className = 'service-list';
+                        svc.summary.forEach(function(t) {
+                            const li = document.createElement('li');
+                            li.textContent = t;
+                            ul.appendChild(li);
+                        });
+                        card.appendChild(ul);
+
+                        // 裏返さずに予算感が分かるよう、代表価格を表面に出す
+                        const priceFrom = document.createElement('div');
+                        priceFrom.className = 'service-price-from';
+                        const label = document.createElement('span');
+                        label.className = 'label';
+                        label.textContent = '料金';
+                        const value = document.createElement('span');
+                        value.className = 'value';
+                        value.textContent = svc.priceFrom;
+                        priceFrom.appendChild(label);
+                        priceFrom.appendChild(value);
+                        card.appendChild(priceFrom);
+
+                        const more = document.createElement('p');
+                        more.className = 'service-more';
+                        more.textContent = 'タップで料金・実績を見る';
+                        card.appendChild(more);
+
+                        card.addEventListener('click', function() { openServiceModal(svc); });
+                        card.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                openServiceModal(svc);
+                            }
+                        });
+
+                        wrap.appendChild(card);
+                        serviceGrid.appendChild(wrap);
+                    });
+                }
+
+                document.getElementById('serviceModalClose')
+                    .addEventListener('click', closeServiceModal);
+                svcModal.querySelector('.service-modal-backdrop')
+                    .addEventListener('click', closeServiceModal);
+                document.getElementById('serviceModalCta')
+                    .addEventListener('click', closeServiceModal);
+                document.getElementById('serviceModalWorksMore')
+                    .addEventListener('click', closeServiceModal);
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && svcModal.classList.contains('active')) {
+                        closeServiceModal();
+                    }
                 });
-            });
+
+                renderServiceCards();
+            }
             
             console.log('All event listeners attached');
         });

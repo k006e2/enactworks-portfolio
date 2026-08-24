@@ -13,6 +13,7 @@
  *   youtubeId:   "YouTubeの動画ID（設定すると日付・再生回数を自動取得）",
  *   date:        "YYYY-MM-DD 形式（新着順ソートに使用。空の場合は末尾に表示）",
  *   type:        "カテゴリ（例: プロモーション / オリジナル曲 / ラジオ など）",
+ *   services:    ["promotion", "video"]（任意。SERVICE の実績事例に出す紐付け）,
  *   description: "概要テキスト（不要な場合は空文字 ''）",
  *   links: [
  *     { label: "ボタンの文言", url: "リンク先URL" },
@@ -62,6 +63,7 @@ const portfolioData = [
 
     {
         id: "streamart-goods-event",
+        services: ["promotion"],
         title: "【Streamart】KOOLEsオリジナルリアルグッズ発売イベント【#PR】",
         thumbnail: "https://img.youtube.com/vi/mfoZCz7QKhY/maxresdefault.jpg",
         youtubeId: "mfoZCz7QKhY",
@@ -75,6 +77,7 @@ const portfolioData = [
 
     {
         id: "foxyu-collab-yandere",
+        services: ["promotion", "video"],
         title: "【ヤンデレ×FoxyU】バーで出会ったかわいいもの大好きのマフィアに気に入られて執着される話【#PR】",
         thumbnail: "https://img.youtube.com/vi/GD4XS4M7qFY/maxresdefault.jpg",
         youtubeId: "GD4XS4M7qFY",
@@ -88,6 +91,7 @@ const portfolioData = [
 
     {
         id: "foxyu-promo",
+        services: ["promotion"],
         title: "【FoxyU】漫画生成できるAIチャットアプリでヤンデレキャラ作りたい【#PR】",
         thumbnail: "https://img.youtube.com/vi/ghEvo50CDc8/maxresdefault.jpg",
         youtubeId: "ghEvo50CDc8",
@@ -103,6 +107,7 @@ const portfolioData = [
 
     {
         id: "crushie-ai-shorts",
+        services: ["promotion", "video"],
         title: "【Crushie AI】真面目プレイとふざけプレイでときめきメモの内容は変わるのか？【#PR】",
         thumbnail: "https://img.youtube.com/vi/5UcXUx3qzA4/maxresdefault.jpg",
         youtubeId: "5UcXUx3qzA4",
@@ -116,6 +121,7 @@ const portfolioData = [
 
     {
         id: "lords-mobile-promo",
+        services: ["promotion"],
         title: "ロードモバイル 春の覇王祭",
         thumbnail: "ローモバ.jpg",
         date: "2026-04-24",
@@ -128,6 +134,7 @@ const portfolioData = [
 
     {
         id: "crushie-ai-promo",
+        services: ["promotion", "video"],
         title: "【Crushie AI】あなただけの恋人に逢えるAIチャットアプリを俺が持てる力全て使って全力紹介する動画【#PR】",
         thumbnail: "https://img.youtube.com/vi/NpazhF4aiVM/maxresdefault.jpg",
         youtubeId: "NpazhF4aiVM",
@@ -141,6 +148,7 @@ const portfolioData = [
 
     {
         id: "zeta-collab-yandere",
+        services: ["promotion", "video"],
         title: "【ヤンデレ×zeta】オンオフ激しい依存体質の問題児バンドマンが世話を焼いてくれるマネージャーに溺愛執着する話【#PR】",
         thumbnail: "https://img.youtube.com/vi/36DYWeo-jBA/maxresdefault.jpg",
         youtubeId: "36DYWeo-jBA",
@@ -154,6 +162,7 @@ const portfolioData = [
 
     {
         id: "zeta-promo-2026",
+        services: ["promotion"],
         title: "zetaアプリプロモーション配信",
         thumbnail: "https://img.youtube.com/vi/WA3bZPZkZz4/maxresdefault.jpg",
         youtubeId: "WA3bZPZkZz4",
@@ -223,6 +232,7 @@ const portfolioData = [
 
     {
         id: "raid-promo",
+        services: ["promotion"],
         title: "RAID: Shadow Legendsプロモーション配信",
         thumbnail: "https://img.youtube.com/vi/p6Uz_WZxsgs/maxresdefault.jpg",
         youtubeId: "p6Uz_WZxsgs",
@@ -236,6 +246,7 @@ const portfolioData = [
 
     {
         id: "morning-call-mv",
+        services: ["video"],
         title: "【オリジナル曲】モーニングコール【MV】",
         thumbnail: "https://img.youtube.com/vi/YHLtXPRwz_w/maxresdefault.jpg",
         youtubeId: "YHLtXPRwz_w",
@@ -260,5 +271,65 @@ const portfolioData = [
     },
 
     // ↑ ここに新しい実績を追加（末尾のカンマに注意）
+
+];
+
+// =============================================
+// 提供サービス（SERVICE セクション）
+// =============================================
+//
+// カード表面には priceFrom を出し、クリックで開くモーダルに
+// items（料金の内訳）と、services タグで紐付いた実績事例を表示します。
+//
+//   id:        portfolioData の services タグと対応させる文字列
+//   priceFrom: カード表面に出す代表価格。主力メニューの価格を入れる
+//   items:     モーダルに出す料金の内訳
+//   worksLimit: 実績事例の表示件数（新しい順）。0 なら実績欄を出さない
+//
+const serviceData = [
+
+    {
+        id: "voice",
+        icon: "fa-microphone-alt",
+        title: "ボイスワーク",
+        summary: ["ナレーション収録", "キャラクターボイス", "実況・解説音声", "音声編集・加工"],
+        priceFrom: "5,000円〜",
+        items: [
+            { name: "ナレーション収録（宅録）", price: "5,000円〜" },
+            { name: "キャラクターボイス", price: "要相談" },
+            { name: "音声編集・加工", price: "3,000円〜" }
+        ],
+        note: "※内容により変動します。お気軽にご相談ください。",
+        worksLimit: 0
+    },
+
+    {
+        id: "video",
+        icon: "fa-video",
+        title: "動画制作",
+        summary: ["動画編集、収録", "サムネイル制作"],
+        priceFrom: "30,000円〜",
+        items: [
+            { name: "動画編集、収録", price: "30,000円〜（内容により変動）" },
+            { name: "サムネイル制作", price: "1,000円〜" }
+        ],
+        note: "※内容により変動します。お気軽にご相談ください。",
+        worksLimit: 3
+    },
+
+    {
+        id: "promotion",
+        icon: "fa-bullhorn",
+        title: "プロモーション",
+        summary: ["案件配信", "商品・サービスPR", "タイアップ企画"],
+        priceFrom: "50,000円〜",
+        items: [
+            { name: "案件配信", price: "要相談" },
+            { name: "商品・サービスPR", price: "50,000円〜" },
+            { name: "タイアップ企画", price: "100,000円〜" }
+        ],
+        note: "※内容により変動します。お気軽にご相談ください。",
+        worksLimit: 3
+    }
 
 ];
