@@ -20,6 +20,11 @@
     <meta name="twitter:site" content="@VTKOOLEs">
     <meta name="twitter:image" content="https://enactworks.com/hero-background.png">
     
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#0891b2">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2173,7 +2178,7 @@
 
             <div id="voice-tab">
                 <div class="voice-samples-grid">
-                    <div class="voice-sample-card" data-audio="audio/ナレーション1.wav">
+                    <div class="voice-sample-card" data-audio="audio/ナレーション1.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2184,7 +2189,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/ナレーション2.wav">
+                    <div class="voice-sample-card" data-audio="audio/ナレーション2.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2195,7 +2200,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/ナレーション3.wav">
+                    <div class="voice-sample-card" data-audio="audio/ナレーション3.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2206,7 +2211,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/王道.wav">
+                    <div class="voice-sample-card" data-audio="audio/王道.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2217,7 +2222,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/低音ヒール.wav">
+                    <div class="voice-sample-card" data-audio="audio/低音ヒール.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2228,7 +2233,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/後輩.wav">
+                    <div class="voice-sample-card" data-audio="audio/後輩.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2239,7 +2244,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/親分子分.wav">
+                    <div class="voice-sample-card" data-audio="audio/親分子分.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2250,7 +2255,7 @@
                         <button class="play-btn">▶ 再生</button>
                     </div>
                     
-                    <div class="voice-sample-card" data-audio="audio/おじいちゃん.wav">
+                    <div class="voice-sample-card" data-audio="audio/おじいちゃん.mp3">
                         <div class="waveform">
                             <canvas class="waveform-canvas"></canvas>
                             <div class="waveform-progress"></div>
@@ -2772,121 +2777,68 @@
             let currentAudio = null;
             let currentPlayBtn = null;
             
-            // Load and draw waveforms
+            // 波形のピーク値。generate-waveform-peaks.py で事前計算しており、
+            // ページ表示時に音声本体を取得しないで済むようにしている
+            const WAVEFORM_PEAKS = {"audio/おじいちゃん.mp3":[0.0,0.0,0.0,0.59,0.7,0.65,0.49,0.57,1.0,0.44,0.86,0.49,0.48,0.61,0.06,0.0,0.0,0.81,0.79,0.71,0.83,0.85,0.59,0.27,0.09,0.0,0.0,0.0,0.0,0.0,0.71,0.65,0.28,0.8,0.68,0.58,0.72,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.99,0.59,0.62,0.65,0.26,0.21,0.29,0.07,0.0,0.0,0.0,0.0,0.0,0.0,0.71,0.68,0.5,0.8,0.59,0.55,0.38,0.26,0.09,0.0,0.0,0.0,0.0,0.0,0.97,0.67,0.33,0.07,0.0,0.0,0.68,0.75,0.52,0.72,0.91,0.67,0.73,0.67,0.08,0.01,0.0,0.0,0.0,0.0,0.38,0.55,0.52,0.74,0.35,0.15,0.0,0.0],"audio/ナレーション1.mp3":[0.03,0.01,0.97,0.54,0.75,0.59,0.55,0.01,0.03,0.89,0.76,0.39,1.0,0.68,0.61,0.99,0.55,0.51,0.03,0.01,0.95,0.01,0.95,0.73,0.77,0.39,0.03,0.68,0.21,0.99,0.81,0.85,0.69,0.68,0.57,0.17,0.03,0.03,0.96,0.62,0.52,0.88,0.61,0.39,0.03,0.05,0.86,0.67,0.44,0.78,0.81,0.74,0.51,0.35,0.84,0.73,0.7,0.81,0.03,0.03,0.03,0.85,0.7,0.6,0.74,0.69,0.37,0.03,0.75,0.5,0.18,0.61,0.52,0.2,0.85,0.64,0.64,0.15,0.03,0.97,0.64,0.63,0.8,0.91,0.54,0.47,0.03,0.03,0.93,0.54,0.91,0.41,0.03,0.88,0.46,0.58,0.84,0.43,0.02,0.01],"audio/ナレーション2.mp3":[0.01,0.01,0.89,0.64,0.87,0.8,0.71,0.72,0.66,0.44,0.75,0.69,0.57,0.56,0.76,0.86,0.71,0.62,0.77,0.73,0.89,0.01,0.69,0.65,0.87,0.74,0.59,0.01,0.8,0.79,0.91,0.81,0.9,0.79,0.63,0.62,0.63,0.3,0.4,0.93,0.84,0.93,0.61,0.74,0.81,0.65,0.93,0.87,0.78,0.01,0.73,0.01,0.77,0.71,0.72,1.0,0.81,0.7,0.84,0.73,1.0,0.76,0.39,0.76,0.8,0.85,0.85,0.84,0.7,0.87,0.94,0.01,0.61,0.87,0.33,0.55,0.78,0.66,0.01,0.98,0.83,0.83,0.7,0.72,0.77,0.74,0.93,0.84,0.66,0.63,0.02,0.06,0.89,0.62,0.84,0.67,0.78,0.49,0.01,0.0],"audio/ナレーション3.mp3":[0.01,0.81,0.67,0.01,0.3,0.65,0.54,0.2,0.01,0.82,0.4,0.1,0.76,0.51,0.47,0.03,0.83,0.64,0.47,0.31,0.03,0.03,0.88,0.61,0.23,0.6,0.51,0.45,0.08,0.03,0.8,0.74,0.47,0.42,0.7,0.47,0.19,0.03,0.03,0.75,0.64,0.86,0.26,0.03,0.76,0.33,0.77,0.62,0.31,0.03,0.04,0.82,0.85,0.56,0.24,0.07,0.03,0.03,0.88,0.26,0.03,0.05,0.41,0.03,0.78,0.72,0.23,0.03,0.19,0.83,0.7,0.43,0.3,0.97,0.91,0.62,0.44,0.48,0.1,0.03,0.03,1.0,0.63,0.08,0.03,0.58,0.4,0.45,0.26,0.03,0.95,0.68,0.23,0.24,0.84,0.59,0.05,0.03,0.02,0.01],"audio/低音ヒール.mp3":[0.0,0.68,0.0,0.79,0.62,0.71,0.12,0.0,0.0,0.11,0.78,0.92,0.93,0.82,0.72,0.82,0.64,0.58,0.2,0.0,0.0,0.0,0.04,0.87,0.69,0.55,0.75,0.63,0.69,0.74,0.86,0.75,0.62,0.24,0.0,0.0,0.0,0.7,0.69,0.73,0.8,0.73,0.64,1.0,0.61,0.44,0.08,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.83,0.74,0.58,0.67,0.71,0.19,0.07,0.0,0.0,0.0,0.66,0.19,0.0,0.75,0.72,0.79,0.67,0.71,0.85,0.68,0.73,0.27,0.29,0.37,0.09,0.0,0.0,0.0,0.0,0.86,0.27,0.0,0.89,0.68,0.58,0.14,0.0,0.0,0.0,0.71,0.48,0.7,0.3,0.04,0.0,0.0],"audio/後輩.mp3":[0.0,0.0,0.74,0.86,0.05,0.0,0.96,0.7,0.72,0.63,0.68,0.85,0.73,0.0,0.0,0.0,0.01,0.44,0.55,0.33,0.46,0.19,0.91,0.59,0.71,0.54,0.01,0.0,0.0,1.0,0.82,0.0,0.74,0.96,0.9,0.8,0.36,0.0,0.0,0.23,0.68,0.71,0.64,0.93,0.85,0.74,0.71,0.48,0.0,0.0,0.0,0.0,0.77,0.0,0.84,0.77,0.72,0.47,0.74,0.43,0.01,0.0,0.85,0.74,1.0,0.76,0.47,0.0,0.0,0.0,0.01,0.81,0.87,0.89,0.08,0.9,0.75,0.58,0.97,0.19,0.0,0.0,0.0,0.0,1.0,0.32,0.08,0.0,0.0,0.0,0.62,0.73,0.75,0.57,0.55,0.0,0.0,0.0,0.0,0.0],"audio/王道.mp3":[0.0,0.0,0.87,0.73,0.04,0.86,0.5,0.67,0.71,0.01,0.0,0.0,0.56,0.69,0.53,0.65,0.87,0.46,0.38,0.01,0.0,0.0,0.0,0.03,0.04,0.01,0.01,0.65,0.81,0.61,0.81,0.58,0.0,0.0,0.55,0.88,0.94,0.6,0.48,0.63,0.5,0.01,0.9,0.82,0.97,0.64,0.73,0.84,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.09,0.38,0.84,0.54,0.0,0.0,0.93,0.77,0.71,0.72,0.03,0.0,0.0,0.7,0.73,0.57,0.6,0.53,0.27,0.0,0.0,0.0,0.81,0.75,0.8,0.45,0.32,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.35,0.68,0.02,0.0,0.0,0.05,1.0,0.55,0.6,0.0,0.0],"audio/親分子分.mp3":[0.0,0.0,1.0,0.3,0.0,0.95,0.81,0.21,0.0,0.0,0.95,0.76,0.82,0.9,0.69,0.83,0.98,0.47,0.0,0.86,0.81,0.57,0.54,0.02,0.77,0.65,0.7,0.65,0.64,0.7,0.59,0.84,0.53,0.71,0.68,0.76,0.68,0.68,0.67,0.56,0.61,0.62,0.67,0.58,0.54,0.6,0.88,0.84,0.91,0.75,0.56,0.81,0.18,0.18,0.0,0.29,0.09,0.08,0.64,0.49,0.51,0.58,0.55,0.03,0.0,0.0,0.17,0.12,0.02,0.02,0.0,0.17,0.41,0.24,0.94,0.84,0.68,0.72,0.41,0.04,0.0,0.22,0.8,0.78,0.78,0.69,0.33,0.0,0.19,0.56,0.07,0.03,0.19,0.99,0.6,0.62,0.66,0.55,0.25,0.0]};
+
             const voiceSampleCards = document.querySelectorAll('.voice-sample-card');
-            
-            voiceSampleCards.forEach(function(card, index) {
-                const canvas = card.querySelector('.waveform-canvas');
-                const placeholder = card.querySelector('.waveform-placeholder');
-                const audioSrc = card.getAttribute('data-audio');
-                
-                if (canvas && audioSrc) {
-                    // Set canvas size
-                    const waveformDiv = canvas.parentElement;
-                    canvas.width = waveformDiv.offsetWidth;
-                    canvas.height = waveformDiv.offsetHeight;
-                    
-                    // Draw SoundCloud-style waveform
-                    const ctx = canvas.getContext('2d');
-                    const width = canvas.width;
-                    const height = canvas.height;
-                    const centerY = height / 2;
-                    
-                    ctx.clearRect(0, 0, width, height);
-                    
-                    // SoundCloud style: many thin vertical bars
-                    const barCount = 100;
-                    const barWidth = 2;
-                    const barGap = 1;
-                    const totalBarWidth = barWidth + barGap;
-                    
-                    // SoundCloud orange color (slightly adapted to site theme)
-                    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-                    gradient.addColorStop(0, 'rgba(8, 145, 178, 0.8)');
-                    gradient.addColorStop(0.5, 'rgba(8, 145, 178, 0.6)');
-                    gradient.addColorStop(1, 'rgba(8, 145, 178, 0.8)');
-                    
-                    ctx.fillStyle = gradient;
-                    
-                    // Use index to create variation
-                    const seed = index * 13.7;
-                    
-                    for (let i = 0; i < barCount; i++) {
-                        const x = i * totalBarWidth;
-                        
-                        // Create realistic audio waveform pattern
-                        const position = i / barCount;
-                        
-                        // Multiple sine waves for natural variation
-                        const wave1 = Math.sin(position * Math.PI * 2 + seed) * 0.3;
-                        const wave2 = Math.sin(position * Math.PI * 4 + seed * 0.5) * 0.2;
-                        const wave3 = Math.sin(position * Math.PI * 8 + seed * 0.25) * 0.15;
-                        
-                        // Add some randomness but keep it smooth
-                        const noise = (Math.sin(i * 0.7 + seed) * 0.1);
-                        
-                        // Combine waves for natural audio appearance
-                        let amplitude = 0.4 + wave1 + wave2 + wave3 + noise;
-                        
-                        // Ensure amplitude is within bounds
-                        amplitude = Math.max(0.1, Math.min(0.9, amplitude));
-                        
-                        const barHeight = amplitude * height * 0.8;
-                        const y = centerY - barHeight / 2;
-                        
-                        // Draw bar (no rounded corners for authentic SoundCloud look)
-                        ctx.fillRect(x, y, barWidth, barHeight);
-                    }
-                    
-                    // Hide placeholder
-                    if (placeholder) {
+
+            // ピークデータから波形を描く。表示サイズと端末の解像度に合わせる
+            function renderWaveform(canvas, peaks) {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                if (!rect.width || !rect.height) return false;
+
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = Math.round(rect.width * dpr);
+                canvas.height = Math.round(rect.height * dpr);
+
+                const ctx = canvas.getContext('2d');
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                const width = rect.width;
+                const height = rect.height;
+                const centerY = height / 2;
+                ctx.clearRect(0, 0, width, height);
+
+                const gradient = ctx.createLinearGradient(0, 0, 0, height);
+                gradient.addColorStop(0, 'rgba(8, 145, 178, 0.8)');
+                gradient.addColorStop(0.5, 'rgba(8, 145, 178, 0.6)');
+                gradient.addColorStop(1, 'rgba(8, 145, 178, 0.8)');
+                ctx.fillStyle = gradient;
+
+                const barCount = peaks.length;
+                const slot = width / barCount;
+                const barWidth = Math.max(1, slot - 1);
+
+                for (let i = 0; i < barCount; i++) {
+                    const barHeight = Math.max(height * 0.05, peaks[i] * height * 0.9);
+                    ctx.fillRect(i * slot, centerY - barHeight / 2, barWidth, barHeight);
+                }
+                return true;
+            }
+
+            function drawAllWaveforms() {
+                voiceSampleCards.forEach(function(card) {
+                    const canvas = card.querySelector('.waveform-canvas');
+                    const placeholder = card.querySelector('.waveform-placeholder');
+                    const audioSrc = card.getAttribute('data-audio');
+                    const peaks = WAVEFORM_PEAKS[audioSrc];
+                    if (!canvas || !peaks) return;
+                    if (renderWaveform(canvas, peaks) && placeholder) {
                         placeholder.style.display = 'none';
                     }
-                    
-                    // Try to load actual waveform in background
-                    const audioElement = new Audio();
-                    audioElement.src = audioSrc;
-                    
-                    audioElement.addEventListener('loadedmetadata', function() {
-                        // Try Web Audio API approach
-                        fetch(audioSrc)
-                            .then(response => response.arrayBuffer())
-                            .then(arrayBuffer => {
-                                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                                return audioContext.decodeAudioData(arrayBuffer);
-                            })
-                            .then(audioBuffer => {
-                                // Redraw with actual waveform using SoundCloud style
-                                const ctx = canvas.getContext('2d');
-                                const data = audioBuffer.getChannelData(0);
-                                const step = Math.ceil(data.length / barCount);
-                                
-                                ctx.clearRect(0, 0, width, height);
-                                ctx.fillStyle = gradient;
-                                
-                                for (let i = 0; i < barCount; i++) {
-                                    const x = i * totalBarWidth;
-                                    
-                                    // Get peak amplitude for this segment
-                                    let max = 0;
-                                    for (let j = 0; j < step; j++) {
-                                        const value = Math.abs(data[(i * step) + j]);
-                                        if (value > max) max = value;
-                                    }
-                                    
-                                    const barHeight = Math.max(height * 0.05, max * height * 0.9);
-                                    const y = centerY - barHeight / 2;
-                                    
-                                    ctx.fillRect(x, y, barWidth, barHeight);
-                                }
-                            })
-                            .catch(error => {
-                                // Keep the simulated waveform
-                            });
-                    });
-                }
+                });
+            }
+
+            // レイアウトが確定してから描き、画面幅の変化にも追従させる
+            drawAllWaveforms();
+            window.addEventListener('load', drawAllWaveforms);
+            let waveformResizeTimer = null;
+            window.addEventListener('resize', function() {
+                clearTimeout(waveformResizeTimer);
+                waveformResizeTimer = setTimeout(drawAllWaveforms, 150);
             });
-            
+
             // Audio playback with seekbar
             let currentProgressBar = null;
             let progressInterval = null;

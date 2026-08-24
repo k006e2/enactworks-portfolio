@@ -1,14 +1,90 @@
 # ============================================================
-# enactworks.com
-# ソースファイル・設定ファイルへの直接アクセスを禁止する設定
-#
-# ※ サイト表示に必要な portfolio-data.js はブロック対象外
+#  enactworks.com  配信設定
 # ============================================================
 
-# ビルド用スクリプト・パッケージ設定
-<FilesMatch "^(update-youtube\.js|package\.json|package-lock\.json|README\.md)$">
+# ------------------------------------------------------------
+# 圧縮
+# ------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------
+# ブラウザキャッシュ
+# 音声・画像は内容が変わればファイル名を変える運用のため長期キャッシュ
+# ------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType audio/mpeg        "access plus 1 year"
+    ExpiresByType audio/wav         "access plus 1 year"
+    ExpiresByType image/jpeg        "access plus 1 year"
+    ExpiresByType image/png         "access plus 1 year"
+    ExpiresByType image/webp        "access plus 1 year"
+    ExpiresByType image/svg+xml     "access plus 1 year"
+    ExpiresByType image/x-icon      "access plus 1 year"
+    ExpiresByType text/css          "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/html         "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(mp3|wav|jpg|jpeg|png|webp|svg|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    # HTML は常に最新を取りに行かせる
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+    Header set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ------------------------------------------------------------
+# MIMEタイプ
+# ------------------------------------------------------------
+<IfModule mod_mime.c>
+    AddType audio/mpeg .mp3
+    AddType image/x-icon .ico
+</IfModule>
+
+# ------------------------------------------------------------
+# 音声ファイルの外部サイトからの直リンクを禁止
+# ------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?enactworks\.com [NC]
+    RewriteRule \.(mp3|wav)$ - [F,L]
+</IfModule>
+
+# ------------------------------------------------------------
+# WAV 原本への直接アクセスを禁止
+# サイトからは MP3 のみを参照している。WAV はマスター音源として
+# リポジトリに置いているだけで、公開する必要がない
+# ------------------------------------------------------------
+<FilesMatch "\.wav$">
+    Require all denied
+</FilesMatch>
+
+# ------------------------------------------------------------
+# ソースファイル・設定ファイルへの直接アクセスを禁止
+# ※ サイト表示に必要な portfolio-data.js はブロック対象外
+# ------------------------------------------------------------
+<FilesMatch "^(update-youtube\.js|generate-waveform-peaks\.py|package\.json|package-lock\.json|README\.md)$">
     Require all denied
 </FilesMatch>
 
 # .git / .github / .gitignore / FTPデプロイの状態ファイル を 404 にする
 RedirectMatch 404 ^/\.(git|ftp-deploy)
+
+# ------------------------------------------------------------
+# 脆弱性スキャン対策（当サイトは WordPress ではない）
+# ------------------------------------------------------------
+<FilesMatch "^(wp-login|xmlrpc|wp-config)\.php$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^\.(env|git)">
+    Require all denied
+</FilesMatch>
