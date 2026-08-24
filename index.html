@@ -635,9 +635,18 @@
         }
 
         .service-price-from .value {
+            display: block;
             font-size: 1.35rem;
             font-weight: 700;
             color: var(--color-accent);
+            line-height: 1.3;
+        }
+
+        .service-price-from .note {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--color-secondary);
+            margin-top: 0.1rem;
         }
 
         .service-icon {
@@ -3311,6 +3320,12 @@
                         value.textContent = svc.priceFrom;
                         priceFrom.appendChild(label);
                         priceFrom.appendChild(value);
+                        if (svc.priceNote) {
+                            const pnote = document.createElement('span');
+                            pnote.className = 'note';
+                            pnote.textContent = svc.priceNote;
+                            priceFrom.appendChild(pnote);
+                        }
                         card.appendChild(priceFrom);
 
                         const more = document.createElement('p');

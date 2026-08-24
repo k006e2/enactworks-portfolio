@@ -307,11 +307,10 @@ const serviceData = [
         id: "video",
         icon: "fa-video",
         title: "動画制作",
-        summary: ["動画編集、収録", "サムネイル制作"],
-        priceFrom: "30,000円〜",
+        summary: ["動画編集", "収録"],
+        priceFrom: "50,000円〜",
         items: [
-            { name: "動画編集、収録", price: "30,000円〜（内容により変動）" },
-            { name: "サムネイル制作", price: "1,000円〜" }
+            { name: "動画編集、収録", price: "50,000円〜（内容により変動）" }
         ],
         note: "※内容により変動します。お気軽にご相談ください。",
         worksLimit: 3
@@ -322,10 +321,11 @@ const serviceData = [
         icon: "fa-bullhorn",
         title: "プロモーション",
         summary: ["案件配信", "商品・サービスPR", "タイアップ企画"],
-        priceFrom: "50,000円〜",
+        priceFrom: "100,000円〜",
+        priceNote: "要相談",
         items: [
             { name: "案件配信", price: "要相談" },
-            { name: "商品・サービスPR", price: "50,000円〜" },
+            { name: "商品・サービスPR", price: "100,000円〜" },
             { name: "タイアップ企画", price: "100,000円〜" }
         ],
         note: "※内容により変動します。お気軽にご相談ください。",
