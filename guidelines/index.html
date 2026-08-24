@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ファン創作ガイドライン | KOOLEs / EnactWorks</title>
+<meta name="description" content="KOOLEsのファン創作・切り抜きに関する公式ガイドライン。正文はこのページです。">
+<link rel="canonical" href="https://enactworks.com/guidelines/">
+
+<!-- OGP / SNSシェア -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://enactworks.com/guidelines/">
+<meta property="og:title" content="ファン創作ガイドライン | KOOLEs / EnactWorks">
+<meta property="og:description" content="KOOLEsのファン創作・切り抜きに関する公式ガイドライン。正文はこのページです。">
+<meta property="og:image" content="https://enactworks.com/hero-background.png">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="EnactWorks">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@VTKOOLEs">
+<meta name="twitter:image" content="https://enactworks.com/hero-background.png">
+<style>
+  :root{
+    --ink:#1b2430;
+    --ink-soft:#4a5666;
+    --ink-faint:#7d8896;
+    --paper:#fbfaf7;
+    --panel:#ffffff;
+    --rule:#e2e0d9;
+    --mark:#9a6b1f;
+    --mark-bg:#fdf4e2;
+    --mark-rule:#e6d3ab;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic Medium","Yu Gothic","Noto Sans JP",Meiryo,system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 96px}
+
+  /* ---- header ---- */
+  header{padding:56px 0 28px;border-bottom:1px solid var(--rule)}
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.18em;color:var(--ink-faint);
+    text-transform:uppercase;margin:0 0 14px;
+  }
+  h1{
+    font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+    font-size:clamp(1.7rem,5.2vw,2.5rem);
+    font-weight:600;letter-spacing:.02em;line-height:1.4;margin:0 0 20px;
+  }
+  .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.85rem;color:var(--ink-soft);margin:0}
+  .authoritative{
+    margin:24px 0 0;padding:16px 18px;background:var(--panel);
+    border:1px solid var(--rule);border-left:3px solid var(--ink);
+    font-size:.9rem;line-height:1.75;
+  }
+  .authoritative p{margin:0 0 8px}
+  .authoritative p:last-child{margin:0}
+
+  /* ---- lang toggle ---- */
+  .lang{display:flex;gap:6px;margin:22px 0 0}
+  .lang button{
+    font:inherit;font-size:.82rem;padding:6px 16px;cursor:pointer;
+    background:transparent;border:1px solid var(--rule);color:var(--ink-soft);
+    border-radius:2px;transition:.15s;
+  }
+  .lang button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .lang button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+  /* ---- history ---- */
+  .history{margin:32px 0 0;font-size:.85rem;color:var(--ink-soft)}
+  .history dt{font-weight:600;color:var(--ink);float:left;clear:left;width:6.5em}
+  .history dd{margin:0 0 6px 6.5em}
+
+  /* ---- toc ---- */
+  nav.toc{margin:40px 0 0;padding:22px 24px;background:var(--panel);border:1px solid var(--rule)}
+  nav.toc h2{font-size:.78rem;letter-spacing:.14em;color:var(--ink-faint);margin:0 0 14px;font-weight:600}
+  nav.toc ol{list-style:none;margin:0;padding:0;font-size:.9rem}
+  nav.toc li{margin:0 0 4px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid transparent}
+  nav.toc a:hover{color:var(--ink);border-bottom-color:var(--rule)}
+  nav.toc .grp{margin-top:16px;font-size:.76rem;letter-spacing:.1em;color:var(--ink-faint);font-weight:600}
+  nav.toc .grp:first-child{margin-top:0}
+
+  /* ---- sections ---- */
+  .part{margin:64px 0 0;padding-top:8px}
+  .part-label{
+    font-size:.76rem;letter-spacing:.14em;color:var(--ink-faint);
+    margin:0 0 6px;font-weight:600;
+  }
+  .part-title{
+    font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+    font-size:1.35rem;font-weight:600;margin:0 0 4px;
+  }
+  .part-note{font-size:.85rem;color:var(--ink-soft);margin:0 0 8px}
+  .part-rule{height:2px;background:var(--ink);margin:14px 0 0}
+
+  section{margin:44px 0 0;scroll-margin-top:24px}
+  h3{
+    font-size:1.06rem;font-weight:600;margin:0 0 14px;
+    padding-bottom:8px;border-bottom:1px solid var(--rule);
+    display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  }
+  h3 .anchor{
+    font-size:.72rem;color:var(--ink-faint);text-decoration:none;
+    opacity:0;transition:.15s;font-weight:400;
+  }
+  h3:hover .anchor,h3 .anchor:focus{opacity:1}
+  .anchor:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+  p{margin:0 0 14px}
+  ol,ul{margin:0 0 14px;padding-left:1.6em}
+  li{margin:0 0 6px}
+  ol.lettered{list-style:lower-alpha}
+  ol.paren{list-style:none;padding-left:1.2em}
+  ol.paren li{text-indent:-1.2em;padding-left:1.2em}
+  .sub{font-size:.94rem;color:var(--ink-soft)}
+
+  /* ---- v2 amendment callout ---- */
+  .amend{
+    margin:0 0 16px;padding:12px 16px;
+    background:var(--mark-bg);border:1px solid var(--mark-rule);
+    font-size:.86rem;line-height:1.7;color:var(--mark);
+  }
+  .amend a{color:var(--mark);font-weight:600}
+  .amend strong{font-weight:600}
+  .tag{
+    display:inline-block;font-size:.68rem;letter-spacing:.08em;
+    padding:2px 8px;border:1px solid var(--mark-rule);
+    background:var(--mark-bg);color:var(--mark);border-radius:2px;
+    vertical-align:middle;font-weight:600;
+  }
+
+  /* 本文中の相互参照リンク。既定の青だと紙面から浮くため配色を合わせる */
+  section a{
+    color:var(--mark);text-decoration:none;
+    border-bottom:1px solid var(--mark-rule);
+  }
+  section a:hover{border-bottom-color:var(--mark)}
+  section a:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  section a.anchor{border-bottom:none}
+
+  footer{margin:80px 0 0;padding-top:24px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--ink-faint)}
+  footer a{color:var(--ink-soft)}
+  .home-link{margin:10px 0 0}
+  .home-link a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule)}
+  .home-link a:hover{color:var(--ink)}
+
+  [hidden]{display:none !important}
+
+  @media (max-width:600px){
+    body{font-size:15px;line-height:1.85}
+    header{padding:36px 0 22px}
+    .history dt{float:none;width:auto}
+    .history dd{margin:0 0 10px}
+    nav.toc{padding:18px 16px}
+    h3 .anchor{opacity:1}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">KOOLEs / EnactWorks</p>
+  <h1 data-ja="ファン創作ガイドライン" data-en="Fan Creation Guidelines">ファン創作ガイドライン</h1>
+  <p class="meta">
+    <span data-ja="最終改定：2026年8月24日" data-en="Last amended: August 24, 2026">最終改定：2026年8月24日</span>
+    <span data-ja="第2版" data-en="Version 2">第2版</span>
+  </p>
+
+  <div class="authoritative">
+    <p data-ja="本ガイドラインの正文はこのページです。他媒体に掲載された内容との間に差異がある場合は、本ページの記載を優先します。"
+       data-en="This page is the authoritative text of these guidelines. Where content published elsewhere differs, the text on this page prevails.">本ガイドラインの正文はこのページです。他媒体に掲載された内容との間に差異がある場合は、本ページの記載を優先します。</p>
+    <p data-ja="第1版の本文は改定していません。第2版は、第1版に条項を追加し、一部を読み替える形で構成されています。"
+       data-en="The text of Version 1 is unchanged. Version 2 adds provisions to Version 1 and amends how certain parts are read.">第1版の本文は改定していません。第2版は、第1版に条項を追加し、一部を読み替える形で構成されています。</p>
+  </div>
+
+  <div class="lang">
+    <button type="button" data-lang="ja" aria-pressed="true">日本語</button>
+    <button type="button" data-lang="en" aria-pressed="false">English</button>
+  </div>
+
+  <dl class="history">
+    <dt data-ja="第2版" data-en="Version 2">第2版</dt>
+    <dd data-ja="2026年8月24日 — 切り抜き・二次利用に関する条項を新設／公式見解の窓口を明記"
+        data-en="August 24, 2026 — Added provisions on clips and secondary use; specified the channels for official statements">2026年8月24日 — 切り抜き・二次利用に関する条項を新設／公式見解の窓口を明記</dd>
+    <dt data-ja="第1版" data-en="Version 1">第1版</dt>
+    <dd data-ja="制定時 — 初版" data-en="At establishment — Initial version">制定時 — 初版</dd>
+  </dl>
+</header>
+
+<nav class="toc" aria-label="目次">
+  <h2 data-ja="目次" data-en="Contents">目次</h2>
+  <ol>
+    <li class="grp" data-ja="第1版" data-en="Version 1">第1版</li>
+    <li><a href="#v1-purpose" data-ja="制定の目的" data-en="Purpose of the Guidelines">制定の目的</a></li>
+    <li><a href="#v1-scope" data-ja="ガイドラインの対象範囲" data-en="Scope of the Guidelines">ガイドラインの対象範囲</a></li>
+    <li><a href="#v1-general" data-ja="総則" data-en="General Principles">総則</a></li>
+    <li><a href="#v1-prohibited" data-ja="禁止表現" data-en="Prohibited Expressions">禁止表現</a></li>
+    <li><a href="#v1-rights" data-ja="ファン創作の権利" data-en="Fan Creation Rights">ファン創作の権利</a></li>
+    <li><a href="#v1-owner" data-ja="IPオーナーの裁量と権利" data-en="IP Owner's Discretion and Rights">IPオーナーの裁量と権利</a></li>
+    <li><a href="#v1-other" data-ja="その他" data-en="Other">その他</a></li>
+
+    <li class="grp" data-ja="第2版 追加・変更条項" data-en="Version 2 — Added and Amended Provisions">第2版 追加・変更条項</li>
+    <li><a href="#v2-1" data-ja="第1条 切り抜き・二次利用の定義" data-en="Article 1 Definition of Clips and Secondary Use">第1条 切り抜き・二次利用の定義</a></li>
+    <li><a href="#v2-2" data-ja="第2条 切り抜きの許諾条件" data-en="Article 2 Conditions for Permitted Clips">第2条 切り抜きの許諾条件</a></li>
+    <li><a href="#v2-3" data-ja="第3条 収益化の取り扱い" data-en="Article 3 Treatment of Monetization">第3条 収益化の取り扱い</a></li>
+    <li><a href="#v2-4" data-ja="第4条 誤認防止" data-en="Article 4 Prevention of Misidentification">第4条 誤認防止</a></li>
+    <li><a href="#v2-5" data-ja="第5条 許諾の有効期間" data-en="Article 5 Duration of Permission">第5条 許諾の有効期間</a></li>
+    <li><a href="#v2-6" data-ja="第6条 公式見解の窓口" data-en="Article 6 Channels for Official Statements">第6条 公式見解の窓口</a></li>
+    <li><a href="#v2-7" data-ja="第7条 取り下げの手続き" data-en="Article 7 Procedure for Withdrawal">第7条 取り下げの手続き</a></li>
+    <li><a href="#v2-8" data-ja="第8条 適用関係" data-en="Article 8 Relationship Between Versions">第8条 適用関係</a></li>
+  </ol>
+</nav>
+
+<!-- ============ V1 ============ -->
+<div class="part">
+  <p class="part-label" data-ja="第1版" data-en="Version 1">第1版</p>
+  <p class="part-title" data-ja="ファン創作活動ガイドライン" data-en="Fan Creation Guidelines">ファン創作活動ガイドライン</p>
+  <p class="part-note" data-ja="本文の改定はありません。第2版により読み替えが生じる箇所には注記を付しています。"
+     data-en="The text is unchanged. Notes mark the places amended by Version 2.">本文の改定はありません。第2版により読み替えが生じる箇所には注記を付しています。</p>
+  <div class="part-rule"></div>
+</div>
+
+<section id="v1-purpose">
+  <h3><span data-ja="制定の目的" data-en="Purpose of the Guidelines">制定の目的</span><a class="anchor" href="#v1-purpose">#</a></h3>
+  <div data-ja>
+    <p>KOOLEsはありがたい事に沢山のファンの方々から素敵な創作物を作っていただき、他のファン達と同様に楽しんできました。</p>
+    <p>その中で、もっとKOOLEsというコンテンツを盛り上げていく為には、何が"駄目"で、何が"良い"のかを定める必要性を常々考えていました。ファン創作は、KOOLEsを愛していただいている表現方法の一つであると理解をしており、それらのファン創作活動を敬意をもって応援していきたいと考えております。そのためにKOOLEsのファン創作活動ガイドラインを設定させていただきました。</p>
+    <p>これは、これまで・これからのみなさまの活動を何ら制限する意図はなく、可能な範囲で少しずつ公認化していくことを目的に設定しております。どのようなルールを定めても、ルールには必ず何らかの抜け穴が生まれますので、ガイドラインという形をとっています。</p>
+    <p>もしご自身の活動がガイドラインの範囲内か迷ったときは「その活動で、公式や、他のファンのみなさんが困らないか」という観点で考えていただけましたら幸いです。</p>
+    <p>このガイドラインの設定によって、みなさまが楽しくファン創作活動ができ、またその作品に対して素直にいいね！と言いあえる、みんななかよくKOOLEsを楽しめる、そんなコンテンツになればという願いをこめています。</p>
+  </div>
+  <div data-en hidden>
+    <p>KOOLEs is grateful to have received wonderful fan creations from many supporters, which we have enjoyed just like other fans.</p>
+    <p>To further enhance the KOOLEs content, we have always considered the need to define what is "not acceptable" and what is "good." We understand that fan creations are one of the ways fans express their love for KOOLEs, and we wish to support these activities with respect. Therefore, we have established the KOOLEs Fan Creation Guidelines.</p>
+    <p>The aim is not to restrict past or future activities but to gradually recognize them within possible limits. Since rules inevitably have loopholes, we have adopted a guideline approach. If you are unsure whether your activities fall within these guidelines, please consider whether they might cause inconvenience to the official party or other fans.</p>
+    <p>These guidelines are intended to help everyone enjoy fan creation activities and openly appreciate each other's work, fostering a content where everyone can happily enjoy KOOLEs.</p>
+  </div>
+</section>
+
+<section id="v1-scope">
+  <h3><span data-ja="ガイドラインの対象範囲" data-en="Scope of the Guidelines">ガイドラインの対象範囲</span><a class="anchor" href="#v1-scope">#</a></h3>
+  <div class="amend" data-ja>
+    <strong>第2版による読み替え</strong>：下記 2.b(4) は、切り抜き等の二次利用には適用しません。<a href="#v2-3">第3条</a>をご参照ください。
+  </div>
+  <div class="amend" data-en hidden>
+    <strong>Amended by Version 2</strong>: Item 2.b(4) below does not apply to clips or other secondary use. See <a href="#v2-3">Article 3</a>.
+  </div>
+  <div data-ja>
+    <ol>
+      <li>本IPのうち、第三者の権利物を除く範囲は、すべて対象範囲とします。
+        <ul class="sub">
+          <li>第三者の権利物
+            <ul>
+              <li>（例）小説のオリジナルシナリオ部分</li>
+              <li>（例）アニメのオリジナルキャラクターの二次創作</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>基本的には「非営利目的」のファン創作のみを対象とします。
+        <ol class="lettered">
+          <li>営利用途の場合は、別途お問い合わせください。</li>
+          <li>以下をすべて満たす場合は「非営利目的」のではないファン創作とします。
+            <ol class="paren">
+              <li>（1）制作と利用の主体がいずれも企業でないこと</li>
+              <li>（2）趣味の範囲で制作したファン創作であること</li>
+              <li>（3）他のコンテンツや商品などを宣伝する目的ではないこと</li>
+              <li>（4）原材料費・制作ツールなどの原価程度の対価を得るもの（原価と収益が同程度で利益が発生しないと見込まれるもの）</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+  <div data-en hidden>
+    <ol>
+      <li>All content within the IP, excluding third-party rights, is covered by these guidelines.
+        <ul class="sub">
+          <li>Third-party rights include:
+            <ul>
+              <li>(e.g.) Original scenario parts of novels</li>
+              <li>(e.g.) Secondary creations of original characters from anime</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Generally, only "non-commercial" fan creations are covered.
+        <ol class="lettered">
+          <li>For commercial purposes, please contact us separately.</li>
+          <li>Fan creations that are not considered "non-commercial" if all the following conditions are met:
+            <ol class="paren">
+              <li>(1) Neither the creator nor the user is a business entity</li>
+              <li>(2) The fan creation is made within the scope of personal hobby</li>
+              <li>(3) It is not intended to promote other content or products</li>
+              <li>(4) It only recoups material costs and production tools (where costs and revenue are expected to be equal and no profit is anticipated)</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="v1-general">
+  <h3><span data-ja="総則" data-en="General Principles">総則</span><a class="anchor" href="#v1-general">#</a></h3>
+  <ol data-ja>
+    <li>喧嘩をせず、楽しんで創作してください。</li>
+    <li>IPオーナーや周りのファンへの敬意を最大限払ってください。</li>
+    <li>ガイドラインの解釈に迷った際は、「IPオーナーや周りのファンに迷惑が掛からないか」という観点に立ち返って、考えてください。</li>
+  </ol>
+  <ol data-en hidden>
+    <li>Create without conflicts and enjoy the process.</li>
+    <li>Show the utmost respect to the IP owner and surrounding fans.</li>
+    <li>If you are unsure about the interpretation of the guidelines, consider whether it might inconvenience the IP owner or other fans.</li>
+  </ol>
+</section>
+
+<section id="v1-prohibited">
+  <h3><span data-ja="禁止表現" data-en="Prohibited Expressions">禁止表現</span><a class="anchor" href="#v1-prohibited">#</a></h3>
+  <div class="amend" data-ja>
+    <strong>第2版による読み替え</strong>：下記5号について、切り抜き等に表記を行っている場合は該当しません。<a href="#v2-4">第4条</a>をご参照ください。
+  </div>
+  <div class="amend" data-en hidden>
+    <strong>Amended by Version 2</strong>: Item 5 below does not apply where a clip carries the required labeling. See <a href="#v2-4">Article 4</a>.
+  </div>
+  <div data-ja>
+    <p>コミュニティーを健全に保つため、以下のファン創作は禁止します。</p>
+    <ol>
+      <li>当IP、その関係者、ファン、その他あらゆる方の気持ちや名誉、考え方、ブランドイメージなどを傷つける目的のもの</li>
+      <li>特定の政治・宗教を過度に推す、または貶すもの</li>
+      <li>周りの方々への配慮の伴わない過度な暴力的・グロテスク表現を含むもの</li>
+      <li>他人の権利を侵害しているもの</li>
+      <li>事実に反して、公式作品、または当社から利用の許諾・協賛・提携を受けていると誤認される可能性のある様態のもの（たとえば公式ロゴの利用など）</li>
+      <li>誤情報や、事実の一部に対する誇張などによって、誤認を誘う情報を伴うもの</li>
+      <li>個人情報を含むもの</li>
+      <li>その他反社会的な表現のもの</li>
+      <li>R-18以上の表現全般</li>
+    </ol>
+  </div>
+  <div data-en hidden>
+    <p>To maintain a healthy community, the following fan creations are prohibited.</p>
+    <ol>
+      <li>Those intended to harm the feelings, honor, beliefs, or brand image of the IP, its stakeholders, fans, or others.</li>
+      <li>Those that excessively promote or criticize specific political or religious views.</li>
+      <li>Those containing excessive violent or grotesque content without consideration for others.</li>
+      <li>Those infringing on others' rights.</li>
+      <li>Those that could be mistaken as official works or have received authorization, sponsorship, or partnership from us (e.g., use of official logos).</li>
+      <li>Those containing misinformation or exaggeration of facts that might mislead.</li>
+      <li>Those including personal information.</li>
+      <li>Other antisocial expressions.</li>
+      <li>Any content rated R-18 or above.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="v1-rights">
+  <h3><span data-ja="ファン創作の権利" data-en="Fan Creation Rights">ファン創作の権利</span><a class="anchor" href="#v1-rights">#</a></h3>
+  <p data-ja>ファン創作を公開する際、別途の利用範囲の宣言をしない限り、本ガイドラインと同様のライセンスで作品を公開したことになります。</p>
+  <p data-en hidden>When publishing fan creations, unless otherwise declared, the work is released under a license similar to these guidelines.</p>
+</section>
+
+<section id="v1-owner">
+  <h3><span data-ja="IPオーナーの裁量と権利" data-en="IP Owner's Discretion and Rights">IPオーナーの裁量と権利</span><a class="anchor" href="#v1-owner">#</a></h3>
+  <div class="amend" data-ja>
+    <strong>第2版による補足</strong>：下記2に基づき許諾を取り下げる場合の手続きを定めました。<a href="#v2-7">第7条</a>をご参照ください。
+  </div>
+  <div class="amend" data-en hidden>
+    <strong>Supplemented by Version 2</strong>: The procedure for withdrawing permission under item 2 below is now specified. See <a href="#v2-7">Article 7</a>.
+  </div>
+  <ol data-ja>
+    <li>IPオーナーの裁量には必ず従ってください。IPオーナーも人間ですので、難しい判断に迫られることもあります。そこは、みなさんで温かく見守ってください。</li>
+    <li>例えガイドラインに沿ったファン創作活動であっても、IPオーナーはその利用を取り下げる権利があります。</li>
+  </ol>
+  <ol data-en hidden>
+    <li>Always comply with the IP owner's discretion. The IP owner, being human, may face difficult decisions. Please support them warmly.</li>
+    <li>Even if fan creation activities comply with the guidelines, the IP owner has the right to withdraw approval for its use.</li>
+  </ol>
+</section>
+
+<section id="v1-other">
+  <h3><span data-ja="その他" data-en="Other">その他</span><a class="anchor" href="#v1-other">#</a></h3>
+  <div data-ja>
+    <ol>
+      <li>IPオーナーは、皆さまに発生したいかなる権利侵害、損害および第三者との紛争について一切責任を負わず、また賠償などを行いません。</li>
+      <li>IPオーナーは、以下のようなことを防ぐため、本ガイドラインに関する個別のお問い合わせにはお答えできないことがあります。疑問や難しい解釈については、原則として「総則」に沿った判断をお願いします。
+        <ol class="lettered">
+          <li>公平性の担保</li>
+          <li>喧嘩の防止</li>
+          <li>ガイドラインの複雑化を防ぐため</li>
+          <li>その他、現段階で判断を求められてしまうと「NG」と答えざるを得ないが、本来は見守りたい範囲の活動であって、そこを禁止してしまうことを防ぐため</li>
+        </ol>
+      </li>
+      <li>このガイドラインは、予告なく変更されることがあります。</li>
+    </ol>
+  </div>
+  <div data-en hidden>
+    <ol>
+      <li>The IP owner is not responsible for any rights infringements, damages, or disputes with third parties arising from your activities and will not provide compensation.</li>
+      <li>To prevent issues such as the following, the IP owner may not respond to individual inquiries about these guidelines. Please base your judgment on the "General Principles."
+        <ol class="lettered">
+          <li>Ensuring fairness</li>
+          <li>Preventing conflicts</li>
+          <li>Avoiding complexity in the guidelines</li>
+          <li>Preventing prohibitions on activities that are actually intended to be monitored rather than prohibited</li>
+        </ol>
+      </li>
+      <li>These guidelines may be changed without notice.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ V2 ============ -->
+<div class="part">
+  <p class="part-label" data-ja="第2版" data-en="Version 2">第2版</p>
+  <p class="part-title" data-ja="追加・変更条項" data-en="Added and Amended Provisions">追加・変更条項</p>
+  <p class="part-note" data-ja="2026年8月24日 施行" data-en="Effective August 24, 2026">2026年8月24日 施行</p>
+  <div class="part-rule"></div>
+</div>
+
+<section id="v2-1">
+  <h3><span data-ja="第1条（切り抜き・二次利用の定義）" data-en="Article 1 (Definition of Clips and Secondary Use)">第1条（切り抜き・二次利用の定義）</span><a class="anchor" href="#v2-1">#</a></h3>
+  <div data-ja>
+    <p>本条において「切り抜き」とは、KOOLEsが公開した動画・配信・音声の一部を抜粋し、編集を加えて再公開する行為をいいます。</p>
+    <p>切り抜き、翻訳字幕の付与、リアクション動画、およびこれらに類する二次利用は、第1版に定める「ファン創作」とは別のカテゴリとして、本条以下の条件のもとで許諾します。</p>
+  </div>
+  <div data-en hidden>
+    <p>In this Article, a "clip" means the act of extracting part of a video, livestream, or audio work published by KOOLEs, editing it, and republishing it.</p>
+    <p>Clips, the addition of translated subtitles, reaction videos, and similar forms of secondary use are treated as a category separate from "fan creations" as defined in Version 1, and are permitted under the conditions set out below.</p>
+  </div>
+</section>
+
+<section id="v2-2">
+  <h3><span data-ja="第2条（切り抜きの許諾条件）" data-en="Article 2 (Conditions for Permitted Clips)">第2条（切り抜きの許諾条件）</span><a class="anchor" href="#v2-2">#</a></h3>
+  <div data-ja>
+    <p>以下をすべて満たす場合、事前の個別許可なく切り抜きを公開できます。</p>
+    <ol>
+      <li>出典として、元動画または元配信のURLを概要欄等に明記すること</li>
+      <li>チャンネル名、動画タイトル、または概要欄のいずれかに「切り抜き」「非公式」等、公式チャンネルでないことがわかる表記を含めること</li>
+      <li>第1版<a href="#v1-prohibited">「禁止表現」</a>の各号に該当しないこと</li>
+      <li>発言の趣旨を意図的に改変し、または文脈を切り離して事実と異なる印象を与えないこと</li>
+    </ol>
+  </div>
+  <div data-en hidden>
+    <p>Clips may be published without prior individual permission, provided all of the following are met.</p>
+    <ol>
+      <li>The URL of the original video or livestream is stated in the description or an equivalent location as the source.</li>
+      <li>The channel name, video title, or description includes wording such as "clip" or "unofficial" that makes clear the channel is not an official one.</li>
+      <li>The content does not fall under any item of <a href="#v1-prohibited">"Prohibited Expressions"</a> in Version 1.</li>
+      <li>The content does not intentionally alter the meaning of a statement, or remove it from its context in a way that creates a false impression.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="v2-3">
+  <h3><span data-ja="第3条（収益化の取り扱い）" data-en="Article 3 (Treatment of Monetization)">第3条（収益化の取り扱い）</span><span class="tag" data-ja="第1版の読み替え" data-en="Amends V1">第1版の読み替え</span><a class="anchor" href="#v2-3">#</a></h3>
+  <div data-ja>
+    <p>第1版<a href="#v1-scope">「ガイドラインの対象範囲」</a>2.b(4) の規定は、切り抜きおよび<a href="#v2-1">第1条</a>に定める二次利用については適用しません。</p>
+    <p>動画プラットフォームの広告収益、投げ銭その他の収益が発生する場合であっても、本ガイドラインにおける営利目的には該当しないものとします。</p>
+    <p>ただし、企業・法人が主体となる場合は、第1版「ガイドラインの対象範囲」2.a に従い、別途お問い合わせください。</p>
+  </div>
+  <div data-en hidden>
+    <p>Section 2.b(4) of <a href="#v1-scope">"Scope of the Guidelines"</a> in Version 1 does not apply to clips or to the secondary uses defined in <a href="#v2-1">Article 1</a>.</p>
+    <p>Even where advertising revenue, tips, or other income arises on a video platform, this shall not be regarded as a commercial purpose under these guidelines.</p>
+    <p>However, where a company or corporate entity is the acting party, please contact us separately in accordance with Section 2.a of "Scope of the Guidelines" in Version 1.</p>
+  </div>
+</section>
+
+<section id="v2-4">
+  <h3><span data-ja="第4条（誤認防止）" data-en="Article 4 (Prevention of Misidentification)">第4条（誤認防止）</span><span class="tag" data-ja="第1版の読み替え" data-en="Amends V1">第1版の読み替え</span><a class="anchor" href="#v2-4">#</a></h3>
+  <p data-ja><a href="#v2-2">第2条</a>2号の表記を行っている限り、第1版<a href="#v1-prohibited">「禁止表現」</a>5号に定める「公式作品と誤認される可能性のある様態」には該当しないものとします。</p>
+  <p data-en hidden>So long as the labeling required under <a href="#v2-2">Article 2</a>, item 2 is present, the content shall not be regarded as falling under item 5 of <a href="#v1-prohibited">"Prohibited Expressions"</a> in Version 1 ("could be mistaken as official works").</p>
+</section>
+
+<section id="v2-5">
+  <h3><span data-ja="第5条（許諾の有効期間）" data-en="Article 5 (Duration of Permission)">第5条（許諾の有効期間）</span><a class="anchor" href="#v2-5">#</a></h3>
+  <div data-ja>
+    <p>本ガイドラインに基づく許諾に期限は設けません。</p>
+    <p>一定期間更新が行われていないことのみを理由として、許諾が失効することはありません。</p>
+  </div>
+  <div data-en hidden>
+    <p>Permission granted under these guidelines is not subject to any expiry date.</p>
+    <p>Permission does not lapse solely because no updates have been made for a period of time.</p>
+  </div>
+</section>
+
+<section id="v2-6">
+  <h3><span data-ja="第6条（公式見解の窓口）" data-en="Article 6 (Channels for Official Statements)">第6条（公式見解の窓口）</span><a class="anchor" href="#v2-6">#</a></h3>
+  <div data-ja>
+    <p>本IPに関する公式の見解、許諾、および許諾の取り下げは、以下のいずれかによってのみ行います。</p>
+    <ol>
+      <li>本ページの記載</li>
+      <li>KOOLEs公式アカウント（@VTKOOLEs / @VTKOOLEs_sub）による公開された発言</li>
+      <li><a href="https://enactworks.com/#contact">EnactWorks公式サイトの問い合わせ窓口</a>からの直接の返信</li>
+    </ol>
+    <p>第三者を経由した伝聞、および上記以外の経路で伝えられた内容は、その真偽を問わず公式見解ではありません。</p>
+    <p>ファン創作者に対し、第三者から公式の意思であると称する連絡があった場合、これに従う必要はありません。判断に迷う場合は上記3の窓口へお問い合わせください。</p>
+    <p class="sub">なお本窓口は、公式見解の真偽確認に限りご対応します。ガイドラインの解釈に関するご相談は、第1版<a href="#v1-other">「その他」</a>2のとおり個別対応いたしかねます。</p>
+  </div>
+  <div data-en hidden>
+    <p>Official statements, grants of permission, and withdrawals of permission concerning this IP are made only through the following.</p>
+    <ol>
+      <li>The text of this page</li>
+      <li>Public statements from the official KOOLEs accounts (@VTKOOLEs / @VTKOOLEs_sub)</li>
+      <li>A direct reply from the <a href="https://enactworks.com/#contact">contact form on the EnactWorks official website</a></li>
+    </ol>
+    <p>Anything conveyed through a third party, or through any route other than the above, is not an official statement, regardless of whether it is true.</p>
+    <p>If a fan creator receives a message from a third party claiming to represent our intentions, there is no obligation to comply with it. If in doubt, please contact us through channel 3 above.</p>
+    <p class="sub">This contact channel handles only the verification of official statements. Inquiries about how to interpret these guidelines cannot be answered individually, as stated in item 2 of <a href="#v1-other">"Other"</a> in Version 1.</p>
+  </div>
+</section>
+
+<section id="v2-7">
+  <h3><span data-ja="第7条（取り下げの手続き）" data-en="Article 7 (Procedure for Withdrawal)">第7条（取り下げの手続き）</span><span class="tag" data-ja="第1版の補足" data-en="Supplements V1">第1版の補足</span><a class="anchor" href="#v2-7">#</a></h3>
+  <div data-ja>
+    <p>第1版<a href="#v1-owner">「IPオーナーの裁量と権利」</a>2に基づき許諾を取り下げる場合、KOOLEsは<a href="#v2-6">第6条</a>に定める経路により、対象と理由を明示して直接通知します。</p>
+    <p>通知なく取り下げが行われることはありません。</p>
+  </div>
+  <div data-en hidden>
+    <p>Where permission is withdrawn under item 2 of <a href="#v1-owner">"IP Owner's Discretion and Rights"</a> in Version 1, KOOLEs will give direct notice through a channel set out in <a href="#v2-6">Article 6</a>, specifying the subject and the reason.</p>
+    <p>Withdrawal will never take place without such notice.</p>
+  </div>
+</section>
+
+<section id="v2-8">
+  <h3><span data-ja="第8条（適用関係）" data-en="Article 8 (Relationship Between Versions)">第8条（適用関係）</span><a class="anchor" href="#v2-8">#</a></h3>
+  <p data-ja>第1版と第2版の記載に差異がある場合は、第2版を優先します。第2版に定めのない事項は第1版によります。</p>
+  <p data-en hidden>Where Version 1 and Version 2 differ, Version 2 prevails. Matters not covered by Version 2 are governed by Version 1.</p>
+</section>
+
+<footer>
+  <p data-ja="KOOLEs / EnactWorks — 最終改定 2026年8月24日（第2版）" data-en="KOOLEs / EnactWorks — Last amended August 24, 2026 (Version 2)">KOOLEs / EnactWorks — 最終改定 2026年8月24日（第2版）</p>
+  <p class="home-link"><a href="https://enactworks.com/" data-ja="EnactWorks 公式サイト" data-en="EnactWorks official website">EnactWorks 公式サイト</a></p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var buttons = document.querySelectorAll('.lang button');
+
+  function setLang(lang){
+    document.documentElement.lang = lang;
+
+    // block-level swap
+    document.querySelectorAll('[data-ja]:not([data-en]), [data-en]:not([data-ja])').forEach(function(el){
+      if(el.hasAttribute('data-ja')) el.hidden = (lang !== 'ja');
+      if(el.hasAttribute('data-en')) el.hidden = (lang !== 'en');
+    });
+
+    // inline text swap (elements carrying both)
+    document.querySelectorAll('[data-ja][data-en]').forEach(function(el){
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+
+    buttons.forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+    });
+  }
+
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.dataset.lang); });
+  });
+
+  setLang('ja');
+})();
+</script>
+</body>
+</html>
