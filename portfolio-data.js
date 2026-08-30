@@ -335,11 +335,11 @@ const serviceData = [
         icon: "fa-bullhorn",
         title: "プロモーション",
         summary: ["案件配信", "商品・サービスPR", "タイアップ企画"],
-        priceFrom: "100,000円〜",
+        priceFrom: "50,000円〜",
         priceNote: "要相談",
         items: [
             { name: "案件配信", price: "要相談" },
-            { name: "商品・サービスPR", price: "100,000円〜" },
+            { name: "商品・サービスPR", price: "50,000円〜" },
             { name: "タイアップ企画", price: "100,000円〜" }
         ],
         note: "※内容により変動します。お気軽にご相談ください。",
