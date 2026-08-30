@@ -48,6 +48,20 @@ const YOUTUBE_API_KEY = 'AIzaSyAKFCu1B1u4c5EVUz13rO6wromCyj_OYHw';
 const portfolioData = [
 
     {
+        id: "chillhabit-promo",
+        title: "【CHILL HABIT】味のTier作りながら乗り換えレベルで美味いシーシャ見つけたので紹介する【#PR】",
+        thumbnail: "https://img.youtube.com/vi/AorH0yYfSl8/maxresdefault.jpg",
+        youtubeId: "AorH0yYfSl8",
+        services: ["promotion"],
+        date: "",
+        type: "プロモーション",
+        description: "",
+        links: [
+            { label: "配信アーカイブを見る", url: "https://youtube.com/live/AorH0yYfSl8" }
+        ]
+    },
+
+    {
         id: "streamart-real-gacha-2026",
         title: "特別な夏をお届け！KOOLEsの限定リアルグッズ＆甘々夏デートシチュボ",
         thumbnail: "streamart-gacha.jpg",
