@@ -654,6 +654,27 @@
             margin-top: 0.1rem;
         }
 
+        /* 推奨プランの目印 */
+        .service-badge {
+            display: inline-block;
+            margin-left: 0.4rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 999px;
+            background-color: var(--color-accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            vertical-align: middle;
+        }
+
+        .detail-item.is-recommended {
+            background-color: rgba(8, 145, 178, 0.06);
+            border-radius: 8px;
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+        }
+
         .service-icon {
             width: 72px;
             height: 72px;
@@ -3180,12 +3201,18 @@
                     priceEl.innerHTML = '';
                     svc.items.forEach(function(it) {
                         const row = document.createElement('div');
-                        row.className = 'detail-item';
+                        row.className = 'detail-item' + (it.badge ? ' is-recommended' : '');
                         const name = document.createElement('strong');
                         name.textContent = it.name;
                         const price = document.createElement('p');
                         price.className = 'price';
                         price.textContent = it.price;
+                        if (it.badge) {
+                            const b = document.createElement('span');
+                            b.className = 'service-badge';
+                            b.textContent = it.badge;
+                            price.appendChild(b);
+                        }
                         row.appendChild(name);
                         row.appendChild(price);
                         priceEl.appendChild(row);
@@ -3270,6 +3297,12 @@
                         const value = document.createElement('span');
                         value.className = 'value';
                         value.textContent = svc.priceFrom;
+                        if (svc.priceBadge) {
+                            const badge = document.createElement('span');
+                            badge.className = 'service-badge';
+                            badge.textContent = svc.priceBadge;
+                            value.appendChild(badge);
+                        }
                         priceFrom.appendChild(label);
                         priceFrom.appendChild(value);
                         if (svc.priceNote) {
