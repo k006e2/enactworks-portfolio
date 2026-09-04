@@ -654,6 +654,29 @@
             margin-top: 0.1rem;
         }
 
+        /* 価格の直上に置く成果実績。数字の根拠として読ませる */
+        .service-proof {
+            margin: 0 0 0.75rem;
+            padding: 0.7rem 0.9rem;
+            border-left: 3px solid var(--color-accent);
+            background-color: rgba(8, 145, 178, 0.06);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: var(--color-primary);
+        }
+
+        /* 内訳を出さないサービスの、価格1行だけの表示 */
+        .detail-item.is-single {
+            border-bottom: none;
+            text-align: center;
+            padding: 0.25rem 0 0;
+        }
+
+        .detail-item.is-single .price {
+            font-size: 1.5rem;
+        }
+
         /* 推奨プランの目印 */
         .service-badge {
             display: inline-block;
@@ -2643,6 +2666,8 @@
                     <h3 id="serviceModalTitle"></h3>
                 </div>
 
+                <p class="service-proof" id="serviceModalProof"></p>
+
                 <div class="service-modal-section">
                     <h4>料金</h4>
                     <div class="service-details" id="serviceModalPrices"></div>
@@ -3197,13 +3222,23 @@
                         '<i class="fas ' + svc.icon + '"></i>';
                     document.getElementById('serviceModalTitle').textContent = svc.title;
 
+                    // 成果実績。持たないサービスでは枠ごと出さない
+                    const proofEl = document.getElementById('serviceModalProof');
+                    if (svc.proof) {
+                        proofEl.textContent = svc.proof;
+                        proofEl.style.display = '';
+                    } else {
+                        proofEl.textContent = '';
+                        proofEl.style.display = 'none';
+                    }
+
                     const priceEl = document.getElementById('serviceModalPrices');
                     priceEl.innerHTML = '';
                     svc.items.forEach(function(it) {
                         const row = document.createElement('div');
-                        row.className = 'detail-item' + (it.badge ? ' is-recommended' : '');
-                        const name = document.createElement('strong');
-                        name.textContent = it.name;
+                        row.className = 'detail-item'
+                            + (it.badge ? ' is-recommended' : '')
+                            + (it.name ? '' : ' is-single');
                         const price = document.createElement('p');
                         price.className = 'price';
                         price.textContent = it.price;
@@ -3213,7 +3248,11 @@
                             b.textContent = it.badge;
                             price.appendChild(b);
                         }
-                        row.appendChild(name);
+                        if (it.name) {
+                            const name = document.createElement('strong');
+                            name.textContent = it.name;
+                            row.appendChild(name);
+                        }
                         row.appendChild(price);
                         priceEl.appendChild(row);
                     });
